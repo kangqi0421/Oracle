@@ -1,0 +1,804 @@
+create or replace package body PKG_IndexRebuild
+is
+
+
+
+  --  bStopAtNextStep         boolean;
+  --  fFreeSpaceToLeaveInTbs  float;
+  --  iWorkThresholdGB        integer;--сколько обрабатывать за один вызов в гигабайтах
+  --  iMaxIndexSizeMB         integer;
+  --  iMinIndexSizeMB         integer;
+
+  -- Function and procedure implementations
+  procedure AddToLog ( strEvent IN INDEX_REBUILD_EVENTS.sEvent%type,iOnlyPrint int default 0 )
+    is
+    PRAGMA AUTONOMOUS_TRANSACTION;
+  begin
+    if bDebugMode then
+      insert into INDEX_REBUILD_EVENTS (Event_ID,sEvent) values (sq_index_rebuild_events.nextval,strEvent);
+      --dbms_output.put_line(strEvent);
+      COMMIT;
+    end if;
+    if iOnlyPrint = 1 then
+      dbms_output.put_line(strEvent);
+    end if;
+  end;
+
+  procedure IndexRebuild
+    is
+
+    tblspacename          VARCHAR2(200);
+    SQLscript             VARCHAR2(2000);
+    SQLscriptWhatToDo     VARCHAR2(2000);
+
+    mb_free_in_tbs        numeric(18, 0);
+    mb_full_size_tbs      numeric(18, 0);
+    iMaxIndexSizeMB_Calc  numeric(18, 0);
+    work_size_done        numeric(18, 0);
+    PercentFreeWillRemain numeric(18, 0);
+
+    start_time            TIMESTAMP(3);
+    a_owner               VARCHAR2(200);
+    a_object_name         VARCHAR2(200);
+    a_tablespace_name_old VARCHAR2(200);
+    a_tablespace_name_new VARCHAR2(200);
+    a_size_before         numeric(18, 0);
+    a_rec_id              numeric(18, 0);
+    i_temp                numeric(18, 0);
+    jobid                 integer :=198914;
+  begin
+   
+      begin
+            dbms_job.submit(jobid,'BEGIN smaster.pkg_indexrebuild.bForceRun:=True; SMASTER.PKG_IndexRebuild.rebuild_index_part; END;',sysdate);
+            commit;
+      end;
+  
+    dbms_streams_adm.set_tag('474745');
+    --------Определяем максимально доступный размер места в таблспейсах----------
+    SELECT (M.TABLESPACE_SIZE - M.USED_SPACE)* T.BLOCK_SIZE/fFreeSpaceToLeaveInTbs
+    INTO iMaxIndexSizeMB_Calc
+    FROM SYS.DBA_TABLESPACE_USAGE_METRICS M, SYS.DBA_TABLESPACES T
+   WHERE T.TABLESPACE_NAME = M.TABLESPACE_NAME
+     AND T.TABLESPACE_NAME not like 'UNDO%'
+     AND T.TABLESPACE_NAME not like 'TEMP%'
+     AND T.TABLESPACE_NAME not like 'CALL%'
+     AND rownum < 2
+   order by M.TABLESPACE_SIZE - M.USED_SPACE desc;
+    --------Подготавливаем индексы которые будем перестраивать-------------------
+    work_size_done := 0;
+    start_time     := SYSDATE();
+    AddToLog('-----------Начало работы-----------');
+    AddToLog('fFreeSpaceToLeaveInTbs='||to_char(fFreeSpaceToLeaveInTbs));
+    AddToLog('iWorkThresholdGB='||to_char(iWorkThresholdGB));
+    AddToLog('iMaxIndexSizeMB='||to_char(iMaxIndexSizeMB));
+    select case when free_space*0.8>iMaxIndexSizeMB*1024*1024 then iMaxIndexSizeMB*1024*1024 else free_space*0.8 end/1024/1024
+    into iMaxIndexSizeMB
+    from DBA_TEMP_FREE_SPACE;
+    AddToLog('iMaxIndexSizeMB(80%Temp)='||to_char(iMaxIndexSizeMB));
+/*--TODO изменить на сумарный объем места в тбсах
+    if iMaxIndexSizeMB_Calc < iMaxIndexSizeMB then
+      iMaxIndexSizeMB:=iMaxIndexSizeMB_Calc;
+      AddToLog('Переопределили iMaxIndexSizeMB='||to_char(iMaxIndexSizeMB));
+    end if;
+*/
+    AddToLog('iMinIndexSizeMB='||to_char(iMinIndexSizeMB));
+    AddToLog('iRebuildOlderThanDays='||to_char(iRebuildOlderThanDays));
+    AddToLog('iMaxIndexCountToDo='||to_char(iMaxIndexCountToDo));
+    AddToLog('iParallelAlter='||to_char(iParallelAlter));
+    AddToLog('sAllRebuildToTBS='||NVL(sAllRebuildToTBS,'NULL'));
+    AddToLog('sCustomFilter='||sCustomFilter);
+    SQLscriptWhatToDo :='
+        insert into INDEX_REBUILD_STATS
+      (rec_id, owner, object_name, tablespace_name_old, size_before)
+      SELECT sq_index_rebuild_stats.nextval,
+             do.owner,
+             do.object_name,
+             s.TABLESPACE_NAME,
+             s.bytes as indsize
+        FROM V$PARAMETER P, DBA_SEGMENTS s, dba_objects do, dba_indexes di
+       WHERE P.NAME = ''statistics_level''
+         AND P.VALUE != ''BASIC''
+         and s.segment_type = ''INDEX''
+         and do.object_type = s.segment_type
+         and do.object_name = s.segment_name
+         and do.owner = s.owner
+         and di.owner = do.owner
+         and di.index_name = do.object_name
+         and di.index_type <> ''IOT - TOP'' --нельзя делать им альтер
+         and do.owner not in (''SYS'', ''SYSTEM'', ''SYSMAN'', ''DBSNMP'')
+         and di.STATUS=''VALID''
+         and do.owner = ''SMASTER'' '||NVL(sCustomFilter,'')||'
+         and s.bytes < '||to_char(iMaxIndexSizeMB)||' * 1024 * 1024
+         and s.bytes > '||to_char(iMinIndexSizeMB)||' * 1024 * 1024
+         and exists
+       (select 1
+                from DBA_TABLESPACES t
+               where t.tablespace_name = s.tablespace_name
+                 and t.status = ''ONLINE'') -- исключить Рид-Онли
+         and s.tablespace_name not like ''CALL_S%''
+         --and di.index_name like ''%ITOG%''
+         and rownum < '||to_char(iMaxIndexCountToDo)||'
+         and do.last_ddl_time < (sysdate - '||to_char(iRebuildOlderThanDays)||')
+         and not exists
+       (select 1  --не перестраивать индексы которые уже попадали в таблицу за последние iRebuildOlderThanDays дней
+          from INDEX_REBUILD_STATS irs
+         where irs.owner=di.owner
+           and irs.object_name=di.index_name
+           and (irs.rebuild_date is null or irs.rebuild_date>(sysdate - '||to_char(iRebuildOlderThanDays)||')) )';
+   --    ORDER BY s.tablespace_name, s.bytes desc; --секвенции нельзя использовать с ордербаем
+
+    --TODO делать обратную перестройку после завершения одного таблспейса(чтобы он точно оставался свободным)либо полностью повторять шаги в обратном порядке на основе времени
+    <<LookForWork>>
+    Null;
+    select count(1)
+      into i_temp
+      from INDEX_REBUILD_STATS
+     where rebuild_date is null ;
+    if (i_temp=0) then--продолжаем работу,если остались индексы с прошлого раза
+      AddToLog(SQLscriptWhatToDo);
+      execute immediate SQLscriptWhatToDo;
+      if SQL%ROWCOUNT=0 then
+          AddToLog('Нет индексов для работы SQL%ROWCOUNT='||to_char(SQL%ROWCOUNT));
+          goto ExitWork;--TODO немного некорректно(если нет индексов то и обратная перестройка не будет если осталась со вчера) но тк уже не надо возращать то норм
+      end if;
+      ELSE
+      AddToLog('Осталось индексов с прошлого раза '||to_char(i_temp));
+    End IF;
+
+    begin --проверка на существование цепочки с порядковым номером происходит внутри хранимки ResortIndexInTbs
+      select owner, object_name
+        into a_owner, a_object_name
+        from INDEX_REBUILD_STATS
+       where rebuild_date is null and rownum<2
+       order by size_before desc;
+       if bCanMoveToOtherTBS and (sAllRebuildToTBS is null) then--не запускаем дополнительную логику если нельзя перемещать в другой тбс
+          iMaxIndexSizeMB_Calc:=ResortIndexInTbs(a_owner,a_object_name,'%',0);--попытаемся высвободить место под максимальный индекс
+       end if;
+    exception
+      WHEN OTHERS THEN
+        begin
+        AddToLog('Нет входных данных для ResortIndexInTbs');
+        goto EndLoop;
+        end;
+    end;
+    AddToLog('Вход в основной цикл обработки');
+    LOOP
+      begin
+        select rec_id, owner, object_name, tablespace_name_old, tablespace_name_new, size_before, rebuild_order
+          into a_rec_id, a_owner, a_object_name, a_tablespace_name_old,a_tablespace_name_new, a_size_before, i_temp
+          from (select rec_id, owner, object_name, tablespace_name_old, tablespace_name_new, size_before, rebuild_order
+          from INDEX_REBUILD_STATS
+         where rebuild_date is null
+         order by rebuild_order,size_before desc) drv
+         where rownum<2 ;--пришлось делать подзапросом иначе внутри роунам отсекает раньше очень важной сортировки
+         --сначала обрабатываем те, которые были добавлены как результат освобождения для самого большого индекса
+         --затем самые большие и по убыванию
+      exception
+        WHEN OTHERS THEN
+          begin
+          AddToLog('Нет данных.Выход из цикла. Error code ' ||SQLCODE|| ': ' || SUBSTR(SQLERRM, 1, 200));
+          goto EndLoop;
+          end;
+      end;
+      -------------------------------------------------------------------------------------------------
+      if bStopAtNextStep then
+        bStopAtNextStep := False;
+        SQLscript :='Выход.bStopAtNextStep';
+        update INDEX_REBUILD_STATS
+           set rebuild_date = SYSDATE()
+              ,current_status = current_status||'|'||SQLscript
+         where rec_id=a_rec_id;
+        COMMIT;
+        AddToLog(SQLscript);
+        goto ExitWork;
+      end if;
+      --не запускать в высоконагруженные дни (последние 3 дня месяца и первые четыре)
+      if not (to_char(sysdate, 'dd') between '05' and to_char(LAST_DAY(sysdate)-3,'dd'))
+        and (not bForceRun) then
+        SQLscript :='Выход.not (to_char(sysdate, ''dd'') between ''05'' and to_char(LAST_DAY(to_date(sysdate, ''dd.mm.yyyy''))-3,''dd''))';
+        update INDEX_REBUILD_STATS
+           set rebuild_date = SYSDATE()
+              ,current_status = current_status||'|'||SQLscript
+         where rec_id=a_rec_id;
+        COMMIT;
+        AddToLog(SQLscript);
+        goto ExitWork;
+      end if;
+
+      if (sysdate > Trunc(start_time + 8 / 24) + 6 / 24) and (not bForceRun) then
+        SQLscript :='Выход.Запуск в неурочное время';
+        update INDEX_REBUILD_STATS
+           set rebuild_date = SYSDATE()
+              ,current_status = current_status||'|'||SQLscript
+         where rec_id=a_rec_id;
+        COMMIT;
+        AddToLog(SQLscript);
+        goto ExitWork;
+        Exit;
+      end if;
+      if work_size_done + a_size_before > iWorkThresholdGB * 1024 * 1024 * 1024 then
+        SQLscript :='Выход. Превышен лимит iWorkThresholdGB';
+        update INDEX_REBUILD_STATS
+           set rebuild_date = SYSDATE()
+              ,current_status = current_status||'|'||SQLscript
+         where rec_id=a_rec_id;
+        COMMIT;
+        AddToLog(SQLscript);
+        goto EndLoop;
+        Exit;
+      end if;
+      ----------Пометили успешное начало обработки------------------------------------------------
+      update INDEX_REBUILD_STATS
+         set rebuild_date = SYSDATE()
+       where rec_id=a_rec_id;
+      COMMIT;
+      AddToLog('Начали работу над rec_id='||to_char(a_rec_id)||' Очередь '||NVL(to_char(i_temp),'--')||' '||a_owner||'.'|| a_object_name||'('||a_tablespace_name_old||')');
+      ----------Перепроверим хватит ли место в таблспейсе----------------------------------------------
+      if sAllRebuildToTBS is not null then
+         tblspacename:=sAllRebuildToTBS;
+         goto SkipLFTBS;--пропустим все проверки на свободное место в тбсах и вообще всю логику если задан явно тбс
+      end if;
+
+      begin
+        SELECT Round((M.TABLESPACE_SIZE - M.USED_SPACE) * T.BLOCK_SIZE, 0),Round(M.TABLESPACE_SIZE* T.BLOCK_SIZE, 0)
+          INTO mb_free_in_tbs, mb_full_size_tbs
+          FROM DBA_TABLESPACE_USAGE_METRICS M, DBA_TABLESPACES T
+         WHERE T.TABLESPACE_NAME = M.TABLESPACE_NAME
+           and T.TABLESPACE_NAME = NVL(a_tablespace_name_new,a_tablespace_name_old);
+        AddToLog('mb_free_in_tbs='||to_char(mb_free_in_tbs)||' NVL(a_tablespace_name_new,a_tablespace_name_old)='||NVL(a_tablespace_name_new,a_tablespace_name_old) );
+      exception
+        WHEN OTHERS THEN
+          SQLscript := 'mb_free_in_tbs='||to_char(mb_free_in_tbs)||' NVL(a_tablespace_name_new,a_tablespace_name_old)='||NVL(a_tablespace_name_new,a_tablespace_name_old)||'. Error code ' ||SQLCODE || ': ' || SUBSTR(SQLERRM, 1, 200);
+          AddToLog(SQLscript);
+          update INDEX_REBUILD_STATS
+             set current_status = current_status||'|'||SQLscript
+               , rebuild_date_end = SYSDATE()
+           where rec_id=a_rec_id;
+          COMMIT;
+          goto NextStep;
+      end;
+      -------------------------------------------------------------------------------------------------
+      PercentFreeWillRemain := (mb_free_in_tbs-a_size_before)/mb_full_size_tbs*100;
+      if (a_size_before * fFreeSpaceToLeaveInTbs >= mb_free_in_tbs) or (PercentFreeWillRemain<iPercentFreeInTbs ) then
+        begin
+          AddToLog('a_size_before='||to_char(a_size_before)||'* fFreeSpaceToLeaveInTbs >=mb_free_in_tbs' );
+          AddToLog(to_char(PercentFreeWillRemain)||'=PercentFreeWillRemain <iPercentFreeInTbs='||to_char(iPercentFreeInTbs));
+          if bCanMoveToOtherTBS then
+            SELECT T.TABLESPACE_NAME
+              INTO tblspacename
+              FROM DBA_TABLESPACE_USAGE_METRICS M, DBA_TABLESPACES T
+             WHERE T.TABLESPACE_NAME = M.TABLESPACE_NAME
+               AND T.TABLESPACE_NAME not like 'UNDO%'
+               AND T.TABLESPACE_NAME not like 'TEMP%'
+               AND T.TABLESPACE_NAME not like 'CALL%'
+               AND T.TABLESPACE_NAME not like 'SYS%'
+               AND T.TABLESPACE_NAME not like 'USER%'
+               AND T.TABLESPACE_NAME not like 'RESERVE%'
+               AND (M.TABLESPACE_SIZE - M.USED_SPACE) * T.BLOCK_SIZE > a_size_before * fFreeSpaceToLeaveInTbs
+               --оставлять в таблспейсе места больше чем iPercentFreeInTbs процентов
+               AND ((M.TABLESPACE_SIZE - M.USED_SPACE) * T.BLOCK_SIZE - a_size_before)/(M.TABLESPACE_SIZE * T.BLOCK_SIZE)*100 > iPercentFreeInTbs
+               AND rownum < 2
+             order by M.TABLESPACE_SIZE - M.USED_SPACE desc;
+          ELSE
+            SQLscript := 'Не ищем другой тбс bCanMoveToOtherTBS=false';
+            AddToLog(SQLscript);
+            update INDEX_REBUILD_STATS
+               set current_status = current_status||'|'||SQLscript
+                 , rebuild_date_end = SYSDATE()
+             where rec_id=a_rec_id;
+            COMMIT;
+            goto NextStep;
+
+          end if;
+
+        exception
+          WHEN OTHERS THEN
+            SQLscript := 'Не найден подходящий таблспейс для перестройки. Error code ' ||SQLCODE || ': ' || SUBSTR(SQLERRM, 1, 200);
+            AddToLog(SQLscript);
+            update INDEX_REBUILD_STATS
+               set current_status = current_status||'|'||SQLscript
+                 , rebuild_date_end = SYSDATE()
+             where rec_id=a_rec_id;
+            COMMIT;
+            goto NextStep;
+        end;
+        --        dbms_output.put_line('Есть место в ' || tblspacename);
+
+      else
+        tblspacename := NVL(a_tablespace_name_new,a_tablespace_name_old);
+      end if;
+      <<SkipLFTBS>>
+      SQLscript    := 'alter index  ' || a_owner || '.' || a_object_name ||
+                        ' rebuild tablespace ' || tblspacename ;
+
+      if a_size_before>53687091200 then--использовать распараллеливание только если больше 30Гб
+        SQLscript    := SQLscript || ' parallel ' || iParallelAlter || ' online';
+       else
+        SQLscript    := SQLscript || ' online';
+      end if;
+
+
+
+      AddToLog('Начало выполнения '||SQLscript);
+      update INDEX_REBUILD_STATS
+         set current_status = current_status||'|'||SQLscript
+       where rec_id=a_rec_id;
+      COMMIT;
+      begin
+
+        execute immediate SQLscript;
+        update INDEX_REBUILD_STATS
+           set size_after         =
+               (select T.bytes
+                  from Dba_Segments T
+                 where t.segment_type = 'INDEX'
+                   and t.segment_name = object_name
+                   and t.owner = owner
+                   and rownum < 2),
+               tablespace_name_new = tblspacename,
+               rebuild_date_end    = SYSDATE()
+         where rec_id=a_rec_id;
+        work_size_done := work_size_done + a_size_before;
+        AddToLog('Успешно выполнен '||SQLscript);
+        if a_size_before>53687091200 then --все равно изменим индекс , чтобы запросы использовали нопаралел
+              execute immediate 'alter index  ' || a_owner || '.' || a_object_name ||' noparallel';
+        end if;
+        COMMIT;
+      exception
+        WHEN OTHERS THEN
+          SQLscript := 'Error code ' || SQLCODE || ': ' || SUBSTR(SQLERRM, 1, 200);
+          AddToLog(SQLscript);
+          update INDEX_REBUILD_STATS
+             set current_status = current_status||'|'||SQLscript
+          where rec_id=a_rec_id;
+          COMMIT;
+      end;
+      <<NextStep>>
+      Null;
+
+    END LOOP;
+    <<EndLoop>>
+    Null;
+    --------------------перестроим обратно те индексы которые мы переместили-----------------------------------------------------------------------------------
+    AddToLog('Перестроим обратно индексы в их родные таблспейсы');
+
+    --------------------Удалить этот блок чтобы вернуть обратную перестройку-----------------------------------------------------------------------------------
+    AddToLog('Не будем перестраивать обратно индексы');
+    bStopAtNextStep := False;
+    bForceRun := false;-- чтобы отрабатывал с этим параметром только один раз
+    goto LookForWork;
+    -----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    LOOP
+      AddToLog('Заход в цикл обратной перестройки' );
+      begin
+        select rec_id,
+               owner,
+               object_name,
+               tablespace_name_old
+          INTO a_rec_id,
+               a_owner,
+               a_object_name,
+               a_tablespace_name_old
+          from INDEX_REBUILD_STATS
+         WHERE tablespace_name_new is not null
+           and tablespace_name_new <> tablespace_name_old
+           and current_status not like '%Error code%'
+           and rownum < 2
+         ORDER BY rebuild_date desc;
+      exception
+        WHEN OTHERS THEN
+          begin
+          AddToLog('Нет данных.Выход из цикла обратной перестройки. Error code ' ||
+                         SQLCODE || ': ' || SUBSTR(SQLERRM, 1, 200));
+          Exit;
+          end;
+      end;
+
+      --------------------добавил выход и из этого цикла--------------------------------------------------------------------------------------------------------
+      if bStopAtNextStep then
+        AddToLog('Выход из обратной перестройки.bStopAtNextStep');
+        bStopAtNextStep := False;
+        goto ExitWork;
+      end if;
+      if (sysdate > Trunc(start_time + 8 / 24) + 7 / 24) and (not bForceRun) then
+        SQLscript :='Выход из обратной перестройки.Запуск в неурочное время';
+        update INDEX_REBUILD_STATS
+           set rebuild_date = SYSDATE()
+              ,current_status = current_status||'|'||SQLscript
+         where rec_id=a_rec_id;
+        COMMIT;
+        AddToLog(SQLscript);
+        goto ExitWork;
+      end if;
+
+      SQLscript := 'alter index  ' || a_owner || '.' || a_object_name ||
+                   ' rebuild tablespace ' || a_tablespace_name_old ||
+                   ' parallel ' || iParallelAlter || ' online';
+
+
+      AddToLog('Начало обратного перестроения '||SQLscript);
+      begin
+        --TODO проверять есть ли место для обратной перестройки (если захотим ее вернуть)
+        execute immediate SQLscript;
+
+        update INDEX_REBUILD_STATS
+           set size_after         =
+               (select T.bytes
+                  from Dba_Segments T
+                 where t.segment_type = 'INDEX'
+                   and t.segment_name = object_name
+                   and t.owner = owner
+                   and rownum < 2),
+               tablespace_name_new = a_tablespace_name_old,
+               rebuild_date_end    = SYSDATE(),
+               current_status      = current_status||'| Перестраиваем обратно '||SQLscript
+         where rec_id=a_rec_id;
+         execute immediate 'alter index  ' || a_owner || '.' || a_object_name ||' noparallel';
+      exception
+        WHEN OTHERS THEN
+          SQLscript := 'Error code ' || SQLCODE || ': ' ||
+                       SUBSTR(SQLERRM, 1, 200);
+          AddToLog(SQLscript);
+          update INDEX_REBUILD_STATS
+             set current_status = current_status||'|'||SQLscript
+           where rec_id=a_rec_id;
+          COMMIT;
+      end;
+      COMMIT;
+    END LOOP;
+  AddToLog('Полное завершение всех работ');
+  bForceRun := false;-- чтобы отрабатывал с этим параметром только один раз
+  goto LookForWork;
+  <<ExitWork>>
+  null;
+  end;
+
+function ResortIndexInTbs ( a_owner varchar2, a_object_name varchar2,a_preffered_tbs varchar2,iOnlyPrint int default 1 ) return number
+ is
+---------------------------конфигурационные параметры для работы скрипта---------------------------------------
+  --a_preffered_tbs := 'CB_UTILS_TBS';--маска для тбса в котором надо высвободить место
+  --a_owner :='SMASTER';--владелец индекса который хотим поместить в тбс в котором высвобождаем место
+  --a_object_name :='PAY_DOC$PAY_CLNT_ID$IDX'; --имя индекса который будем перемещать
+  --в дальнейшем возможно переписать процедуру и задавать параметром просто объем который нужно высвободить в тбсе
+---------------------------------------------------------------------------------------------------------------
+--    a_owner               VARCHAR2(200);
+--    a_object_name         VARCHAR2(200);
+--    a_preffered_tbs       VARCHAR2(200);
+    i_ind_size            numeric(18, 0);
+    i_max_free_space      numeric(18, 0);
+    need_to_reclaim       numeric(18, 0);
+    Available_To_Reclaim  numeric(18, 0);
+    cur_free_space        numeric(18, 0);
+    cur_tbs_filled_size   numeric(18, 0);
+    already_reclaimed     numeric(18, 0);
+    rebuild_order         numeric(18, 0);
+    remain_ordered        numeric(18, 0);
+    a_suj_tbs_size        numeric(18, 0);
+    a_sujested_tbs        VARCHAR2(200);
+    a_index_tbs           VARCHAR2(200);
+----------------------курсор по индексам-------------------------------------------------------
+    CURSOR indexes_cur(tbs_name Dba_Segments.tablespace_name%TYPE) IS
+      select s.TABLESPACE_NAME,s.bytes, s.segment_name, s.owner
+             , SUM(bytes) OVER (PARTITION BY s.TABLESPACE_NAME order by s.bytes,s.segment_name ) AS itogsum
+        from V$PARAMETER P,Dba_Segments s, dba_indexes di
+       where P.NAME = 'statistics_level'
+         AND P.VALUE != 'BASIC'
+         and s.segment_type = 'INDEX'
+         and s.owner='SMASTER'
+         and s.owner = di.owner
+         and s.segment_name = di.index_name
+         and di.index_type <> 'IOT - TOP'   --нельзя делать им альтер
+         and s.tablespace_name=tbs_name
+         and s.bytes>1024*1024 -- ограничим чтобы не перетаскивать слишком уж мелкие индексы
+         order by s.bytes desc;
+--       order by itogsum ;
+    indexes_row indexes_cur%ROWTYPE;
+----------------------курсор по таблспейсам----------------------------------------------------
+    CURSOR tbs_cur(tbs_name DBA_TABLESPACES.TABLESPACE_NAME%TYPE) IS
+      SELECT T.TABLESPACE_NAME,
+             (M.TABLESPACE_SIZE - M.USED_SPACE) * T.BLOCK_SIZE FREE_SIZE,
+             M.TABLESPACE_SIZE* T.BLOCK_SIZE TBS_SIZE
+      FROM DBA_TABLESPACE_USAGE_METRICS M, DBA_TABLESPACES T
+      WHERE T.TABLESPACE_NAME = M.TABLESPACE_NAME
+    --исключим системные и звонковые
+    AND T.TABLESPACE_NAME not like 'UNDO%'
+    AND T.TABLESPACE_NAME not like 'TEMP%'
+    AND T.TABLESPACE_NAME not like 'CALL%'
+    AND T.TABLESPACE_NAME not like 'SYS%'
+    AND T.TABLESPACE_NAME not like 'USER%'
+    AND T.TABLESPACE_NAME not like 'RESERV%'
+/*
+    AND T.TABLESPACE_NAME not like 'SUBS_PROFILE_HIST%'--для отладки те в которые помещается
+    AND T.TABLESPACE_NAME not like 'INDX_%'--для отладки те в которые помещается
+    AND T.TABLESPACE_NAME not like 'ITOG_TB%'--для отладки те в которые помещается
+    AND T.TABLESPACE_NAME not like 'SPLIT_%'--для отладки те в которые помещается
+*/
+    AND T.TABLESPACE_NAME <> tbs_name -- исключим родной тбс индекса ради которого перемещаем
+    ORDER BY FREE_SIZE desc;
+  tbs_row tbs_cur%ROWTYPE;
+
+begin
+  rebuild_order := 0;
+  --сколько остается небработанных,
+  select count(1)
+  into remain_ordered
+  from INDEX_REBUILD_STATS
+  where rebuild_date is null and rebuild_order is not null and rownum<2;
+  if ((iOnlyPrint<>1) and remain_ordered>0 )then
+    BEGIN
+       AddToLog('--Выход из ResortIndexInTbs: remain_ordered='||remain_ordered);
+       Return(-1);
+       AddToLog('--Выход из ResortIndexInTbs: remain_ordered='||remain_ordered,iOnlyPrint);
+    END;
+  END IF;
+
+/*--суммарный объем свободного места во всех доступных тбсах
+    SELECT SUM((M.TABLESPACE_SIZE - M.USED_SPACE)* T.BLOCK_SIZE)/fFreeSpaceToLeaveInTbs
+    FROM DBA_TABLESPACE_USAGE_METRICS M, DBA_TABLESPACES T
+   WHERE T.TABLESPACE_NAME = M.TABLESPACE_NAME
+         and T.CONTENTS ='PERMANENT' --не андо и темп
+         and t.status = 'ONLINE'--не рид онли
+         and T.tablespace_name not like 'CALL_S%'
+         AND T.TABLESPACE_NAME not like 'CALL%';
+*/
+    SELECT MAX((M.TABLESPACE_SIZE - M.USED_SPACE)* T.BLOCK_SIZE)
+    Into i_max_free_space
+    FROM DBA_TABLESPACE_USAGE_METRICS M, DBA_TABLESPACES T
+   WHERE T.TABLESPACE_NAME = M.TABLESPACE_NAME
+         and T.CONTENTS ='PERMANENT' --не андо и темп
+         and t.status = 'ONLINE'--не рид онли
+         and T.tablespace_name not like 'CALL_S%'
+         AND T.TABLESPACE_NAME not like 'CALL%';
+  --размер индекса, который надо перестроить
+  select T.bytes, T.tablespace_name
+    into i_ind_size,a_index_tbs
+    from Dba_Segments T
+   where t.segment_type = 'INDEX'
+     and t.segment_name = a_object_name
+     and t.owner = a_owner
+  order by T.bytes desc;
+  AddToLog('--Размер индекса ' ||a_owner||'.'||a_object_name||'('||a_index_tbs||') '|| (i_ind_size/1024/1024) || 'Мб='||i_ind_size,iOnlyPrint);
+--выбираем в какой таблспейс переместить индекс , либо получаем как входной параметр a_preffered_tbs
+  select TABLESPACE_NAME,free_space, Available_To_Reclaim, TBS_SIZE
+  into a_sujested_tbs , cur_free_space, Available_To_Reclaim, a_suj_tbs_size
+  from (
+    SELECT /*+RULE*/T.TABLESPACE_NAME,
+           (M.TABLESPACE_SIZE - M.USED_SPACE) * T.BLOCK_SIZE free_space
+           ,(M.TABLESPACE_SIZE - M.USED_SPACE) * T.BLOCK_SIZE+INDEX_SIZES.isize Available_To_Reclaim
+           --i_ind_size - (M.TABLESPACE_SIZE - M.USED_SPACE) * T.BLOCK_SIZE need_to_recl
+           ,M.TABLESPACE_SIZE * T.BLOCK_SIZE TBS_SIZE
+    FROM DBA_TABLESPACE_USAGE_METRICS M, DBA_TABLESPACES T,
+      (select SUM(s.bytes) isize,s.tablespace_name
+        from Dba_Segments s
+       where s.segment_type = 'INDEX'
+         and s.bytes<i_max_free_space--добавил ограничение - чтобы совсем уж крупные индексы не принимать в рассчет
+       group by s.tablespace_name
+       ) INDEX_SIZES
+    WHERE T.TABLESPACE_NAME = M.TABLESPACE_NAME and t.TABLESPACE_NAME=INDEX_SIZES.tablespace_name(+)
+    --тут на самом деле не важны коэфициенты, все равно основная логика в цикле
+    AND M.TABLESPACE_SIZE * T.BLOCK_SIZE*0.95>i_ind_size
+    AND ((M.TABLESPACE_SIZE - M.USED_SPACE) * T.BLOCK_SIZE+INDEX_SIZES.isize)*0.95>i_ind_size
+    AND T.CONTENTS ='PERMANENT' --не андо и темп
+    AND T.STATUS = 'ONLINE'--не рид онли
+    AND T.TABLESPACE_NAME not like 'CALL%'
+    AND T.TABLESPACE_NAME not like 'SYS%'
+    AND T.TABLESPACE_NAME not like 'USER%'
+    AND T.TABLESPACE_NAME not like 'RESERV%'
+/*    AND T.TABLESPACE_NAME not like 'SUBS_PROFILE_HIST%'--для отладки те в которые помещается
+    AND T.TABLESPACE_NAME not like 'ITOG_TB%'--для отладки те в которые помещается
+    AND T.TABLESPACE_NAME not like 'INDX_%'--для отладки те в которые помещается
+    AND T.TABLESPACE_NAME not like 'SPLIT_%'--для отладки те в которые помещается
+*/
+    AND T.TABLESPACE_NAME like a_preffered_tbs
+    order by (M.TABLESPACE_SIZE - M.USED_SPACE)* T.BLOCK_SIZE*3/*коэффициент веса свободного места по отношению к тому, которое надо перетасовывать*/+INDEX_SIZES.isize desc) drv
+  where rownum<2 ;
+  need_to_reclaim := i_ind_size*fFreeSpaceToLeaveInTbs-cur_free_space+a_suj_tbs_size*iPercentFreeInTbs/100;--сколько осталось высвободить+7% свободного места
+  AddToLog('--Предполагаемый таблспейс ' || a_sujested_tbs || ' свободного места ' || (cur_free_space/1024/1024) || 'Мб='||cur_free_space,iOnlyPrint);
+  AddToLog('--Предполагаемый таблспейс ' || a_sujested_tbs || ' доступно для высвобождения ' || (Available_To_Reclaim/1024/1024) || 'Мб='||Available_To_Reclaim,iOnlyPrint);
+  AddToLog('--Предполагаемый таблспейс ' || a_sujested_tbs || ' необходимо сверх размера индекса(учитывая оставляемый запас) ' || (need_to_reclaim/1024/1024) || 'Мб='||need_to_reclaim,iOnlyPrint);
+
+  OPEN indexes_cur(a_sujested_tbs);--курсор по всем индексам в предложенном тбсе
+  FETCH indexes_cur INTO indexes_row;
+  OPEN tbs_cur(a_sujested_tbs);--курсор по всем тбсам в которые мы будем растасовывать индексы из верхнего курсора
+  FETCH tbs_cur INTO tbs_row;
+--индексы и тбсы отсортированы по убыванию размера и объема свободного места соответственно
+  cur_tbs_filled_size :=0;
+  already_reclaimed   :=0;
+  --TODO замечание по работе алгоритма: он не совсем корректный и может оставить кучу нераспределенного места
+  --когда размеры первых крупных индексов достаточно велики, чтобы пропустить тбсы с большим количеством свободного места
+  --необходимо его переделать, но для этого необходима временная таблица где будут храниться данные о заполнениях тбсов в ходе работы алгоритма
+  LOOP
+     <<TopOfLoop>>
+    EXIT WHEN ((indexes_cur%NOTFOUND) OR (already_reclaimed>need_to_reclaim ) or (tbs_cur%NOTFOUND));
+--    DBMS_OUTPUT.put_line('Record is: '||indexes_row.segment_name||'            '||indexes_row.itogsum||'            '||indexes_row.bytes);
+--    FETCH indexes_cur INTO indexes_row;
+    if indexes_row.bytes*fFreeSpaceToLeaveInTbs>tbs_row.FREE_SIZE THEN
+      BEGIN
+        AddToLog('--Ошибка: при любом раскладе индексу ' ||indexes_row.owner||'.'||indexes_row.segment_name||'('||indexes_row.tablespace_name||')не хватит места в '||tbs_row.TABLESPACE_NAME,iOnlyPrint);
+        FETCH indexes_cur INTO indexes_row;--переходим к более мелкому индексу
+        cur_tbs_filled_size :=0;
+        GOTO TopOfLoop;
+      END;
+    END IF;
+    --было indexes_row.bytes*fFreeSpaceToLeaveInTbs>tbs_row.FREE_SIZE-cur_tbs_filled_size
+    --свободное место останется в тбсе с запасом на iPercentFreeInTbs процентов
+    if tbs_row.FREE_SIZE-cur_tbs_filled_size-indexes_row.bytes*fFreeSpaceToLeaveInTbs <tbs_row.TBS_SIZE*iPercentFreeInTbs/100  THEN
+      BEGIN
+        if cur_tbs_filled_size>0 then
+          begin
+            AddToLog('--Текущий тбс '||tbs_row.TABLESPACE_NAME||' не вместит новый индекс ' ||indexes_row.owner||'.'||indexes_row.segment_name||'('||indexes_row.tablespace_name||') переходим к новому тбс',iOnlyPrint);
+            FETCH tbs_cur INTO tbs_row;--переходим к след тбсу
+            cur_tbs_filled_size :=0;
+            GOTO TopOfLoop;
+          end; else
+          begin
+            AddToLog('--Текущий тбс '||tbs_row.TABLESPACE_NAME||' не вместит индекс ' ||indexes_row.owner||'.'||indexes_row.segment_name||'('||indexes_row.tablespace_name||') с запасом переходим к новому индексу',iOnlyPrint);
+            FETCH indexes_cur INTO indexes_row;--переходим к более мелкому индексу
+            cur_tbs_filled_size :=0;--масло масляное но все же
+            GOTO TopOfLoop;
+          end;
+        END IF;
+
+      END; ELSE
+      BEGIN
+        AddToLog('--Текущий тбс '||tbs_row.TABLESPACE_NAME||' вместит в себя индекc ' ||indexes_row.owner||'.'||indexes_row.segment_name||'('||indexes_row.tablespace_name||') переходим к след индексу ',iOnlyPrint);
+        if (iOnlyPrint<>1)then
+          BEGIN
+            --TODO Делать апдейт,если индекс уже находится в этой таблице с открытой датой и с незаполенным номером очереди
+            insert into INDEX_REBUILD_STATS
+            (rec_id, owner, object_name, tablespace_name_old, tablespace_name_new, size_before,rebuild_order)
+            SELECT sq_index_rebuild_stats.nextval, indexes_row.owner, indexes_row.segment_name,indexes_row.tablespace_name,tbs_row.TABLESPACE_NAME, indexes_row.bytes,rebuild_order from dual;
+            rebuild_order:=rebuild_order+1;
+          END;
+        END IF;
+        AddToLog('alter index  ' || indexes_row.owner || '.' || indexes_row.segment_name ||
+                        ' rebuild tablespace ' || tbs_row.TABLESPACE_NAME ||
+                        ' parallel 4 online ',iOnlyPrint);
+
+        FETCH indexes_cur INTO indexes_row;--переходим к след индексу
+        cur_tbs_filled_size := cur_tbs_filled_size + indexes_row.bytes;
+        already_reclaimed := already_reclaimed + indexes_row.bytes;
+        AddToLog('--Заскриптовано высвобождение размером '|| (already_reclaimed/1024/1024) || 'Мб='||already_reclaimed,iOnlyPrint);
+        GOTO TopOfLoop;
+      END;
+    END IF;
+
+  END LOOP;
+  IF indexes_cur%NOTFOUND THEN
+    BEGIN
+      AddToLog('--indexes_cur%NOTFOUND Не получилось высвободить полный объем '||need_to_reclaim|| ' получилось только '||already_reclaimed,iOnlyPrint);
+    END;
+  END IF;
+  IF tbs_cur%NOTFOUND THEN
+    BEGIN
+      AddToLog('--tbs_cur%NOTFOUND Не получилось высвободить полный объем '||need_to_reclaim|| ' получилось только '||already_reclaimed,iOnlyPrint);
+    END;
+  END IF;
+  Return (already_reclaimed);
+  CLOSE indexes_cur;
+  CLOSE tbs_cur;
+
+end;
+
+
+PROCEDURE rebuild_index_part
+as
+
+
+    size_partition_before  number;
+    size_partition_after   number;
+    id_current             number;
+    bad_result             varchar2(200);
+    SQLscript              varchar2(200);
+    sql_command            varchar2(1000);
+    TABLE_OWNER            varchar2(200);
+    index_name             varchar2(200);
+    part_name         varchar2(200);
+
+BEGIN
+
+      Loop
+        
+          begin
+           select ID,OWNER, NAME_INDEX, PARTITION_NAME,SQL_COMMAND into id_current, TABLE_OWNER,index_name, part_name, sql_command  from INDEX_REBUILD_GAV where
+            DATA_BEGIN is NULL and SIZE_IND_BEFORE_MB is NULL and rownum=1;
+
+            exception
+              WHEN OTHERS THEN
+                begin
+                  AddToLog('Нет данных.Выход из цикла. Error code ' ||SQLCODE|| ': ' || SUBSTR(SQLERRM, 1, 200));
+
+                  goto EndLoop;
+                end;
+           end;
+
+         --проверяет выставлен ли флаг для остановки
+       if bStopAtNextStep then
+        bStopAtNextStep := False;
+         UPDATE INDEX_REBUILD_GAV ibs set ibs.result = 'User is cancelled script using flag bStopAtNextStep' where ibs.id = id_current ;
+        COMMIT;
+        AddToLog('ExitbybStopAtNextStep');
+        goto EndLoop;
+      end if;
+
+            --проверяет день , чтоб был начиная с 5 числа и до 27 грубо говоря
+        if not (to_char(sysdate, 'dd') between '05' and to_char(LAST_DAY(sysdate)-3,'dd'))
+          and (not bForceRun) then
+          SQLscript :='Выход.not (to_char(sysdate, ''dd'') between ''05'' and to_char(LAST_DAY(to_date(sysdate, ''dd.mm.yyyy''))-3,''dd''))';
+          UPDATE INDEX_REBUILD_GAV ibs set ibs.result = SQLscript where ibs.id = id_current ;
+          COMMIT;
+          AddToLog(SQLscript);
+          goto EndLoop;
+        end if;
+
+        --проверяет число , чтобо было с 22 до 6 утра
+        if (sysdate > Trunc(sysdate + 8 / 24) + 6 / 24) and (not bForceRun) then
+          SQLscript :='Выход.Запуск в неурочное время';
+          UPDATE INDEX_REBUILD_GAV ibs set ibs.result = SQLscript where ibs.id = id_current ;
+          COMMIT;
+          AddToLog(SQLscript);
+          goto EndLoop;
+        end if;
+
+        --- прошли все проверки на время , дату и флаг bStopAtNextStep
+
+    BEGIN
+
+    ----------начинаем перестройку индекса
+
+      select BYTES/1024/1024 into size_partition_before from dba_segments where owner=TABLE_OWNER and segment_name=index_name and partition_name=part_name;
+
+      UPDATE INDEX_REBUILD_GAV set data_begin=sysdate,SIZE_IND_BEFORE_MB=size_partition_before where id=id_current;  ----обновляем таблицу о результатах перед (имя, размер , время старта)
+      commit;
+
+      ---------ВЫПОЛНЕНИЕ ALTER INDEX!!
+   --   dbms_output.put_line(sql_command);
+      EXECUTE IMMEDIATE sql_command;
+
+------- успешно отработало заносим размер и время завершения
+
+      select ds.BYTES/1024/1024 into size_partition_after from dba_segments ds where ds.segment_name=index_name and ds.partition_name=part_name
+       and ds.owner=TABLE_OWNER;
+
+      UPDATE INDEX_REBUILD_GAV  set size_ind_after_MB = size_partition_after,data_end = sysdate where id = id_current ; --operation completed succesfully
+      commit;
+
+    EXCEPTION
+      WHEN OTHERS
+      THEN
+       bad_result := SQLERRM;
+        UPDATE INDEX_REBUILD_GAV set data_end=sysdate, result = bad_result where id=id_current;    ---operation completed with error
+        commit;
+        goto EndLoop;
+
+    END;
+
+  end loop;
+
+  <<EndLoop>>
+  null;
+
+END;
+
+
+begin
+  -- Initialization
+  execute immediate 'alter session set ddl_lock_timeout=30';
+  bStopAtNextStep        := false;
+  bForceRun              := false;
+  bDebugMode             := true;
+  bCanMoveToOtherTBS     := true;
+  fFreeSpaceToLeaveInTbs := 1.2; --на этот коэффициент умножается размер индекса
+  --определяет сколько необходимо оставить места
+  iWorkThresholdGB      := 100;
+  iPercentFreeInTbs     := 7.0;
+  iMaxIndexSizeMB       := 900;
+  iMinIndexSizeMB       := 100;
+  iRebuildOlderThanDays := 20;
+  iMaxIndexCountToDo    := 15;
+  iParallelAlter        := 4;
+  sAllRebuildToTBS      := 'INDX_TBS';
+  sCustomFilter         := 'and di.TABLE_NAME not like ''%ARCH%'' ';
+  --select 'x','y','z', rownum from dual connect by level <= 100 выдает 100 строк и не нужны циклы
+end PKG_IndexRebuild;

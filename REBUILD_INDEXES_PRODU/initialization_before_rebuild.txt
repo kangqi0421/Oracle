@@ -1,0 +1,50 @@
+   CREATE TABLE "SMASTER"."INDEX_REBUILD_GAV" 
+   (	"ID" NUMBER, 
+	"OWNER" VARCHAR2(20), 
+	"NAME_INDEX" VARCHAR2(40), 
+	"PARTITION_NAME" VARCHAR2(50), 
+	"DATA_BEGIN" DATE, 
+	"SIZE_IND_BEFORE_MB" NUMBER, 
+	"DATA_END" DATE, 
+	"SIZE_IND_AFTER_MB" NUMBER, 
+	"RESULT" VARCHAR2(200), 
+  "SQL_COMMAND"  VARCHAR2(1000),
+	 PRIMARY KEY ("ID"))
+	 
+	 
+	 
+ 
+    insert into INDEX_REBUILD_GAV
+      (ID, owner, NAME_INDEX, PARTITION_NAME, SQL_COMMAND)
+      with allp as
+          (select i.TABLE_OWNER,i.TABLE_NAME,i.INDEX_NAME,i.index_type,ip.partition_name,
+          ip.compression,ip.last_analyzed ,ip.partition_position,
+          row_number() over(partition by i.TABLE_OWNER,i.TABLE_NAME,i.INDEX_NAME,i.index_type order by ip.partition_position desc) rn
+          from dba_indexes i join  dba_ind_partitions ip on i.OWNER=ip.index_owner and i.INDEX_NAME=ip.index_name
+          where i.TABLE_NAME='CHARGE' and ip.partition_name like 'SYS%'/* and ip.partition_name='SYS_P71761' and ip.index_name='CHARGE$BILLING$FUN'*/--and ip.partition_name='P_2002'
+          )
+          select sq_index_rebuild_stats.nextval,allp.TABLE_OWNER,allp.INDEX_NAME,allp.partition_name,'ALTER INDEX '||TABLE_OWNER||'.'||index_name||' REBUILD PARTITION '||partition_name||' ONLINE' as ind_rebuild
+
+          from allp where /*rn<=3 and*/ last_analyzed<sysdate-2*31 and rownum<3;
+		  
+	commit;	  
+---------------------------------------------
+
+         insert into INDEX_REBUILD_GAV
+      (ID, owner, NAME_INDEX, PARTITION_NAME, SQL_COMMAND)
+      with allp as
+          (select i.TABLE_OWNER,i.TABLE_NAME,i.INDEX_NAME,i.index_type,ip.partition_name,
+          ip.compression,ip.last_analyzed ,ip.partition_position,
+          row_number() over(partition by i.TABLE_OWNER,i.TABLE_NAME,i.INDEX_NAME,i.index_type order by ip.partition_position desc) rn
+          from dba_indexes i join  dba_ind_partitions ip on i.OWNER=ip.index_owner and i.INDEX_NAME=ip.index_name
+          where i.TABLE_NAME='CHARGE' and ip.partition_name like 'SYS%'/* and ip.partition_name='SYS_P71761' and ip.index_name='CHARGE$BILLING$FUN'*/--and ip.partition_name='P_2002'
+          )
+          select sq_index_rebuild_stats.nextval,allp.TABLE_OWNER,allp.INDEX_NAME,allp.partition_name,
+          'ALTER INDEX '||TABLE_OWNER||'.'||index_name||' REBUILD PARTITION '||allp.partition_name||' ONLINE' as ind_rebuild
+          from allp
+          left join INDEX_REBUILD_GAV irg on allp.TABLE_OWNER=irg.owner and allp.INDEX_NAME=irg.name_index and allp.partition_name=irg.partition_name   
+           where irg.owner is NULL
+           and rn>3
+		   
+		   
+		   

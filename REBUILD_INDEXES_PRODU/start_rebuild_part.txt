@@ -1,0 +1,7 @@
+declare 
+i int;
+begin
+--smaster.pkg_indexrebuild.bForceRun:=True;
+smaster.PKG_REBUILD_GAV.rebuild_index_part;
+end; 
+/

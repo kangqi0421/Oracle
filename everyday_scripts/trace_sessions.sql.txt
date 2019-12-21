@@ -1,0 +1,22 @@
+-- Трассировка текущей сессии
+alter session set events '10046 trace name context forever, level 12';
+alter session set events '10046 trace name context off';
+alter session set tracefile_identifier = "trace_for_";
+
+-- Трассировка сторонней сессии
+sys.dbms_system.set_sql_trace_in_session(SID, serial#, true);
+sys.dbms_system.set_ev(SID, serial#, 10046, 12, '');
+sys.dbms_system.set_int_param_in_session(SID, serial#, 'max_dump_file_size', new_size_in_bytes);
+
+78357    5285, 16929
+
+begin
+  sys.dbms_system.set_sql_trace_in_session( 548, 32533, true);    
+  sys.dbms_system.set_ev( 548,  32533, 10046, 12, '');
+end;
+/
+
+begin
+  sys.dbms_system.set_sql_trace_in_session(553, 21947, false);
+end;
+/

@@ -1,0 +1,30 @@
+declare
+  cursor v_dynsql_partitions is
+select s.*
+  from dba_tab_partitions s
+where tablespace_name in
+       ('CALL_S_04_2017',
+'CALL_S_06_2017',
+'CALL_S_08_2017',
+'CALL_S_05_2017',
+'CALL_S_07_2017',
+'CALL_S_09_2017',
+'CALL_S_01_2017',
+'CALL_S_02_2017',
+'CALL_S_03_2017',
+'ITOGS_ARCH_TBS_2014',
+'ITOGS_ARCH_TBS_2015')
+   and partition_name not like 'BIN$%'
+order by table_name, partition_name;
+begin
+  DBMS_OUTPUT.ENABLE(100000000);
+  for r in v_dynsql_partitions loop
+    dbms_output.put_line('ALTER TABLE '||r.table_owner||'.' || r.table_name || ' READ WRITE;');
+    dbms_output.put_line('CREATE TABLE '||r.table_owner||'.temp1 AS SELECT * FROM '||r.table_owner||'.'||r.table_name||' WHERE 1=2;');
+    dbms_output.put_line('ALTER TABLE '||r.table_owner||'.'||r.table_name||' exchange partition '||r.partition_name||' with table '||r.table_owner||'.temp1 without validation;');
+    dbms_output.put_line('ALTER TABLE '||r.table_owner||'.'||r.table_name||' drop partition '||r.partition_name||';');
+    dbms_output.put_line('DROP TABLE '||r.table_owner||'.temp1;');
+    dbms_output.put_line('ALTER TABLE '||r.table_owner||'.' || r.table_name || ' READ ONLY;');
+    dbms_output.put_line('');
+  end loop;
+end;

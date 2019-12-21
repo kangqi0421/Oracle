@@ -1,0 +1,7 @@
+declare
+  v_sql_plan_id  pls_integer;
+begin
+  v_sql_plan_id := dbms_spm.load_plans_from_cursor_cache(
+    sql_id => 'ank7v51xtsbyg');
+end;
+/

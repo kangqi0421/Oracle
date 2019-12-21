@@ -1,0 +1,1 @@
+select * from v$sgastat where pool like 'streams pool' and name='free memory'

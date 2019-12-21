@@ -1,0 +1,38 @@
+BEGIN
+  DBMS_AUDIT_MGMT.set_last_archive_timestamp(
+    audit_trail_type     => DBMS_AUDIT_MGMT.audit_trail_unified,
+    last_archive_time    => SYSTIMESTAMP-5
+  );
+END;
+/
+
+
+BEGIN
+  DBMS_AUDIT_MGMT.clean_audit_trail(
+   audit_trail_type        => DBMS_AUDIT_MGMT.audit_trail_unified,
+   use_last_arch_timestamp => TRUE);
+END;
+/
+
+
+ exec dbms_audit_mgmt.clean_audit_trail(audit_trail_type=>dbms_audit_mgmt.audit_trail_unified
+,use_last_arch_timestamp=TRUE);
+
+
+BEGIN
+exec dbms_audit_mgmt.set_last_archive_timestamp(
+audit_trail_type  => dbms_audit_mgmt.audit_trail_unified,
+last_archive_time => sysdate-8/24);
+END;
+
+
+
+
+[‎28.‎11.‎2017 9:25] Бондаренко Вячеслав Александрович: 
+
+BEGIN
+  DBMS_AUDIT_MGMT.CLEAN_AUDIT_TRAIL
+  (audit_trail_type        => DBMS_AUDIT_MGMT.audit_trail_unified,
+   use_last_arch_timestamp => FALSE);
+END;
+/ 

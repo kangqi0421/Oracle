@@ -1,0 +1,269 @@
+
+Spooling started in log file: recover_db_TESTPCDB_16_08_2016_15_55.log
+
+Recovery Manager12.1.0.2.0
+
+RMAN> 
+RMAN> RUN{
+2> ALLOCATE CHANNEL c1 DEVICE TYPE 'SBT_TAPE' PARMS
+3> 'SBT_LIBRARY=/usr/openv/netbackup/bin/libobk.so64.1' SEND
+4> 'NB_ORA_POLICY=pcdb-everyday,
+5> NB_ORA_SERV=nbserver.nix.tele2.ru,NB_ORA_CLIENT=pcdb-backup.nix.tele2.ru,NB_ORA_
+6> SCHED=day' MAXOPENFILES 2;
+7> ALLOCATE CHANNEL c2 DEVICE TYPE 'SBT_TAPE' PARMS
+8> 'SBT_LIBRARY=/usr/openv/netbackup/bin/libobk.so64.1' SEND
+9> 'NB_ORA_POLICY=pcdb-everyday,
+10> NB_ORA_SERV=nbserver.nix.tele2.ru,NB_ORA_CLIENT=pcdb-backup.nix.tele2.ru,NB_ORA_
+11> SCHED=day' MAXOPENFILES 2;
+12> SET UNTIL TIME "TO_DATE('08/14/2016 16:30:00','MM/DD/YYYY HH24:MI:SS')";
+13>  SET NEWNAME FOR DATAFILE 1 TO '/testdb/TESTPCDB/system_1';
+14>  SET NEWNAME FOR DATAFILE 4 TO '/testdb/TESTPCDB/users_bf';
+15>  SET NEWNAME FOR DATAFILE 6 TO '/testdb/TESTPCDB/users2_bf';
+16>  SET NEWNAME FOR DATAFILE 37 TO '/testdb/TESTPCDB/undo01_37';
+17>  SET NEWNAME FOR DATAFILE 38 TO '/testdb/TESTPCDB/undo01_38';
+18>  SET NEWNAME FOR DATAFILE 129 TO '/testdb/TESTPCDB/sysaux_129';
+19>  SET NEWNAME FOR DATAFILE 130 TO '/testdb/TESTPCDB/sysaux_130';
+20>  SET NEWNAME FOR DATAFILE 201 TO '/testdb/TESTPCDB/sysaux_201';
+21>  SET NEWNAME FOR DATAFILE 219 TO '/testdb/TESTPCDB/sysaux_219';
+22>  SET NEWNAME FOR DATAFILE 223 TO '/testdb/TESTPCDB/undo01_223';
+23>  RESTORE DATABASE SKIP FOREVER TABLESPACE
+24>   TOOLS,
+25>   XCARD_LOADS_DATA,
+26>   TEMP,
+27>   WSC21_TBS,
+28>   CAP_DATA_01,
+29>   INCIDENTS_TBS,
+30>   WD21_TBS,
+31>   BLACKLIST_MAIN_TS,
+32>   INCALL_TBS_4M,
+33>   CAREM,
+34>   SDP,
+35>   TELE2_PCDB,
+36>   USSDDB,
+37>   CA_DATA_TBS,
+38>   INCALL_ARCHIVE_TBS_4M,
+39>   XCARD_ARCHIVE_TBS_4M,
+40>   CC_DATA_01,
+41>   MASS_SMS_TBS,
+42>   VAS_128K,
+43>   BLACKLIST_STAT_MAIN_TS,
+44>   XCARD_DATA,
+45>   CE_TBS,
+46>   XCARD_HISTORY_DATA,
+47>   REPORT_TBS,
+48>   MLINK21_DATA,
+49>   CC21_DATA,
+50>   CC21_INDEX,
+51>   SMSC01_DIR_TS,
+52>   VAS_1M,
+53>   SMCAPI_TBS,
+54>   AA_USERSTORAGE_TBS,
+55>   TS_MLINK_B,
+56>   UNICA_10_CONFIG_MAIN_TS,
+57>   ISPP12_CONFIG_MAIN_TS,
+58>   TELE2MASTER_TS,
+59>   SMSC02_DIR_TS,
+60>   SMSC_BO_TS,
+61>   SMSC01_DIR_LOG_TS,
+62>   SMSC02_DIR_LOG_TS,
+63>   TOPEX_TBS,
+64>   DWH_TS,
+65>   TOPEX_EXT_TBS,
+66>   SIM_TS,
+67>   SMSC01_MSG_TS,
+68>   SMSC01_MSG_LOG_TS,
+69>   RS_TBS,
+70>   KPC_TBS,
+71>   CCBR_TBS,
+72>   AUTOPAY_CONFIG_TS,
+73>   QPC_OBJECTSTORE_DATA_TS,
+74>   QPC_OBJECTSTORE_INDEX_TS,
+75>   USSD_PORTAL_SPS_TBS,
+76>   USSD_PORTAL_VKR_TBS,
+77>   USSD_PORTAL_SC_LOGGER_TBS,
+78>   CPA_USER_TBS,
+79>   SDPMASTER_TBS,
+80>   USSD_PORTAL_VBL_WEB_TBS,
+81>   EDA,
+82>   USSD_TBS,
+83>   SMSC02_MSG_TS,
+84>   SMSC02_MSG_LOG_TS,
+85>   PRODUCT_CATALOG_TBS,
+86>   MNP_TBS,
+87>   SRF_TBS,
+88>   V3AUDIT_TBS,
+89>   XMASTER_INDX,
+90>   PORTAL_CAREM_V3_TBS,
+91>   WELCOMESMS_TBS,
+92>   MP15_DATA_TBS,
+93>   MULTILINK_TBS,
+94>   STAT_COLLECTOR_TBS,
+95>   AUTOPAY_TBS,
+96>   INAPI_TBS,
+97>   REPORT21_TBS,
+98>   CRM21_TBS,
+99>   CLADR21_TBS,
+100>   USERDB21_TBS,
+101>   WDAQ_TBS,
+102>   WDAUDIT21_TBS,
+103>   WSCAUDIT21_TBS,
+104>   USER_FROM_DWH_TBS,
+105>   BRMS_TBS,
+106>   PC_KEY_MANAGER_TBS,
+107>   WSCSKY21_TBS,
+108>   WSCRTK21_TBS,
+109>   INTERACTIVETAILS_TBS,
+110>   MIGR_TBS,
+111>   SRS_TBS,
+112>   URDPDB,
+113>   SERVICEPROFILE_TBS,
+114>   INTERNETSHARING_TBS,
+115>   WSMS_AUDIT_TBS,
+116>   USSDGW_TBS,
+117>   UPS_TBS,
+118>   UPS_ARCH_TBS,
+119>   SPMPC2_TBS,
+120>   CC_REFUNDS_TBS,
+121>   CC_SCHEDULER_TBS,
+122>   CC_STAT1_TBS,
+123>   USER_FROM_IPC_TBS,
+124>   ROAMING_STEERING_TBS
+125> FROM TAG NIGHTLY_FULL_BACKUP;
+126> SWITCH DATAFILE ALL;
+127> }
+using target database control file instead of recovery catalog
+allocated channel: c1
+channel c1: SID=2161 device type=SBT_TAPE
+channel c1: Veritas NetBackup for Oracle - Release 7.6 (2015021210)
+
+allocated channel: c2
+channel c2: SID=2221 device type=SBT_TAPE
+channel c2: Veritas NetBackup for Oracle - Release 7.6 (2015021210)
+
+executing command: SET until clause
+
+executing command: SET NEWNAME
+
+executing command: SET NEWNAME
+
+executing command: SET NEWNAME
+
+executing command: SET NEWNAME
+
+executing command: SET NEWNAME
+
+executing command: SET NEWNAME
+
+executing command: SET NEWNAME
+
+executing command: SET NEWNAME
+
+executing command: SET NEWNAME
+
+executing command: SET NEWNAME
+
+Starting restore at 2016-08-16:15:55:39
+Starting implicit crosscheck backup at 2016-08-16:15:55:39
+Finished implicit crosscheck backup at 2016-08-16:15:55:58
+
+Starting implicit crosscheck copy at 2016-08-16:15:55:58
+Crosschecked 72 objects
+Finished implicit crosscheck copy at 2016-08-16:15:56:07
+
+searching for all files in the recovery area
+cataloging files...
+no files cataloged
+
+
+channel c1: starting datafile backup set restore
+channel c1: specifying datafile(s) to restore from backup set
+channel c1: restoring datafile 00006 to /testdb/TESTPCDB/users2_bf
+channel c1: reading from backup piece PCDB_84rd62ca_1_1_919800202
+channel c2: starting datafile backup set restore
+channel c2: specifying datafile(s) to restore from backup set
+channel c2: restoring datafile 00004 to /testdb/TESTPCDB/users_bf
+channel c2: reading from backup piece PCDB_89rd6487_1_1_919802119
+channel c1: piece handle=PCDB_84rd62ca_1_1_919800202 tag=NIGHTLY_FULL_BACKUP
+channel c1: restored backup piece 1
+channel c1: restore complete, elapsed time: 00:02:15
+channel c1: starting datafile backup set restore
+channel c1: specifying datafile(s) to restore from backup set
+channel c1: restoring datafile 00038 to /testdb/TESTPCDB/undo01_38
+channel c1: reading from backup piece PCDB_8frd64t9_1_1_919802793
+channel c2: piece handle=PCDB_89rd6487_1_1_919802119 tag=NIGHTLY_FULL_BACKUP
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 00:02:31
+channel c2: starting datafile backup set restore
+channel c2: specifying datafile(s) to restore from backup set
+channel c2: restoring datafile 00130 to /testdb/TESTPCDB/sysaux_130
+channel c2: reading from backup piece PCDB_8rrd65ne_1_1_919803630
+channel c2: piece handle=PCDB_8rrd65ne_1_1_919803630 tag=NIGHTLY_FULL_BACKUP
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 00:10:16
+channel c2: starting datafile backup set restore
+channel c2: specifying datafile(s) to restore from backup set
+channel c2: restoring datafile 00001 to /testdb/TESTPCDB/system_1
+channel c2: reading from backup piece PCDB_92rd668s_1_1_919804188
+channel c1: piece handle=PCDB_8frd64t9_1_1_919802793 tag=NIGHTLY_FULL_BACKUP
+channel c1: restored backup piece 1
+channel c1: restore complete, elapsed time: 00:14:07
+channel c1: starting datafile backup set restore
+channel c1: specifying datafile(s) to restore from backup set
+channel c1: restoring datafile 00037 to /testdb/TESTPCDB/undo01_37
+channel c1: reading from backup piece PCDB_95rd66gt_1_1_919804445
+channel c2: piece handle=PCDB_92rd668s_1_1_919804188 tag=NIGHTLY_FULL_BACKUP
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 00:13:22
+channel c2: starting datafile backup set restore
+channel c2: specifying datafile(s) to restore from backup set
+channel c2: restoring datafile 00129 to /testdb/TESTPCDB/sysaux_129
+channel c2: restoring datafile 00223 to /testdb/TESTPCDB/undo01_223
+channel c2: reading from backup piece PCDB_9brd670u_1_1_919804958
+channel c1: piece handle=PCDB_95rd66gt_1_1_919804445 tag=NIGHTLY_FULL_BACKUP
+channel c1: restored backup piece 1
+channel c1: restore complete, elapsed time: 00:25:32
+channel c1: starting datafile backup set restore
+channel c1: specifying datafile(s) to restore from backup set
+channel c1: restoring datafile 00201 to /testdb/TESTPCDB/sysaux_201
+channel c1: reading from backup piece PCDB_9erd678l_1_1_919805205
+channel c2: piece handle=PCDB_9brd670u_1_1_919804958 tag=NIGHTLY_FULL_BACKUP
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 00:23:02
+channel c2: starting datafile backup set restore
+channel c2: specifying datafile(s) to restore from backup set
+channel c2: restoring datafile 00219 to /testdb/TESTPCDB/sysaux_219
+channel c2: reading from backup piece PCDB_9lrd67kq_1_1_919805594
+channel c1: piece handle=PCDB_9erd678l_1_1_919805205 tag=NIGHTLY_FULL_BACKUP
+channel c1: restored backup piece 1
+channel c1: restore complete, elapsed time: 00:21:13
+channel c2: piece handle=PCDB_9lrd67kq_1_1_919805594 tag=NIGHTLY_FULL_BACKUP
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 00:15:27
+Finished restore at 2016-08-16:17:01:24
+
+datafile 1 switched to datafile copy
+input datafile copy RECID=26286 STAMP=920048490 file name=/testdb/TESTPCDB/system_1
+datafile 4 switched to datafile copy
+input datafile copy RECID=26287 STAMP=920048492 file name=/testdb/TESTPCDB/users_bf
+datafile 6 switched to datafile copy
+input datafile copy RECID=26288 STAMP=920048494 file name=/testdb/TESTPCDB/users2_bf
+datafile 37 switched to datafile copy
+input datafile copy RECID=26289 STAMP=920048495 file name=/testdb/TESTPCDB/undo01_37
+datafile 38 switched to datafile copy
+input datafile copy RECID=26290 STAMP=920048497 file name=/testdb/TESTPCDB/undo01_38
+datafile 129 switched to datafile copy
+input datafile copy RECID=26291 STAMP=920048499 file name=/testdb/TESTPCDB/sysaux_129
+datafile 130 switched to datafile copy
+input datafile copy RECID=26292 STAMP=920048501 file name=/testdb/TESTPCDB/sysaux_130
+datafile 201 switched to datafile copy
+input datafile copy RECID=26293 STAMP=920048503 file name=/testdb/TESTPCDB/sysaux_201
+datafile 219 switched to datafile copy
+input datafile copy RECID=26294 STAMP=920048505 file name=/testdb/TESTPCDB/sysaux_219
+datafile 223 switched to datafile copy
+input datafile copy RECID=26295 STAMP=920048506 file name=/testdb/TESTPCDB/undo01_223
+released channel: c1
+released channel: c2
+
+RMAN> QUIT;
+
+Recovery Manager complete.

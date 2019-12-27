@@ -1,0 +1,13 @@
+RUN{
+SQL "ALTER DATABASE RENAME FILE ''/dev/vx/rdsk/berdb4/REDO_01_01'' TO ''/storage_920F1/testdb/oradata/testdb4/redo/REDO_01_01'' ";
+SQL "ALTER DATABASE RENAME FILE ''/dev/vx/rdsk/berdb4/REDO_02_01'' TO ''/storage_920F1/testdb/oradata/testdb4/redo/REDO_02_01'' ";
+SQL "ALTER DATABASE RENAME FILE ''/dev/vx/rdsk/berdb4/REDO_03_01'' TO ''/storage_920F1/testdb/oradata/testdb4/redo/REDO_03_01'' ";
+SQL "ALTER DATABASE RENAME FILE ''/dev/vx/rdsk/berdb4/REDO_04_01'' TO ''/storage_920F1/testdb/oradata/testdb4/redo/REDO_04_01'' ";
+SQL "ALTER DATABASE RENAME FILE ''/dev/vx/rdsk/berdb4/REDO_05_01'' TO ''/storage_920F1/testdb/oradata/testdb4/redo/REDO_05_01'' ";
+SQL "ALTER DATABASE RENAME FILE ''/dev/vx/rdsk/berdb4/REDO_06_01'' TO ''/storage_920F1/testdb/oradata/testdb4/redo/REDO_06_01'' ";
+SQL "ALTER DATABASE RENAME FILE ''/dev/vx/rdsk/berdb4/REDO_07_01'' TO ''/storage_920F1/testdb/oradata/testdb4/redo/REDO_07_01'' ";
+SQL "ALTER DATABASE RENAME FILE ''/dev/vx/rdsk/berdb4/REDO_08_01'' TO ''/storage_920F1/testdb/oradata/testdb4/redo/REDO_08_01'' ";
+SQL "ALTER DATABASE RENAME FILE ''/dev/vx/rdsk/berdb4/REDO_09_01'' TO ''/storage_920F1/testdb/oradata/testdb4/redo/REDO_09_01'' ";
+SQL "ALTER DATABASE RENAME FILE ''/dev/vx/rdsk/berdb4/REDO_10_01'' TO ''/storage_920F1/testdb/oradata/testdb4/redo/REDO_10_01'' ";
+}
+QUIT;

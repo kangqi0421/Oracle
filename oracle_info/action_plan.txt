@@ -1,0 +1,86 @@
+1.
+srvctl stop listener -listener LISTENER_DB3V1
+srvctl disable listener -listener LISTENER_DB3V1
+
+5.
+sqlplus / as sysdba
+дождаться когда вернет 0 - 
+select count(*) from smaster.scp_call_profile;
+
+6.
+alter system set job_queue_processes=0;
+
+7. Кильнуть все джобы и отключить все сессии в БД.
+килять сессии CAREM вместе с джобами.
+
+ps -ef | grep ${ORACLE_SID} | grep LOCAL=NO | awk '{ print "kill -9 " $2 }' > /tmp/kill_${ORACLE_SID}.sh
+ps -ef | grep ora_j | grep ${ORACLE_SID} | awk '{ print "kill -9 " $2 }' >> /tmp/kill_${ORACLE_SID}.sh
+bash /tmp/kill_${ORACLE_SID}.sh
+
+8.
+/*
+drop table vbondarenko.invalid_objects;
+create table vbondarenko.invalid_objects as select * from dba_invalid_objects;
+*/
+select * from dba_invalid_objects order by 1,2,6;
+select count(*) from vbondarenko.invalid_objects;
+select count(*) from dba_invalid_objects;
+select owner, object_name, object_type from dba_invalid_objects
+ minus 
+select owner, object_name, object_type from vbondarenko.invalid_objects
+ order by owner, object_name, object_type;
+
+10. Ставим все патчи (оффлайн):
+cd /d L:\DBA\123\1\4_7_37_0\
+install_general.bat
+---------
+
+11. Все компиллируем:
+exec sys.utl_recomp.recomp_parallel(20);
+
+12. Проверяем не появилось ли новых невалидных объектов:
+select * from dba_invalid_objects order by 1,2,6;
+select count(*) from gavrilov.invalid_objects;
+select count(*) from dba_invalid_objects;
+select owner, object_name, object_type from dba_invalid_objects
+ minus 
+select owner, object_name, object_type from vbondarenko.invalid_objects
+ order by owner, object_name, object_type;
+
+13. Проверяем версии:
+select TELE2MASTER.TELE2_UTILS.GET_VERSION from dual;
+
+select VERSION, DESCRIPTION, INSTALL_DATE from inv_version order by install_date desc;
+
+15. Включаем джобы:
+alter system set job_queue_processes=300 scope=memory;
+убеждаемся что джобы запустились
+
+16.
+srvctl enable listener -listener LISTENER_DB3V4
+srvctl start listener -listener LISTENER_DB3V4
+
+21.
+Перезапускать после включения джобов и нагрузки
+begin
+  dbms_propagation_adm.stop_propagation('URDP_PROPAGATION');
+  dbms_propagation_adm.start_propagation('URDP_PROPAGATION');  
+end;
+
+Проверять:
+select count(*) from urdp.urdp_queue_tab;
+select * from dba_scheduler_running_jobs where job_name like '%AQ_JOB%';
+
+-----------------------
+alter package smaster.INV_COMMON compile debug;
+alter package smaster.INV_ORDER compile debug;
+select 'alter package smaster.'||object_name||' compile debug;' from dba_objects where owner='SMASTER' and object_type='PACKAGE'
+
+пакеты Inv_common и inv_api .
+---------------------------------
+Проверка когда развалился пакет
+
+select * from dba_invalid_objects do where do.LAST_DDL_TIME between TO_DATE('01.05.2018 12:36:00', 'DD.MM.YYYY HH24:MI:SS') and sysdate
+
+
+QA_ProductCalculation <QA_ProductCalculation@tele2.ru>; ESB_Support <ESB_Support@tele2.ru>; TESTDB_USER <TESTDB_USER@tele2.ru>; NPD_CC_pilot <NPD_CC_pilot@tele2.ru>AutoTest <AutoTest@tele2.ru>

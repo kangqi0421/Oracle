@@ -1,0 +1,143 @@
+runner.nix.tele2.ru – DWH, DZO, DSU
+
+Выводимые табличные пространства:
+	CDR_2014_Q4
+	CDR_2015_Q1
+	CDR_2015_Q2
+	IN_2013_Q4
+	IN_2014_Q1
+	IN_2014_Q2
+	IN_2014_Q3
+	IN_2014_Q4
+	IN_2015_Q1
+	IN_2015_Q2
+	IN_2015_Q3
+	IN_2015_Q4
+	IN_2016_Q1
+
+DZO время хранения данных: 
+- CDR_ -  3 года хранения, 
+- IN_ - 4 года хранения.
+
+Проверка партиций в табличном пространстве (есть ли данные более свежие, чем выводимые):
+declare
+  -- Временные переменные
+  v_temp_str  varchar2(4000);
+  d_temp_date date;
+  -- Курсоры
+  cursor v_dynsql_partitions is
+    select table_owner, table_name, high_value, partition_name
+      from dba_tab_partitions
+     where tablespace_name in ('CDR_2014_Q4')
+     order by partition_position;
+begin
+  dbms_output.put_line('alter session set db_file_multiblock_read_count=128;');
+  DBMS_OUTPUT.ENABLE(10000000000);
+
+  for r in v_dynsql_partitions loop
+    v_temp_str := r.high_value;
+    execute immediate ('select ' || v_temp_str || ' from dual')
+      into d_temp_date;
+  
+    if to_date(d_temp_date, 'dd.mm.yyyy') >
+       to_date('01.01.2015', 'dd.mm.yyyy') then
+      dbms_output.put_line(r.table_owner || '.' || r.table_name || ' partition ' || r.partition_name );
+    
+    end if;
+  end loop;
+end;
+
+Скрипты бэкапа TTS:
+$ pwd 
+/DWH_TTS/warehouse/oradata/DWH_RO_exports
+
+$ ls -1 | grep dzo
+
+mkdir dzo_cdr_2014_q4_exp
+
+cp ./dzo_cdr_2014_q3_exp/make_backup_scripts.sql ./dzo_cdr_2014_q4_exp
+
+cp ./dzo_cdr_2014_q3_exp/drop_tab_list.sh ./dzo_cdr_2014_q4_exp
+
+cd dzo_cdr_2014_q4_exp
+
+vi make_backup_scripts.sql
+
+Редактировать строку #3:
+define v_ts=cdr_2014_q4
+
+sqlplus / as sysdba @make_backup_scripts.sql
+
+В результате сформировались скрипты которыми выполняем бэкап ттс.
+
+$ ls -1
+1step.sql
+2step.sql
+3step.sh
+4step.sql
+backup_cdr_2014_q4.rmn
+backup_cdr_2014_q4.sh
+backup_to_tape_cdr_2014_q4.sh
+cdr_2014_q4.lst
+drop_tab_list.sh
+make_backup_scripts.sql
+
+Backup datafile scripts:
+backup_cdr_2014_q4.rmn
+backup_cdr_2014_q4.sh
+
+Backup datafile:
+nohup bash ./backup_cdr_2014_q4.sh &
+Мониторим бэкап:
+tail -1000f backup_cdr_2014_q4.rmn.log
+Параллельно мониторим место:
+df -h /DWH_TTS/
+
+Создаем структуру выводимых данных:
+. set_environment.sh DZO
+sqlplus / as sysdba @1step.sql
+less 1step.sql.log
+
+Проводим exchange в новую структуру:
+sqlplus / as sysdba @2step.sql
+less 2step.sql.log
+
+Выливаем метаданные табличного пространства:
+bash ./3step.sh
+Проверяем лог экспорта метаданных:
+Less cdr_2014_q4_exp.log
+
+Возвращаем все назад:
+sqlplus / as sysdba @4step.sql
+less 4step.sql.log
+
+Backup на ленту:
+nohup bash ./backup_to_tape_cdr_2014_q4.sh &
+Следим за процессом отправки на ленту:
+tail -1000f ./bpbackup_log_cdr_2014_q4.log
+
+
+Пометка-нужно исправить в результирующих скриптах:
+IN_XXXX_QX
+----
+1.
+--CREATE INDEX ARCHIVE.BWC_CALL_56_IDX$T ON ARCHIVE.BWCCALLMM562013_ (SUBS_ID) LOCAL NOLOGGING COMPRESS ADVANCED LOW TABLESPACE BUFFER_TBS;
+--CREATE INDEX ARCHIVE.BWC_CALL_56_IDX$T2 ON ARCHIVE.EXC_BWC_CALL_MM_56_2013 (SUBS_ID) NOLOGGING COMPRESS ADVANCED LOW TABLESPACE BUFFER_TBS;
+ 
+CREATE INDEX ARCHIVE.BWC_CALL_56_IDX$T ON ARCHIVE.BWCCALLMM562013_ (SUBS_ID) LOCAL NOLOGGING TABLESPACE BUFFER_TBS;
+CREATE INDEX ARCHIVE.BWC_CALL_56_IDX$T2 ON ARCHIVE.EXC_BWC_CALL_MM_56_2013 (SUBS_ID) NOLOGGING TABLESPACE BUFFER_TBS;
+ 
+2.
+--CREATE INDEX ARCHIVE.HB5_CALL_SUBS_ID_IDX$T ON ARCHIVE.HB5CALLMM_ (SUBS_ID) LOCAL NOLOGGING COMPRESS ADVANCED LOW TABLESPACE BUFFER_TBS;
+--CREATE INDEX ARCHIVE.HB5_CALL_SUBS_ID_IDX$T2 ON ARCHIVE.EXC_HB5_CALL_MM (SUBS_ID) NOLOGGING COMPRESS ADVANCED LOW TABLESPACE BUFFER_TBS;
+ 
+CREATE INDEX ARCHIVE.HB5_CALL_SUBS_ID_IDX$T ON ARCHIVE.HB5CALLMM_ (SUBS_ID) LOCAL NOLOGGING TABLESPACE BUFFER_TBS;
+CREATE INDEX ARCHIVE.HB5_CALL_SUBS_ID_IDX$T2 ON ARCHIVE.EXC_HB5_CALL_MM (SUBS_ID) NOLOGGING TABLESPACE BUFFER_TBS;
+ 
+ 
+3.
+--CREATE INDEX ARCHIVE.KA3_CALL_SUBS_ID_IDX$T ON ARCHIVE.KA3CALLMM_ (SUBS_ID) LOCAL NOLOGGING COMPRESS ADVANCED LOW TABLESPACE BUFFER_TBS;
+--CREATE INDEX ARCHIVE.KA3_CALL_SUBS_ID_IDX$T2 ON ARCHIVE.EXC_KA3_CALL_MM (SUBS_ID) NOLOGGING COMPRESS ADVANCED LOW TABLESPACE BUFFER_TBS;
+ 
+CREATE INDEX ARCHIVE.KA3_CALL_SUBS_ID_IDX$T ON ARCHIVE.KA3CALLMM_ (SUBS_ID) LOCAL NOLOGGING TABLESPACE BUFFER_TBS;
+CREATE INDEX ARCHIVE.KA3_CALL_SUBS_ID_IDX$T2 ON ARCHIVE.EXC_KA3_CALL_MM (SUBS_ID) NOLOGGING TABLESPACE BUFFER_TBS;

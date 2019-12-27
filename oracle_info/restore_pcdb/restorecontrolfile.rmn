@@ -1,0 +1,4 @@
+RUN{
+ALLOCATE CHANNEL c1 DEVICE TYPE 'SBT_TAPE' PARMS 'SBT_LIBRARY=/usr/openv/netbackup/bin/libobk.so64.1' SEND 'NB_ORA_POLICY=pcdb-everyday  ,NB_ORA_SERV=nbserver.nix.tele2.ru, NB_ORA_CLIENT=pcdb-backup.nix.tele2.ru';
+RESTORE CONTROLFILE FROM 'c-2226041910-20160816-02';
+}

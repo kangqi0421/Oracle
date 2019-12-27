@@ -1,0 +1,501 @@
+RUN{
+ SET NEWNAME FOR DATAFILE 1 TO '+DATA/TESTDWH/datafile/system.dbf';
+ SET NEWNAME FOR DATAFILE 2 TO '+DATA/TESTDWH/datafile/undotbs.dbf';
+ SET NEWNAME FOR DATAFILE 3 TO '+DATA/TESTDWH/datafile/sysaux.dbf';
+ SET NEWNAME FOR DATAFILE 4 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/users_01.dbf';
+ SET NEWNAME FOR DATAFILE 5 TO '+DATA/TESTDWH/datafile/cdr_stage_indx__05.dbf';
+ SET NEWNAME FOR DATAFILE 6 TO '+DATA/TESTDWH/datafile/cdr_stage_indx__04.dbf';
+ SET NEWNAME FOR DATAFILE 7 TO '+DATA/TESTDWH/datafile/cdr_stage_indx__03.dbf';
+ SET NEWNAME FOR DATAFILE 8 TO '+DATA/TESTDWH/datafile/cdr_stage_indx__02.dbf';
+ SET NEWNAME FOR DATAFILE 10 TO '+DATA/TESTDWH/datafile/cdr_stage_indx__01.dbf';
+ SET NEWNAME FOR DATAFILE 11 TO '+DATA/TESTDWH/datafile/aggregates_data.dbf';
+ SET NEWNAME FOR DATAFILE 12 TO '+DATA/TESTDWH/datafile/cdr_stage_data__07.dbf';
+ SET NEWNAME FOR DATAFILE 13 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RO_TS/TBS_STAT_RO/tbs_stat_ro_q_old_1.dbf';
+ SET NEWNAME FOR DATAFILE 14 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/factura_1.dbf';
+ SET NEWNAME FOR DATAFILE 15 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/factura_2.dbf';
+ SET NEWNAME FOR DATAFILE 25 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/cdr_mms_rw_tbs_02.dbf';
+ SET NEWNAME FOR DATAFILE 26 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/users2_01.dbf';
+ SET NEWNAME FOR DATAFILE 27 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/berdb_tbs_18.dbf';
+ SET NEWNAME FOR DATAFILE 28 TO '+DATA/TESTDWH/datafile/in_stage_data__01.dbf';
+ SET NEWNAME FOR DATAFILE 29 TO '+DATA/TESTDWH/datafile/in_stage_data__02.dbf';
+ SET NEWNAME FOR DATAFILE 30 TO '+DATA/TESTDWH/datafile/in_stage_data__03.dbf';
+ SET NEWNAME FOR DATAFILE 31 TO '+DATA/TESTDWH/datafile/in_stage_data__04.dbf';
+ SET NEWNAME FOR DATAFILE 35 TO '+DATA/TESTDWH/datafile/in_stage_indx__01.dbf';
+ SET NEWNAME FOR DATAFILE 36 TO '+DATA/TESTDWH/datafile/in_stage_indx__02.dbf';
+ SET NEWNAME FOR DATAFILE 37 TO '+DATA/TESTDWH/datafile/in_stage_indx__03.dbf';
+ SET NEWNAME FOR DATAFILE 39 TO '+DATA/TESTDWH/datafile/in_stage_indx__04.dbf';
+ SET NEWNAME FOR DATAFILE 40 TO '+DATA/TESTDWH/datafile/cdr_stage_data__06.dbf';
+ SET NEWNAME FOR DATAFILE 41 TO '+DATA/TESTDWH/datafile/cdr_stage_data__05.dbf';
+ SET NEWNAME FOR DATAFILE 50 TO '+DATA/TESTDWH/datafile/dim_data2_02.dbf';
+ SET NEWNAME FOR DATAFILE 51 TO '+DATA/TESTDWH/datafile/dim_data2_03.dbf';
+ SET NEWNAME FOR DATAFILE 70 TO '+DATA/TESTDWH/datafile/dim_indx2_01.dbf';
+ SET NEWNAME FOR DATAFILE 71 TO '+DATA/TESTDWH/datafile/dim_indx2_02.dbf';
+ SET NEWNAME FOR DATAFILE 72 TO '+DATA/TESTDWH/datafile/dmuser.dbf';
+ SET NEWNAME FOR DATAFILE 73 TO '+DATA/TESTDWH/datafile/ggsn_stage_data__04.dbf';
+ SET NEWNAME FOR DATAFILE 74 TO '+DATA/TESTDWH/datafile/test_tbs02.dbf';
+ SET NEWNAME FOR DATAFILE 76 TO '+DATA/TESTDWH/datafile/ggsn_stage_data__05.dbf';
+ SET NEWNAME FOR DATAFILE 87 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/tbs_flash_old_01.dbf';
+ SET NEWNAME FOR DATAFILE 88 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/tbs_flash_old_02.dbf';
+ SET NEWNAME FOR DATAFILE 89 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/tbs_flash3_old_01.dbf';
+ SET NEWNAME FOR DATAFILE 90 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/tbs_flash3_old_02.dbf';
+ SET NEWNAME FOR DATAFILE 91 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/tbs_content_old_01.dbf';
+ SET NEWNAME FOR DATAFILE 92 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/tbs_content_old_02.dbf';
+ SET NEWNAME FOR DATAFILE 93 TO '+DATA/TESTDWH/datafile/massmo_01.dbf';
+ SET NEWNAME FOR DATAFILE 102 TO '+DATA/TESTDWH/datafile/ggsn_stage_data__06.dbf';
+ SET NEWNAME FOR DATAFILE 104 TO '+DATA/TESTDWH/datafile/tbs_flash3_02.dbf';
+ SET NEWNAME FOR DATAFILE 105 TO '+DATA/TESTDWH/datafile/aggregates_data_02.dbf';
+ SET NEWNAME FOR DATAFILE 106 TO '+DATA/TESTDWH/datafile/ggsn_stage_data__07.dbf';
+ SET NEWNAME FOR DATAFILE 107 TO '+DATA/TESTDWH/datafile/audit_tbs_02.dbf';
+ SET NEWNAME FOR DATAFILE 108 TO '+DATA/TESTDWH/datafile/sgsn_data_stage__02.dbf';
+ SET NEWNAME FOR DATAFILE 109 TO '+DATA/TESTDWH/datafile/cdr_stage_indx__06.dbf';
+ SET NEWNAME FOR DATAFILE 110 TO '+DATA/TESTDWH/datafile/cdr_stage_data__04.dbf';
+ SET NEWNAME FOR DATAFILE 111 TO '+DATA/TESTDWH/datafile/audit_tbs.dbf';
+ SET NEWNAME FOR DATAFILE 112 TO '+DATA/TESTDWH/datafile/cdr_stage_data__03.dbf';
+ SET NEWNAME FOR DATAFILE 113 TO '+DATA/TESTDWH/datafile/test_tbs.dbf';
+ SET NEWNAME FOR DATAFILE 114 TO '+DATA/TESTDWH/datafile/apex_user_ts.404.754401853';
+ SET NEWNAME FOR DATAFILE 115 TO '+DATA/TESTDWH/datafile/apex_files_ts.401.754401855';
+ SET NEWNAME FOR DATAFILE 116 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/apex_123.dbf_01.dbf';
+ SET NEWNAME FOR DATAFILE 121 TO '+DATA/TESTDWH/datafile/cdr_stage_data__02.dbf';
+ SET NEWNAME FOR DATAFILE 122 TO '+DATA/TESTDWH/datafile/cdr_stage_data__01.dbf';
+ SET NEWNAME FOR DATAFILE 130 TO '+DATA/TESTDWH/datafile/audit_sms_tbs.dbf';
+ SET NEWNAME FOR DATAFILE 134 TO '+DATA/TESTDWH/datafile/ggsn_data_stage.dbf';
+ SET NEWNAME FOR DATAFILE 135 TO '+DATA/TESTDWH/datafile/sgsn_data_stage.dbf';
+ SET NEWNAME FOR DATAFILE 145 TO '+DATA/TESTDWH/datafile/tbs_stat_01.dbf';
+ SET NEWNAME FOR DATAFILE 165 TO '+DATA/TESTDWH/datafile/tbs_content.dbf';
+ SET NEWNAME FOR DATAFILE 170 TO '+DATA/TESTDWH/datafile/sms_stage__01.dbf';
+ SET NEWNAME FOR DATAFILE 184 TO '+DATA/TESTDWH/datafile/tbs_stat.dbf';
+ SET NEWNAME FOR DATAFILE 187 TO '+DATA/TESTDWH/datafile/tbs_tap_roam_02.dbf';
+ SET NEWNAME FOR DATAFILE 188 TO '+DATA/TESTDWH/datafile/rbt_ts_01.dbf';
+ SET NEWNAME FOR DATAFILE 189 TO '+DATA/TESTDWH/datafile/sms_stage__02.dbf';
+ SET NEWNAME FOR DATAFILE 211 TO '+DATA/TESTDWH/datafile/cdr_stage_data__08.dbf';
+ SET NEWNAME FOR DATAFILE 231 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/tbs_reserves_old.dbf';
+ SET NEWNAME FOR DATAFILE 232 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/tbs_tbs_old_01.dbf';
+ SET NEWNAME FOR DATAFILE 238 TO '+DATA/TESTDWH/datafile/ggsn_stage_data__08.dbf';
+ SET NEWNAME FOR DATAFILE 239 TO '+DATA/TESTDWH/datafile/cdr_stage_data__09.dbf';
+ SET NEWNAME FOR DATAFILE 240 TO '+DATA/TESTDWH/datafile/cdr_stage_indx__07.dbf';
+ SET NEWNAME FOR DATAFILE 244 TO '+DATA/TESTDWH/datafile/ggsn_stage_data__09.dbf';
+ SET NEWNAME FOR DATAFILE 245 TO '+DATA/TESTDWH/datafile/cdr_stage_data__10.dbf';
+ SET NEWNAME FOR DATAFILE 247 TO '+DATA/TESTDWH/datafile/tbs_content02.dbf';
+ SET NEWNAME FOR DATAFILE 249 TO '+DATA/TESTDWH/datafile/tbs_flash_02.dbf';
+ SET NEWNAME FOR DATAFILE 250 TO '+DATA/TESTDWH/datafile/cdr_stage_data2__01.dbf';
+ SET NEWNAME FOR DATAFILE 251 TO '+DATA/TESTDWH/datafile/cdr_stage_data2__02.dbf';
+ SET NEWNAME FOR DATAFILE 252 TO '+DATA/TESTDWH/datafile/cdr_stage_data2__03.dbf';
+ SET NEWNAME FOR DATAFILE 253 TO '+DATA/TESTDWH/datafile/cdr_stage_data2__04.dbf';
+ SET NEWNAME FOR DATAFILE 254 TO '+DATA/TESTDWH/datafile/cdr_stage_data2__05.dbf';
+ SET NEWNAME FOR DATAFILE 255 TO '+DATA/TESTDWH/datafile/cdr_stage_indx2__01.dbf';
+ SET NEWNAME FOR DATAFILE 256 TO '+DATA/TESTDWH/datafile/cdr_stage_indx2__02.dbf';
+ SET NEWNAME FOR DATAFILE 257 TO '+DATA/TESTDWH/datafile/cdr_stage_indx2__03.dbf';
+ SET NEWNAME FOR DATAFILE 258 TO '+DATA/TESTDWH/datafile/cdr_stage_indx2__04.dbf';
+ SET NEWNAME FOR DATAFILE 259 TO '+DATA/TESTDWH/datafile/aggregates_data_03.dbf';
+ SET NEWNAME FOR DATAFILE 273 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/workflow_05.dbf';
+ SET NEWNAME FOR DATAFILE 274 TO '+DATA/TESTDWH/datafile/dim_data2_04.dbf';
+ SET NEWNAME FOR DATAFILE 275 TO '+DATA/TESTDWH/datafile/dim_indx2_03.dbf';
+ SET NEWNAME FOR DATAFILE 276 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/edw_tbs_01.dbf';
+ SET NEWNAME FOR DATAFILE 319 TO '+DATA/TESTDWH/datafile/tbs_sorm.dbf';
+ SET NEWNAME FOR DATAFILE 334 TO '+DATA/TESTDWH/datafile/audit_roam_tbs.dbf';
+ SET NEWNAME FOR DATAFILE 367 TO '+DATA/TESTDWH/datafile/tbs_tap_roam.dbf';
+ SET NEWNAME FOR DATAFILE 368 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RO_TS/DWH_01/iconn_data_2009_12__01.dbf';
+ SET NEWNAME FOR DATAFILE 401 TO '+DATA/TESTDWH/datafile/ggsn_data_stage_1.dbf';
+ SET NEWNAME FOR DATAFILE 402 TO '+DATA/TESTDWH/datafile/ggsn_data_stage_2.dbf';
+ SET NEWNAME FOR DATAFILE 403 TO '+DATA/TESTDWH/datafile/ggsn_data_stage_3.dbf';
+ SET NEWNAME FOR DATAFILE 404 TO '+DATA/TESTDWH/datafile/ggsn_stage_data__01.dbf';
+ SET NEWNAME FOR DATAFILE 420 TO '+DATA/TESTDWH/datafile/cyber_pays_data__01.dbf';
+ SET NEWNAME FOR DATAFILE 421 TO '+DATA/TESTDWH/datafile/tbs_reserves.dbf';
+ SET NEWNAME FOR DATAFILE 438 TO '+DATA/TESTDWH/datafile/ggsn_stage_data__02.dbf';
+ SET NEWNAME FOR DATAFILE 491 TO '+DATA/TESTDWH/datafile/tbs_flash_01.dbf';
+ SET NEWNAME FOR DATAFILE 508 TO '+DATA/TESTDWH/datafile/iconn_main__01.dbf';
+ SET NEWNAME FOR DATAFILE 515 TO '+DATA/TESTDWH/datafile/sgsn_data_stage__01.dbf';
+ SET NEWNAME FOR DATAFILE 517 TO '+DATA/TESTDWH/datafile/ggsn_stage_data__03.dbf';
+ SET NEWNAME FOR DATAFILE 536 TO '+DATA/TESTDWH/datafile/tbs_flash3_01.dbf';
+ SET NEWNAME FOR DATAFILE 567 TO '+DATA/TESTDWH/datafile/dim_data2.dbf';
+ SET NEWNAME FOR DATAFILE 568 TO '+DATA/TESTDWH/datafile/dim_indx2.dbf';
+ SET NEWNAME FOR DATAFILE 572 TO '+DATA/TESTDWH/datafile/cyber_pays_data__02.dbf';
+ SET NEWNAME FOR DATAFILE 597 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RO_TS/DWH_01/iconn_data_2009_11__01.dbf';
+ SET NEWNAME FOR DATAFILE 628 TO '+DATA/TESTDWH/datafile/tbs_stat_02.dbf';
+ SET NEWNAME FOR DATAFILE 678 TO '+DATA/TESTDWH/datafile/test_dim.dbf';
+ SET NEWNAME FOR DATAFILE 689 TO '+DATA/TESTDWH/datafile/cdr_stage_data2__06.dbf';
+ SET NEWNAME FOR DATAFILE 690 TO '+DATA/TESTDWH/datafile/cdr_stage_indx2__05.dbf';
+ SET NEWNAME FOR DATAFILE 692 TO '+DATA/TESTDWH/datafile/aggregates_data_04.dbf';
+ SET NEWNAME FOR DATAFILE 693 TO '+DATA/TESTDWH/datafile/cyber_pays_data__03.dbf';
+ SET NEWNAME FOR DATAFILE 694 TO '+DATA/TESTDWH/datafile/cdr_stage_data2__07.dbf';
+ SET NEWNAME FOR DATAFILE 695 TO '+DATA/TESTDWH/datafile/cdr_stage_indx2__06.dbf';
+ SET NEWNAME FOR DATAFILE 696 TO '+DATA/TESTDWH/datafile/cdr_stage_data2__08.dbf';
+ SET NEWNAME FOR DATAFILE 697 TO '+DATA/TESTDWH/datafile/cdr_stage_indx2__07.dbf';
+ SET NEWNAME FOR DATAFILE 698 TO '+DATA/TESTDWH/datafile/cdr_stage_data2__09.dbf';
+ SET NEWNAME FOR DATAFILE 699 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/workflow_01.dbf';
+ SET NEWNAME FOR DATAFILE 700 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/workflow_02.dbf';
+ SET NEWNAME FOR DATAFILE 703 TO '+DATA/TESTDWH/datafile/aggregates_data_05.dbf';
+ SET NEWNAME FOR DATAFILE 705 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/cdr_mms_rw_tbs_01.dbf';
+ SET NEWNAME FOR DATAFILE 706 TO '+DATA/TESTDWH/datafile/tbs_stat_03.dbf';
+ SET NEWNAME FOR DATAFILE 707 TO '+DATA/TESTDWH/datafile/sgsn_data_stage__03.dbf';
+ SET NEWNAME FOR DATAFILE 734 TO '+DATA/TESTDWH/datafile/tbs_revenue_sharing.dbf';
+ SET NEWNAME FOR DATAFILE 735 TO '+DATA/TESTDWH/datafile/tbs_revenue_sharing.367.703686103';
+ SET NEWNAME FOR DATAFILE 739 TO '+DATA/TESTDWH/datafile/undotbs2.dbf';
+ SET NEWNAME FOR DATAFILE 740 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/workflow_03.dbf';
+ SET NEWNAME FOR DATAFILE 754 TO '+DATA/TESTDWH/datafile/tbs_stat_ro_2011_q4_01.dbf';
+ SET NEWNAME FOR DATAFILE 755 TO '+DATA/TESTDWH/datafile/tbs_stat_ro_2011_q4_02.dbf';
+ SET NEWNAME FOR DATAFILE 756 TO '+DATA/TESTDWH/datafile/tbs_reserves_2011.dbf';
+ SET NEWNAME FOR DATAFILE 757 TO '+DATA/TESTDWH/datafile/cyber_pays_data_2011__02.dbf';
+ SET NEWNAME FOR DATAFILE 758 TO '+DATA/TESTDWH/datafile/cyber_pays_data_2011__01.dbf';
+ SET NEWNAME FOR DATAFILE 759 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/logs_data_01.dbf';
+ SET NEWNAME FOR DATAFILE 760 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/files_data_01.dbf';
+ SET NEWNAME FOR DATAFILE 761 TO '+DATA/TESTDWH/datafile/match_audit_01.dbf';
+ SET NEWNAME FOR DATAFILE 762 TO '+DATA/TESTDWH/datafile/match_audit_02.dbf';
+ SET NEWNAME FOR DATAFILE 788 TO '+DATA/TESTDWH/datafile/undotbs3.dbf';
+ SET NEWNAME FOR DATAFILE 789 TO '+DATA/TESTDWH/datafile/match_audit_03.dbf';
+ SET NEWNAME FOR DATAFILE 816 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/berdb_tbs_01.dbf';
+ SET NEWNAME FOR DATAFILE 817 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/berdb_tbs_02.dbf';
+ SET NEWNAME FOR DATAFILE 818 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/berdb_tbs_03.dbf';
+ SET NEWNAME FOR DATAFILE 819 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/berdb_tbs_04.dbf';
+ SET NEWNAME FOR DATAFILE 845 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/berdb_tbs_05.dbf';
+ SET NEWNAME FOR DATAFILE 846 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/berdb_tbs_06.dbf';
+ SET NEWNAME FOR DATAFILE 847 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/berdb_tbs_07.dbf';
+ SET NEWNAME FOR DATAFILE 848 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/workflow_04.dbf';
+ SET NEWNAME FOR DATAFILE 849 TO '+DATA/TESTDWH/datafile/tbs_flash3_03.dbf';
+ SET NEWNAME FOR DATAFILE 875 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/berdb_tbs_08.dbf';
+ SET NEWNAME FOR DATAFILE 876 TO '+DATA/TESTDWH/datafile/match_audit_04.dbf';
+ SET NEWNAME FOR DATAFILE 877 TO '+DATA/TESTDWH/datafile/tbs_stat_04.dbf';
+ SET NEWNAME FOR DATAFILE 879 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/edw_tbs_02.dbf';
+ SET NEWNAME FOR DATAFILE 880 TO '+DATA/TESTDWH/datafile/ggsn_data_stage_4.dbf';
+ SET NEWNAME FOR DATAFILE 881 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/berdb_tbs_09.dbf';
+ SET NEWNAME FOR DATAFILE 882 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/berdb_tbs_10.dbf';
+ SET NEWNAME FOR DATAFILE 883 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/berdb_tbs_11.dbf';
+ SET NEWNAME FOR DATAFILE 884 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/berdb_tbs_12.dbf';
+ SET NEWNAME FOR DATAFILE 885 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/berdb_tbs_13.dbf';
+ SET NEWNAME FOR DATAFILE 886 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/edw_tbs_03.dbf';
+ SET NEWNAME FOR DATAFILE 887 TO '+DATA/TESTDWH/datafile/ggsn_data_stage_5.dbf';
+ SET NEWNAME FOR DATAFILE 888 TO '+DATA/TESTDWH/datafile/cdr_stage_indx__08.dbf';
+ SET NEWNAME FOR DATAFILE 889 TO '+DATA/TESTDWH/datafile/cdr_stage_data__11.dbf';
+ SET NEWNAME FOR DATAFILE 890 TO '+DATA/TESTDWH/datafile/cdr_stage_indx__09.dbf';
+ SET NEWNAME FOR DATAFILE 891 TO '+DATA/TESTDWH/datafile/cdr_stage_data__12.dbf';
+ SET NEWNAME FOR DATAFILE 921 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/berdb_tbs_14.dbf';
+ SET NEWNAME FOR DATAFILE 922 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/berdb_tbs_15.dbf';
+ SET NEWNAME FOR DATAFILE 923 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/berdb_tbs_16.dbf';
+ SET NEWNAME FOR DATAFILE 924 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/berdb_tbs_17.dbf';
+ SET NEWNAME FOR DATAFILE 925 TO '+DATA/TESTDWH/datafile/match_audit_05.dbf';
+ SET NEWNAME FOR DATAFILE 951 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/sim_tbs_01.dbf';
+ SET NEWNAME FOR DATAFILE 952 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/tbs_stat_ro_2011_q3_02_n.dbf';
+ SET NEWNAME FOR DATAFILE 953 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/tbs_stat_ro_2011_q3_01_n.dbf';
+ SET NEWNAME FOR DATAFILE 954 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/tbs_stat_ro_2011_q3_03_n.dbf';
+ SET NEWNAME FOR DATAFILE 955 TO '+DATA/TESTDWH/datafile/ggsn_data_stage_6.dbf';
+ SET NEWNAME FOR DATAFILE 981 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/berdb_tbs_19.dbf';
+ SET NEWNAME FOR DATAFILE 982 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/berdb_tbs_20.dbf';
+ SET NEWNAME FOR DATAFILE 983 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/berdb_tbs_21.dbf';
+ SET NEWNAME FOR DATAFILE 984 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/berdb_tbs_22.dbf';
+ SET NEWNAME FOR DATAFILE 985 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/berdb_tbs_23.dbf';
+ SET NEWNAME FOR DATAFILE 986 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/berdb_tbs_24.dbf';
+ SET NEWNAME FOR DATAFILE 987 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/berdb_tbs_25.dbf';
+ SET NEWNAME FOR DATAFILE 988 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/berdb_tbs_26.dbf';
+ SET NEWNAME FOR DATAFILE 989 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/berdb_tbs_27.dbf';
+ SET NEWNAME FOR DATAFILE 990 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/berdb_tbs_28.dbf';
+ SET NEWNAME FOR DATAFILE 991 TO '+DATA/TESTDWH/datafile/aggregates_data_06.dbf';
+ SET NEWNAME FOR DATAFILE 992 TO '+DATA/TESTDWH/datafile/aggregates_data_07.dbf';
+ SET NEWNAME FOR DATAFILE 993 TO '+DATA/TESTDWH/datafile/aggregates_data_08.dbf';
+ SET NEWNAME FOR DATAFILE 994 TO '+DATA/TESTDWH/datafile/undotbs4.dbf';
+ SET NEWNAME FOR DATAFILE 995 TO '+DATA/TESTDWH/datafile/ggsn_data_stage_7.dbf';
+ SET NEWNAME FOR DATAFILE 996 TO '+DATA/TESTDWH/datafile/ggsn_data_stage_8.dbf';
+ SET NEWNAME FOR DATAFILE 998 TO '+DATA/TESTDWH/datafile/match_audit_06.dbf';
+ SET NEWNAME FOR DATAFILE 999 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/tbs_stat_ro_2011_q4_02_n.dbf';
+ SET NEWNAME FOR DATAFILE 1000 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/tbs_stat_ro_2011_q4_01_n.dbf';
+ SET NEWNAME FOR DATAFILE 1001 TO '/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/tbs_stat_ro_2011_q4_03_n.dbf';
+ SET NEWNAME FOR DATAFILE 1025 TO '+DATA/TESTDWH/datafile/cdr_data_2011_11__01.dbf';
+ SET NEWNAME FOR DATAFILE 1026 TO '+DATA/TESTDWH/datafile/cdr_data_2011_11__02.dbf';
+ SET NEWNAME FOR DATAFILE 1027 TO '+DATA/TESTDWH/datafile/cdr_data_2011_11__03.dbf';
+ SET NEWNAME FOR DATAFILE 1028 TO '+DATA/TESTDWH/datafile/cdr_data_2011_11__04.dbf';
+ SET NEWNAME FOR DATAFILE 1029 TO '+DATA/TESTDWH/datafile/cdr_data_2011_11__05.dbf';
+ SET NEWNAME FOR DATAFILE 1030 TO '+DATA/TESTDWH/datafile/cdr_data_2011_11__06.dbf';
+ SET NEWNAME FOR DATAFILE 1031 TO '+DATA/TESTDWH/datafile/cdr_data_2011_11__07.dbf';
+ SET NEWNAME FOR DATAFILE 1032 TO '+DATA/TESTDWH/datafile/cdr_data_2011_11__08.dbf';
+ SET NEWNAME FOR DATAFILE 1033 TO '+DATA/TESTDWH/datafile/cdr_data_2011_11__09.dbf';
+ SET NEWNAME FOR DATAFILE 1034 TO '+DATA/TESTDWH/datafile/cdr_data_2011_11__10.dbf';
+ SET NEWNAME FOR DATAFILE 1035 TO '+DATA/TESTDWH/datafile/cdr_data_2011_11__11.dbf';
+ SET NEWNAME FOR DATAFILE 1036 TO '+DATA/TESTDWH/datafile/cdr_indx_2011_11__01.dbf';
+ SET NEWNAME FOR DATAFILE 1037 TO '+DATA/TESTDWH/datafile/cdr_indx_2011_11__02.dbf';
+ SET NEWNAME FOR DATAFILE 1038 TO '+DATA/TESTDWH/datafile/cdr_indx_2011_11__03.dbf';
+ SET NEWNAME FOR DATAFILE 1039 TO '+DATA/TESTDWH/datafile/cdr_indx_2011_11__04.dbf';
+ SET NEWNAME FOR DATAFILE 1040 TO '+DATA/TESTDWH/datafile/cdr_indx_2011_11__05.dbf';
+ SET NEWNAME FOR DATAFILE 1041 TO '+DATA/TESTDWH/datafile/in_data_2011_11__01.dbf';
+ SET NEWNAME FOR DATAFILE 1042 TO '+DATA/TESTDWH/datafile/in_data_2011_11__02.dbf';
+ SET NEWNAME FOR DATAFILE 1043 TO '+DATA/TESTDWH/datafile/in_data_2011_11__03.dbf';
+ SET NEWNAME FOR DATAFILE 1044 TO '+DATA/TESTDWH/datafile/in_data_2011_11__04.dbf';
+ SET NEWNAME FOR DATAFILE 1045 TO '+DATA/TESTDWH/datafile/in_data_2011_11__05.dbf';
+ SET NEWNAME FOR DATAFILE 1046 TO '+DATA/TESTDWH/datafile/in_indx_2011_11__01.dbf';
+ SET NEWNAME FOR DATAFILE 1047 TO '+DATA/TESTDWH/datafile/in_indx_2011_11__02.dbf';
+ SET NEWNAME FOR DATAFILE 1048 TO '+DATA/TESTDWH/datafile/sgsn_2011_11_01.dbf';
+ SET NEWNAME FOR DATAFILE 1049 TO '+DATA/TESTDWH/datafile/sgsn_2011_11_02.dbf';
+ SET NEWNAME FOR DATAFILE 1050 TO '+DATA/TESTDWH/datafile/cdr_stage_data__13.dbf';
+ SET NEWNAME FOR DATAFILE 1051 TO '+DATA/TESTDWH/datafile/cdr_stage_data__14.dbf';
+ SET NEWNAME FOR DATAFILE 1052 TO '+DATA/TESTDWH/datafile/apex_17299232324615244.316.766117673';
+ SET NEWNAME FOR DATAFILE 1053 TO '+DATA/TESTDWH/datafile/tbs_stat_05.dbf';
+ SET NEWNAME FOR DATAFILE 1054 TO '+DATA/TESTDWH/datafile/tbs_stat_06.dbf';
+ RESTORE DATABASE SKIP FOREVER TABLESPACE
+  TBS_STAT_RO_2008_Q1,
+  TBS_STAT_RO_2003_2007,
+  CDR_DATA_2008_01,
+  CDR_INDX_2008_01,
+  IN_DATA_2008_01,
+  IN_INDX_2008_01,
+  CDR_DATA_2008_02,
+  CDR_INDX_2008_02,
+  IN_DATA_2008_02,
+  IN_INDX_2008_02,
+  TMP_PAYMENTS,
+  PAYMENT_2003_2007,
+  CDR_DATA_2008_03,
+  CDR_INDX_2008_03,
+  IN_DATA_2008_03,
+  IN_INDX_2008_03,
+  TBS_STAT_RO_2008_Q2,
+  TBS_STAT_RO_2008_Q3,
+  TBS_STAT_RO_2008_Q4,
+  CDR_DATA_2008_04,
+  CDR_INDX_2008_04,
+  CDR_DATA_2008_05,
+  CDR_INDX_2008_05,
+  CDR_DATA_2008_06,
+  CDR_INDX_2008_06,
+  CDR_DATA_2008_07,
+  CDR_INDX_2008_07,
+  IN_DATA_2008_07,
+  IN_INDX_2008_07,
+  CDR_DATA_2008_08,
+  CDR_INDX_2008_08,
+  IN_DATA_2008_08,
+  IN_INDX_2008_08,
+  CYBER_PAYS_2005__2008Q1,
+  CDR_DATA_2008_09,
+  CDR_INDX_2008_09,
+  IN_DATA_2008_09,
+  IN_INDX_2008_09,
+  CDR_DATA_2008_10,
+  CDR_INDX_2008_10,
+  IN_DATA_2008_10,
+  IN_INDX_2008_10,
+  DIM_CONST_DATA,
+  CDR_DATA_2008_11,
+  CDR_INDX_2008_11,
+  IN_DATA_2008_11,
+  IN_INDX_2008_11,
+  CDR_DATA_2008_12,
+  CDR_INDX_2008_12,
+  IN_DATA_2008_12,
+  IN_INDX_2008_12,
+  TBS_STAT_RO_2009_Q1,
+  TBS_STAT_RO_2009_Q2,
+  TBS_STAT_RO_2009_Q3,
+  TBS_STAT_RO_2009_Q4,
+  CDR_DATA_2009_01,
+  CDR_INDX_2009_01,
+  IN_DATA_2009_01,
+  IN_INDX_2009_01,
+  CDR_DATA_2009_02,
+  CDR_INDX_2009_02,
+  IN_DATA_2009_02,
+  IN_INDX_2009_02,
+  CDR_DATA_2009_03,
+  CDR_INDX_2009_03,
+  IN_DATA_2009_03,
+  IN_INDX_2009_03,
+  CDR_DATA_2009_04,
+  CDR_INDX_2009_04,
+  IN_DATA_2009_04,
+  IN_INDX_2009_04,
+  SGSN_2009_Q2,
+  CDR_DATA_2009_05,
+  CDR_INDX_2009_05,
+  IN_DATA_2009_05,
+  IN_INDX_2009_05,
+  CDR_DATA_2009_06,
+  CDR_INDX_2009_06,
+  IN_DATA_2009_06,
+  IN_INDX_2009_06,
+  CYBER_PAYS_2008Q2__2008Q4,
+  SGSN_2009_Q3,
+  CDR_DATA_2009_07,
+  CDR_INDX_2009_07,
+  IN_DATA_2009_07,
+  IN_INDX_2009_07,
+  CDR_DATA_2009_08,
+  CDR_INDX_2009_08,
+  IN_DATA_2009_08,
+  IN_INDX_2009_08,
+  CDR_DATA_2009_09,
+  CDR_INDX_2009_09,
+  IN_DATA_2009_09,
+  IN_INDX_2009_09,
+  CDR_DATA_2009_10,
+  CDR_INDX_2009_10,
+  IN_DATA_2009_10,
+  IN_INDX_2009_10,
+  SGSN_2009_Q4,
+  CDR_DATA_2009_11,
+  CDR_INDX_2009_11,
+  IN_DATA_2009_11,
+  IN_INDX_2009_11,
+  IN_DATA_2008_06,
+  IN_INDX_2008_06,
+  IN_DATA_2008_04,
+  IN_DATA_2008_05,
+  IN_INDX_2008_04,
+  IN_INDX_2008_05,
+  CDR_DATA_2009_12,
+  CDR_INDX_2009_12,
+  IN_DATA_2009_12,
+  IN_INDX_2009_12,
+  TBS_STAT_RO_2010_Q1,
+  TBS_STAT_RO_2010_Q2,
+  TBS_STAT_RO_2010_Q3,
+  TBS_STAT_RO_2010_Q4,
+  CDR_DATA_2010_01,
+  CDR_INDX_2010_01,
+  IN_DATA_2010_01,
+  IN_INDX_2010_01,
+  SGSN_2010_01,
+  CDR_DATA_2010_02,
+  CDR_INDX_2010_02,
+  IN_DATA_2010_02,
+  IN_INDX_2010_02,
+  SGSN_2010_02,
+  SGSN_2010_03,
+  CDR_DATA_2010_03,
+  CDR_INDX_2010_03,
+  IN_DATA_2010_03,
+  IN_INDX_2010_03,
+  CDR_DATA_2010_04,
+  CDR_INDX_2010_04,
+  IN_DATA_2010_04,
+  IN_INDX_2010_04,
+  SGSN_2010_04,
+  CDR_DATA_2010_05,
+  CDR_INDX_2010_05,
+  IN_DATA_2010_05,
+  IN_INDX_2010_05,
+  SGSN_2010_05,
+  GGSN_2010_04,
+  CDR_DATA_2010_06,
+  CDR_INDX_2010_06,
+  IN_DATA_2010_06,
+  IN_INDX_2010_06,
+  SGSN_2010_06,
+  GGSN_2010_05,
+  CDR_DATA_2010_07,
+  CDR_INDX_2010_07,
+  IN_DATA_2010_07,
+  IN_INDX_2010_07,
+  SGSN_2010_07,
+  CDR_DATA_2010_08,
+  CDR_INDX_2010_08,
+  IN_DATA_2010_08,
+  IN_INDX_2010_08,
+  SGSN_2010_08,
+  CDR_DATA_2010_09,
+  CDR_INDX_2010_09,
+  IN_DATA_2010_09,
+  IN_INDX_2010_09,
+  SGSN_2010_09,
+  CDR_DATA_2010_10,
+  CDR_INDX_2010_10,
+  IN_DATA_2010_10,
+  IN_INDX_2010_10,
+  SGSN_2010_10,
+  CDR_DATA_2010_11,
+  CDR_INDX_2010_11,
+  IN_DATA_2010_11,
+  IN_INDX_2010_11,
+  SGSN_2010_11,
+  CDR_DATA_2010_12,
+  CDR_INDX_2010_12,
+  IN_DATA_2010_12,
+  IN_INDX_2010_12,
+  SGSN_2010_12,
+  TBS_STAT_RO_2011_Q1,
+  TBS_STAT_RO_2011_Q2,
+  TBS_STAT_RO_2011_Q3,
+  CDR_DATA_2011_01,
+  CDR_INDX_2011_01,
+  IN_DATA_2011_01,
+  IN_INDX_2011_01,
+  SGSN_2011_01,
+  CDR_DATA_2011_02,
+  CDR_INDX_2011_02,
+  IN_DATA_2011_02,
+  IN_INDX_2011_02,
+  SGSN_2011_02,
+  CDR_DATA_2011_03,
+  CDR_INDX_2011_03,
+  IN_DATA_2011_03,
+  IN_INDX_2011_03,
+  SGSN_2011_03,
+  CDR_DATA_2011_04,
+  CDR_INDX_2011_04,
+  IN_DATA_2011_04,
+  IN_INDX_2011_04,
+  SGSN_2011_04,
+  CDR_DATA_2011_05,
+  CDR_INDX_2011_05,
+  IN_DATA_2011_05,
+  IN_INDX_2011_05,
+  SGSN_2011_05,
+  CDR_DATA_2011_06,
+  CDR_INDX_2011_06,
+  IN_DATA_2011_06,
+  IN_INDX_2011_06,
+  SGSN_2011_06,
+  CDR_DATA_2011_07,
+  CDR_INDX_2011_07,
+  IN_DATA_2011_07,
+  IN_INDX_2011_07,
+  SGSN_2011_07,
+  CDR_DATA_2011_08,
+  CDR_INDX_2011_08,
+  IN_DATA_2011_08,
+  IN_INDX_2011_08,
+  SGSN_2011_08,
+  TBS_TAP_ROAM_OLD,
+  CYBER_PAYS_DATA_OLD,
+  TBS_STAT_RO_2003_2007_N,
+  TBS_STAT_RO_2007_Q1_N,
+  TBS_STAT_RO_2007_Q2_N,
+  TBS_STAT_RO_2007_Q3_N,
+  TBS_STAT_RO_2007_Q4_N,
+  TBS_STAT_RO_2008_Q1_N,
+  TBS_STAT_RO_2008_Q2_N,
+  TBS_STAT_RO_2008_Q3_N,
+  TBS_STAT_RO_2008_Q4_N,
+  TBS_STAT_RO_2009_Q1_N,
+  TBS_STAT_RO_2009_Q2_N,
+  TBS_STAT_RO_2009_Q3_N,
+  TBS_STAT_RO_2009_Q4_N,
+  TBS_STAT_RO_2010_Q1_N,
+  TBS_STAT_RO_2010_Q2_N,
+  TBS_STAT_RO_2010_Q3_N,
+  TBS_STAT_RO_2010_Q4_N,
+  TBS_STAT_RO_2011_Q1_N,
+  TBS_STAT_RO_2011_Q2_N,
+  CDR_DATA_2011_09,
+  CDR_INDX_2011_09,
+  IN_DATA_2011_09,
+  IN_INDX_2011_09,
+  SGSN_2011_09,
+  CDR_DATA_2011_10,
+  CDR_INDX_2011_10,
+  IN_DATA_2011_10,
+  IN_INDX_2011_10,
+  SGSN_2011_10,
+;
+ SQL "ALTER DATABASE RENAME FILE ''+REDO_DWH/redo11.log'' TO ''+DATA/TESTDWH/ONLINELOG/redo11.log''";
+ SQL "ALTER DATABASE RENAME FILE ''+REDO_DWH/redo15.log'' TO ''+DATA/TESTDWH/ONLINELOG/redo15.log''";
+ SQL "ALTER DATABASE RENAME FILE ''+REDO_DWH/redo12.log'' TO ''+DATA/TESTDWH/ONLINELOG/redo12.log''";
+ SQL "ALTER DATABASE RENAME FILE ''+REDO_DWH/redo13.log'' TO ''+DATA/TESTDWH/ONLINELOG/redo13.log''";
+ SQL "ALTER DATABASE RENAME FILE ''+REDO_DWH/redo14.log'' TO ''+DATA/TESTDWH/ONLINELOG/redo14.log''";
+ SQL "ALTER DATABASE RENAME FILE ''+REDO_DWH/redo16.log'' TO ''+DATA/TESTDWH/ONLINELOG/redo16.log''";
+ SQL "ALTER DATABASE RENAME FILE ''+REDO_DWH/redo17.log'' TO ''+DATA/TESTDWH/ONLINELOG/redo17.log''";
+ SQL "ALTER DATABASE RENAME FILE ''+REDO_DWH/redo18.log'' TO ''+DATA/TESTDWH/ONLINELOG/redo18.log''";
+ SQL "ALTER DATABASE RENAME FILE ''+REDO_DWH/redo10.log'' TO ''+DATA/TESTDWH/ONLINELOG/redo10.log''";
+ SQL "ALTER DATABASE RENAME FILE ''+DATA/dwh/datafile/temp.dbf'' TO ''+DATA/TESTDWH/datafile/temp.dbf''";
+ SQL "ALTER DATABASE RENAME FILE ''+DATA/dwh/datafile/temp02.dbf'' TO ''+DATA/TESTDWH/datafile/temp02.dbf''";
+ SQL "ALTER DATABASE RENAME FILE ''+DATA/dwh/datafile/temp01.dbf'' TO ''+DATA/TESTDWH/datafile/temp01.dbf''";
+ SQL "ALTER DATABASE RENAME FILE ''/zpool01/warehouse/DWH_RW_TS/temp03.dbf'' TO ''/storage_920F1/testdb/oradata/testdwh/DWH_RW_TS/temp03.dbf''";
+ SQL "ALTER DATABASE RENAME FILE ''+DATA/dwh/datafile/temp04.dbf'' TO ''+DATA/TESTDWH/datafile/temp04.dbf''";
+}
+QUIT;

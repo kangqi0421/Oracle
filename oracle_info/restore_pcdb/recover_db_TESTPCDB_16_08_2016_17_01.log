@@ -1,0 +1,314 @@
+
+Spooling started in log file: recover_db_TESTPCDB_16_08_2016_17_01.log
+
+Recovery Manager12.1.0.2.0
+
+RMAN> 
+RMAN> RUN{
+2> ALLOCATE CHANNEL c1 DEVICE TYPE 'SBT_TAPE' PARMS
+3> 'SBT_LIBRARY=/usr/openv/netbackup/bin/libobk.so64.1' SEND
+4> 'NB_ORA_POLICY=pcdb-everyday,
+5> NB_ORA_SERV=nbserver.nix.tele2.ru,NB_ORA_CLIENT=pcdb-backup.nix.tele2.ru,NB_ORA_
+6> SCHED=day' MAXOPENFILES 2;
+7> ALLOCATE CHANNEL c2 DEVICE TYPE 'SBT_TAPE' PARMS
+8> 'SBT_LIBRARY=/usr/openv/netbackup/bin/libobk.so64.1' SEND
+9> 'NB_ORA_POLICY=pcdb-everyday,
+10> NB_ORA_SERV=nbserver.nix.tele2.ru,NB_ORA_CLIENT=pcdb-backup.nix.tele2.ru,NB_ORA_
+11> SCHED=day' MAXOPENFILES 2;
+12> SET UNTIL TIME "TO_DATE('08/14/2016 16:30:00','MM/DD/YYYY HH24:MI:SS')";
+13>  RECOVER DATABASE SKIP FOREVER TABLESPACE
+14> AA_USERSTORAGE_TBS, AUTOPAY_CONFIG_TS, AUTOPAY_TBS, BLACKLIST_MAIN_TS,
+15> BLACKLIST_STAT_MAIN_TS, BRMS_TBS, CAP_DATA_01, CAREM, CA_DATA_TBS, CC21_DATA,
+16> CC21_INDEX, CCBR_TBS, CC_DATA_01, CC_REFUNDS_TBS, CC_SCHEDULER_TBS,
+17> CC_STAT1_TBS, CE_TBS, CLADR21_TBS, CPA_USER_TBS, CRM21_TBS, DWH_TS, EDA,
+18> INAPI_TBS, INCALL_ARCHIVE_TBS_4M, INCALL_TBS_4M, INCIDENTS_TBS,
+19> INTERACTIVETAILS_TBS, INTERNETSHARING_TBS, ISPP12_CONFIG_MAIN_TS, KPC_TBS,
+20> MASS_SMS_TBS, MIGR_TBS, MLINK21_DATA, MNP_TBS, MP15_DATA_TBS, MULTILINK_TBS,
+21> PC_KEY_MANAGER_TBS, PORTAL_CAREM_V3_TBS, PRODUCT_CATALOG_TBS,
+22> QPC_OBJECTSTORE_DATA_TS, QPC_OBJECTSTORE_INDEX_TS, REPORT21_TBS, REPORT_TBS,
+23> ROAMING_STEERING_TBS, RS_TBS, SDP, SDPMASTER_TBS, SERVICEPROFILE_TBS, SIM_TS,
+24> SMCAPI_TBS, SMSC01_DIR_LOG_TS, SMSC01_DIR_TS, SMSC01_MSG_LOG_TS, SMSC01_MSG_TS,
+25> SMSC02_DIR_LOG_TS, SMSC02_DIR_TS, SMSC02_MSG_LOG_TS, SMSC02_MSG_TS, SMSC_BO_TS,
+26> SPMPC2_TBS, SRF_TBS, SRS_TBS, STAT_COLLECTOR_TBS, TELE2MASTER_TS, TELE2_PCDB,
+27> TEMP, TOOLS, TOPEX_EXT_TBS, TOPEX_TBS, TS_MLINK_B, UNICA_10_CONFIG_MAIN_TS,
+28> UPS_ARCH_TBS, UPS_TBS, URDPDB, USERDB21_TBS, USER_FROM_DWH_TBS,
+29> USER_FROM_IPC_TBS, USSDDB, USSDGW_TBS, USSD_PORTAL_SC_LOGGER_TBS,
+30> USSD_PORTAL_SPS_TBS, USSD_PORTAL_VBL_WEB_TBS, USSD_PORTAL_VKR_TBS, USSD_TBS,
+31> V3AUDIT_TBS, VAS_128K, VAS_1M, WD21_TBS, WDAQ_TBS, WDAUDIT21_TBS,
+32> WELCOMESMS_TBS, WSC21_TBS, WSCAUDIT21_TBS, WSCRTK21_TBS, WSCSKY21_TBS,
+33> WSMS_AUDIT_TBS, XCARD_ARCHIVE_TBS_4M, XCARD_DATA, XCARD_HISTORY_DATA,
+34> XCARD_LOADS_DATA, XMASTER_INDX;
+35> }
+using target database control file instead of recovery catalog
+allocated channel: c1
+channel c1: SID=2161 device type=SBT_TAPE
+channel c1: Veritas NetBackup for Oracle - Release 7.6 (2015021210)
+
+allocated channel: c2
+channel c2: SID=2221 device type=SBT_TAPE
+channel c2: Veritas NetBackup for Oracle - Release 7.6 (2015021210)
+
+executing command: SET until clause
+
+Starting recover at 2016-08-16:17:02:12
+
+Executing: alter database datafile 34 offline drop
+Executing: alter database datafile 298 offline drop
+Executing: alter database datafile 60 offline drop
+Executing: alter database datafile 186 offline drop
+Executing: alter database datafile 105 offline drop
+Executing: alter database datafile 121 offline drop
+Executing: alter database datafile 135 offline drop
+Executing: alter database datafile 144 offline drop
+Executing: alter database datafile 179 offline drop
+Executing: alter database datafile 187 offline drop
+Executing: alter database datafile 196 offline drop
+Executing: alter database datafile 261 offline drop
+Executing: alter database datafile 268 offline drop
+Executing: alter database datafile 275 offline drop
+Executing: alter database datafile 288 offline drop
+Executing: alter database datafile 301 offline drop
+Executing: alter database datafile 318 offline drop
+Executing: alter database datafile 324 offline drop
+Executing: alter database datafile 328 offline drop
+Executing: alter database datafile 88 offline drop
+Executing: alter database datafile 7 offline drop
+Executing: alter database datafile 8 offline drop
+Executing: alter database datafile 19 offline drop
+Executing: alter database datafile 20 offline drop
+Executing: alter database datafile 11 offline drop
+Executing: alter database datafile 115 offline drop
+Executing: alter database datafile 148 offline drop
+Executing: alter database datafile 153 offline drop
+Executing: alter database datafile 183 offline drop
+Executing: alter database datafile 194 offline drop
+Executing: alter database datafile 257 offline drop
+Executing: alter database datafile 116 offline drop
+Executing: alter database datafile 131 offline drop
+Executing: alter database datafile 210 offline drop
+Executing: alter database datafile 222 offline drop
+Executing: alter database datafile 248 offline drop
+Executing: alter database datafile 310 offline drop
+Executing: alter database datafile 287 offline drop
+Executing: alter database datafile 12 offline drop
+Executing: alter database datafile 13 offline drop
+Executing: alter database datafile 41 offline drop
+Executing: alter database datafile 52 offline drop
+Executing: alter database datafile 147 offline drop
+Executing: alter database datafile 149 offline drop
+Executing: alter database datafile 150 offline drop
+Executing: alter database datafile 27 offline drop
+Executing: alter database datafile 67 offline drop
+Executing: alter database datafile 5 offline drop
+Executing: alter database datafile 44 offline drop
+Executing: alter database datafile 45 offline drop
+Executing: alter database datafile 100 offline drop
+Executing: alter database datafile 104 offline drop
+Executing: alter database datafile 106 offline drop
+Executing: alter database datafile 107 offline drop
+Executing: alter database datafile 113 offline drop
+Executing: alter database datafile 120 offline drop
+Executing: alter database datafile 122 offline drop
+Executing: alter database datafile 126 offline drop
+Executing: alter database datafile 127 offline drop
+Executing: alter database datafile 132 offline drop
+Executing: alter database datafile 136 offline drop
+Executing: alter database datafile 332 offline drop
+Executing: alter database datafile 342 offline drop
+Executing: alter database datafile 344 offline drop
+Executing: alter database datafile 346 offline drop
+Executing: alter database datafile 66 offline drop
+Executing: alter database datafile 141 offline drop
+Executing: alter database datafile 335 offline drop
+Executing: alter database datafile 64 offline drop
+Executing: alter database datafile 50 offline drop
+Executing: alter database datafile 51 offline drop
+Executing: alter database datafile 76 offline drop
+Executing: alter database datafile 77 offline drop
+Executing: alter database datafile 78 offline drop
+Executing: alter database datafile 79 offline drop
+Executing: alter database datafile 327 offline drop
+Executing: alter database datafile 29 offline drop
+Executing: alter database datafile 30 offline drop
+Executing: alter database datafile 31 offline drop
+Executing: alter database datafile 32 offline drop
+Executing: alter database datafile 33 offline drop
+Executing: alter database datafile 46 offline drop
+Executing: alter database datafile 47 offline drop
+Executing: alter database datafile 48 offline drop
+Executing: alter database datafile 49 offline drop
+Executing: alter database datafile 58 offline drop
+Executing: alter database datafile 91 offline drop
+Executing: alter database datafile 94 offline drop
+Executing: alter database datafile 97 offline drop
+Executing: alter database datafile 110 offline drop
+Executing: alter database datafile 146 offline drop
+Executing: alter database datafile 161 offline drop
+Executing: alter database datafile 189 offline drop
+Executing: alter database datafile 204 offline drop
+Executing: alter database datafile 213 offline drop
+Executing: alter database datafile 227 offline drop
+Executing: alter database datafile 243 offline drop
+Executing: alter database datafile 296 offline drop
+Executing: alter database datafile 9 offline drop
+Executing: alter database datafile 98 offline drop
+Executing: alter database datafile 123 offline drop
+Executing: alter database datafile 209 offline drop
+Executing: alter database datafile 270 offline drop
+Executing: alter database datafile 15 offline drop
+Executing: alter database datafile 99 offline drop
+Executing: alter database datafile 114 offline drop
+Executing: alter database datafile 160 offline drop
+Executing: alter database datafile 220 offline drop
+Executing: alter database datafile 224 offline drop
+Executing: alter database datafile 311 offline drop
+Executing: alter database datafile 314 offline drop
+Executing: alter database datafile 340 offline drop
+Executing: alter database datafile 53 offline drop
+Executing: alter database datafile 56 offline drop
+Executing: alter database datafile 90 offline drop
+Executing: alter database datafile 347 offline drop
+Executing: alter database datafile 339 offline drop
+Executing: alter database datafile 302 offline drop
+Executing: alter database datafile 303 offline drop
+Executing: alter database datafile 65 offline drop
+Executing: alter database datafile 28 offline drop
+Executing: alter database datafile 156 offline drop
+Executing: alter database datafile 42 offline drop
+Executing: alter database datafile 21 offline drop
+Executing: alter database datafile 333 offline drop
+Executing: alter database datafile 112 offline drop
+Executing: alter database datafile 143 offline drop
+Executing: alter database datafile 263 offline drop
+Executing: alter database datafile 264 offline drop
+Executing: alter database datafile 265 offline drop
+Executing: alter database datafile 89 offline drop
+Executing: alter database datafile 18 offline drop
+Executing: alter database datafile 292 offline drop
+Executing: alter database datafile 294 offline drop
+Executing: alter database datafile 14 offline drop
+Executing: alter database datafile 155 offline drop
+Executing: alter database datafile 154 offline drop
+Executing: alter database datafile 40 offline drop
+Executing: alter database datafile 293 offline drop
+Executing: alter database datafile 16 offline drop
+Executing: alter database datafile 338 offline drop
+Executing: alter database datafile 337 offline drop
+Executing: alter database datafile 17 offline drop
+Executing: alter database datafile 140 offline drop
+Executing: alter database datafile 341 offline drop
+Executing: alter database datafile 101 offline drop
+Executing: alter database datafile 59 offline drop
+Executing: alter database datafile 255 offline drop
+Executing: alter database datafile 22 offline drop
+Executing: alter database datafile 23 offline drop
+Executing: alter database datafile 24 offline drop
+Executing: alter database datafile 2 offline drop
+Executing: alter database datafile 55 offline drop
+Executing: alter database datafile 142 offline drop
+Executing: alter database datafile 137 offline drop
+Executing: alter database datafile 233 offline drop
+Executing: alter database datafile 197 offline drop
+Executing: alter database datafile 139 offline drop
+Executing: alter database datafile 138 offline drop
+Executing: alter database datafile 39 offline drop
+Executing: alter database datafile 71 offline drop
+Executing: alter database datafile 75 offline drop
+Executing: alter database datafile 151 offline drop
+Executing: alter database datafile 25 offline drop
+Executing: alter database datafile 124 offline drop
+Executing: alter database datafile 331 offline drop
+Executing: alter database datafile 329 offline drop
+Executing: alter database datafile 334 offline drop
+Executing: alter database datafile 330 offline drop
+Executing: alter database datafile 336 offline drop
+Executing: alter database datafile 343 offline drop
+Executing: alter database datafile 43 offline drop
+Executing: alter database datafile 57 offline drop
+Executing: alter database datafile 109 offline drop
+Executing: alter database datafile 111 offline drop
+Executing: alter database datafile 119 offline drop
+Executing: alter database datafile 192 offline drop
+Executing: alter database datafile 228 offline drop
+Executing: alter database datafile 232 offline drop
+Executing: alter database datafile 235 offline drop
+Executing: alter database datafile 236 offline drop
+Executing: alter database datafile 240 offline drop
+Executing: alter database datafile 244 offline drop
+Executing: alter database datafile 92 offline drop
+Executing: alter database datafile 103 offline drop
+Executing: alter database datafile 108 offline drop
+Executing: alter database datafile 117 offline drop
+Executing: alter database datafile 128 offline drop
+Executing: alter database datafile 133 offline drop
+Executing: alter database datafile 145 offline drop
+Executing: alter database datafile 152 offline drop
+Executing: alter database datafile 163 offline drop
+Executing: alter database datafile 171 offline drop
+Executing: alter database datafile 174 offline drop
+Executing: alter database datafile 181 offline drop
+Executing: alter database datafile 195 offline drop
+Executing: alter database datafile 202 offline drop
+Executing: alter database datafile 214 offline drop
+Executing: alter database datafile 218 offline drop
+Executing: alter database datafile 226 offline drop
+Executing: alter database datafile 253 offline drop
+Executing: alter database datafile 269 offline drop
+Executing: alter database datafile 285 offline drop
+Executing: alter database datafile 10 offline drop
+Executing: alter database datafile 72 offline drop
+Executing: alter database datafile 73 offline drop
+Executing: alter database datafile 348 offline drop
+Executing: alter database datafile 35 offline drop
+Executing: alter database datafile 74 offline drop
+Executing: alter database datafile 96 offline drop
+Executing: alter database datafile 93 offline drop
+Executing: alter database datafile 125 offline drop
+Executing: alter database datafile 54 offline drop
+Executing: alter database datafile 80 offline drop
+Executing: alter database datafile 81 offline drop
+Executing: alter database datafile 82 offline drop
+Executing: alter database datafile 83 offline drop
+Executing: alter database datafile 84 offline drop
+Executing: alter database datafile 85 offline drop
+Executing: alter database datafile 86 offline drop
+Executing: alter database datafile 87 offline drop
+Executing: alter database datafile 95 offline drop
+Executing: alter database datafile 118 offline drop
+Executing: alter database datafile 134 offline drop
+Executing: alter database datafile 175 offline drop
+Executing: alter database datafile 200 offline drop
+Executing: alter database datafile 206 offline drop
+Executing: alter database datafile 207 offline drop
+Executing: alter database datafile 230 offline drop
+Executing: alter database datafile 308 offline drop
+Executing: alter database datafile 61 offline drop
+Executing: alter database datafile 62 offline drop
+Executing: alter database datafile 63 offline drop
+Executing: alter database datafile 36 offline drop
+Executing: alter database datafile 68 offline drop
+Executing: alter database datafile 69 offline drop
+Executing: alter database datafile 70 offline drop
+Executing: alter database datafile 3 offline drop
+Executing: alter database datafile 26 offline drop
+Executing: alter database datafile 102 offline drop
+Executing: alter database datafile 172 offline drop
+Executing: alter database datafile 203 offline drop
+Executing: alter database datafile 345 offline drop
+starting media recovery
+media recovery failed
+released channel: c1
+released channel: c2
+RMAN-00571: ===========================================================
+RMAN-00569: =============== ERROR MESSAGE STACK FOLLOWS ===============
+RMAN-00571: ===========================================================
+RMAN-03002: failure of recover command at 08/16/2016 17:04:51
+ORA-00283: recovery session canceled due to errors
+RMAN-11003: failure during parse/execution of SQL statement: alter database recover if needed
+ start until time '2016/08/14 16:30:00' using backup controlfile
+ORA-00283: recovery session canceled due to errors
+ORA-38760: This database instance failed to turn on flashback database
+
+RMAN> QUIT;
+
+Recovery Manager complete.

@@ -1,0 +1,8 @@
+RUN{
+ALLOCATE CHANNEL c1 DEVICE TYPE 'SBT_TAPE' FORMAT   '%d_%U_%t' PARMS
+'SBT_LIBRARY=/usr/openv/netbackup/bin/libobk.so64.1' SEND
+'NB_ORA_POLICY=berdb2-everyday  ,NB_ORA_SERV=nbserver.nix.tele2.ru,
+NB_ORA_CLIENT=prberdb2-backup.nix.tele2.ru';
+RESTORE CONTROLFILE FROM 'c-2161217018-20140930-02';
+}
+QUIT;

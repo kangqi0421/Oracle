@@ -1,0 +1,21 @@
+#
+# RMAN SCRIPT FOR RESTORE BERDB4 without READ ONLY AND CALLS.
+# Generated 2011-05-05:12:43:38.
+#
+
+#STARTUP NOMOUNT FORCE;
+
+RUN{
+SET DBID 2341013920;
+startup nomount;
+ALLOCATE CHANNEL c1 DEVICE TYPE 'SBT_TAPE' FORMAT   '%d_%U_%t' PARMS
+'SBT_LIBRARY=/usr/openv/netbackup/bin/libobk.so64.1' SEND
+'NB_ORA_POLICY=berdb4-everyday  ,NB_ORA_SERV=nbserver,
+NB_ORA_CLIENT=berdb4-backup';
+ALLOCATE CHANNEL c2 DEVICE TYPE 'SBT_TAPE' FORMAT   '%d_%U_%t' PARMS
+'SBT_LIBRARY=/usr/openv/netbackup/bin/libobk.so64.1' SEND
+'NB_ORA_POLICY=berdb4-everyday  ,NB_ORA_SERV=nbserver,
+NB_ORA_CLIENT=berdb4-backup';
+restore spfile to pfile '/u01/app/oracle/product/11.2.0.3/db_1/dbs/pfileTESTDB4.ora' from 'c-2341013920-20111226-05';
+}
+QUIT;

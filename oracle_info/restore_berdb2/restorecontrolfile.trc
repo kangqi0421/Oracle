@@ -1,0 +1,40 @@
+
+Recovery Manager: Release 11.2.0.4.0 - Production on Sun Aug 10 13:20:04 2014
+
+Copyright (c) 1982, 2011, Oracle and/or its affiliates.  All rights reserved.
+
+ORACLE_HOME = /u01/app/oracle/product/11.2.0.4/db_1
+System name:	SunOS
+Node name:	kappa.nix.tele2.ru
+Release:	5.11
+Version:	11.1
+Machine:	sun4v
+
+Starting with debugging turned off
+
+connected to target database: BERDB2 (not mounted)
+connected to recovery catalog database
+
+RMAN> 
+RMAN> RUN{
+2> ALLOCATE CHANNEL c1 DEVICE TYPE 'SBT_TAPE' FORMAT   '%d_%U_%t' PARMS
+3> 'SBT_LIBRARY=/usr/openv/netbackup/bin/libobk.so64.1' SEND
+4> 'NB_ORA_POLICY=berdb2-everyday  ,NB_ORA_SERV=nbserver.nix.tele2.ru,
+5> NB_ORA_CLIENT=prberdb2-backup.nix.tele2.ru';
+6> RESTORE CONTROLFILE FROM 'c-2161217018-20140808-03';
+7> }
+allocated channel: c1
+channel c1: SID=229 device type=SBT_TAPE
+channel c1: Veritas NetBackup for Oracle - Release 7.6 (2014042414)
+
+Starting restore at 2014-08-10:13:20:33
+
+channel c1: restoring control file
+channel c1: restore complete, elapsed time: 00:13:56
+output file name=/OracleDB/testdb2/data/ctrl_testdb2
+Finished restore at 2014-08-10:13:34:30
+released channel: c1
+
+RMAN> QUIT;
+
+Recovery Manager complete.

@@ -1,0 +1,290 @@
+
+Recovery Manager: Release 11.2.0.4.0 - Production on Thu Oct 2 10:53:31 2014
+
+Copyright (c) 1982, 2011, Oracle and/or its affiliates.  All rights reserved.
+
+connected to target database: BERDB2 (DBID=2161217018, not open)
+
+RMAN> RUN{
+2> ALLOCATE CHANNEL c1 DEVICE TYPE 'SBT_TAPE' PARMS
+3> 'SBT_LIBRARY=/usr/openv/netbackup/bin/libobk.so64.1' SEND
+4> 'NB_ORA_POLICY=berdb2-everyday,NB_ORA_SERV=nbserver.nix.tele2.ru,NB_ORA_CLIENT=p
+5> rberdb2-backup.nix.tele2.ru' MAXOPENFILES 2;
+6> ALLOCATE CHANNEL c2 DEVICE TYPE 'SBT_TAPE' PARMS
+7> 'SBT_LIBRARY=/usr/openv/netbackup/bin/libobk.so64.1' SEND
+8> 'NB_ORA_POLICY=berdb2-everyday,NB_ORA_SERV=nbserver.nix.tele2.ru,NB_ORA_CLIENT=p
+9> rberdb2-backup.nix.tele2.ru' MAXOPENFILES 2;
+10> set until sequence 52674;
+11>  RECOVER DATABASE SKIP FOREVER TABLESPACE
+12>   CALL_S_01_2013,
+13>   CALL_S_02_2013,
+14>   CALL_S_03_2013,
+15>   CALL_S_04_2013,
+16>   CALL_S_05_2013,
+17>   CALL_S_06_2013,
+18>   CALL_S_07_2013,
+19>   CALL_S_08_2013,
+20>   CALL_S_09_2013,
+21>   CALL_S_10_2013,
+22>   CALL_S_11_2013,
+23>   CALL_S_12_2013,
+24>   CALL_S_01_2014,
+25>   CALL_S_02_2014,
+26>   CALL_S_03_2014,
+27>   CALL_S_04_2014,
+28>   CALL_S_05_2014,
+29>   CALL_S_06_2014,
+30>   CALL_S_07_2014;
+31> }
+32> QUIT;
+using target database control file instead of recovery catalog
+allocated channel: c1
+channel c1: SID=289 device type=SBT_TAPE
+channel c1: Veritas NetBackup for Oracle - Release 7.6 (2014042414)
+
+allocated channel: c2
+channel c2: SID=301 device type=SBT_TAPE
+channel c2: Veritas NetBackup for Oracle - Release 7.6 (2014042414)
+
+executing command: SET until clause
+
+Starting recover at 2014-10-02:10:53:46
+
+Executing: alter database datafile 185 offline drop
+Executing: alter database datafile 186 offline drop
+Executing: alter database datafile 187 offline drop
+Executing: alter database datafile 188 offline drop
+Executing: alter database datafile 189 offline drop
+Executing: alter database datafile 190 offline drop
+Executing: alter database datafile 132 offline drop
+Executing: alter database datafile 133 offline drop
+Executing: alter database datafile 134 offline drop
+Executing: alter database datafile 135 offline drop
+Executing: alter database datafile 136 offline drop
+Executing: alter database datafile 137 offline drop
+Executing: alter database datafile 196 offline drop
+Executing: alter database datafile 197 offline drop
+Executing: alter database datafile 198 offline drop
+Executing: alter database datafile 199 offline drop
+Executing: alter database datafile 205 offline drop
+Executing: alter database datafile 206 offline drop
+Executing: alter database datafile 144 offline drop
+Executing: alter database datafile 145 offline drop
+Executing: alter database datafile 146 offline drop
+Executing: alter database datafile 147 offline drop
+Executing: alter database datafile 148 offline drop
+Executing: alter database datafile 149 offline drop
+Executing: alter database datafile 230 offline drop
+Executing: alter database datafile 231 offline drop
+Executing: alter database datafile 251 offline drop
+Executing: alter database datafile 252 offline drop
+Executing: alter database datafile 253 offline drop
+Executing: alter database datafile 254 offline drop
+Executing: alter database datafile 745 offline drop
+Executing: alter database datafile 746 offline drop
+Executing: alter database datafile 747 offline drop
+Executing: alter database datafile 748 offline drop
+Executing: alter database datafile 749 offline drop
+Executing: alter database datafile 771 offline drop
+Executing: alter database datafile 339 offline drop
+Executing: alter database datafile 340 offline drop
+Executing: alter database datafile 341 offline drop
+Executing: alter database datafile 353 offline drop
+Executing: alter database datafile 354 offline drop
+Executing: alter database datafile 355 offline drop
+Executing: alter database datafile 824 offline drop
+Executing: alter database datafile 20 offline drop
+Executing: alter database datafile 24 offline drop
+Executing: alter database datafile 30 offline drop
+Executing: alter database datafile 25 offline drop
+Executing: alter database datafile 36 offline drop
+Executing: alter database datafile 26 offline drop
+Executing: alter database datafile 37 offline drop
+Executing: alter database datafile 38 offline drop
+Executing: alter database datafile 39 offline drop
+Executing: alter database datafile 40 offline drop
+Executing: alter database datafile 41 offline drop
+starting media recovery
+
+archived log for thread 1 with sequence 52649 is already on disk as file +DATA_GAM_1/berdb2/archivelog/2014_10_02/thread_1_seq_52649.1623.859888713
+archived log for thread 1 with sequence 52650 is already on disk as file +DATA_GAM_1/berdb2/archivelog/2014_10_02/thread_1_seq_52650.1622.859888705
+archived log for thread 1 with sequence 52651 is already on disk as file +DATA_GAM_1/berdb2/archivelog/2014_10_02/thread_1_seq_52651.1621.859888699
+archived log file name=+DATA_GAM_1/berdb2/archivelog/2014_10_02/thread_1_seq_52649.1623.859888713 thread=1 sequence=52649
+archived log file name=+DATA_GAM_1/berdb2/archivelog/2014_10_02/thread_1_seq_52650.1622.859888705 thread=1 sequence=52650
+archived log file name=+DATA_GAM_1/berdb2/archivelog/2014_10_02/thread_1_seq_52651.1621.859888699 thread=1 sequence=52651
+channel c1: starting archived log restore to default destination
+channel c1: restoring archived log
+archived log thread=1 sequence=52652
+channel c1: restoring archived log
+archived log thread=1 sequence=52653
+channel c1: reading from backup piece BERDB2_jtpjpbop_1_1
+channel c2: starting archived log restore to default destination
+channel c2: restoring archived log
+archived log thread=1 sequence=52654
+channel c2: restoring archived log
+archived log thread=1 sequence=52655
+channel c2: reading from backup piece BERDB2_jupjpbop_1_1
+channel c1: piece handle=BERDB2_jtpjpbop_1_1 tag=TAG20140930T055640
+channel c1: restored backup piece 1
+channel c1: restore complete, elapsed time: 00:03:05
+archived log file name=+DATA_GAM_1/berdb2/archivelog/2014_10_02/thread_1_seq_52652.1625.859893413 thread=1 sequence=52652
+channel default: deleting archived log(s)
+archived log file name=+DATA_GAM_1/berdb2/archivelog/2014_10_02/thread_1_seq_52652.1625.859893413 RECID=117709 STAMP=859893510
+archived log file name=+DATA_GAM_1/berdb2/archivelog/2014_10_02/thread_1_seq_52653.1624.859893409 thread=1 sequence=52653
+channel default: deleting archived log(s)
+archived log file name=+DATA_GAM_1/berdb2/archivelog/2014_10_02/thread_1_seq_52653.1624.859893409 RECID=117710 STAMP=859893511
+channel c1: starting archived log restore to default destination
+channel c1: restoring archived log
+archived log thread=1 sequence=52656
+channel c1: restoring archived log
+archived log thread=1 sequence=52657
+channel c1: reading from backup piece BERDB2_jvpjpbtl_1_1
+channel c2: piece handle=BERDB2_jupjpbop_1_1 tag=TAG20140930T055640
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 00:17:59
+archived log file name=+DATA_GAM_1/berdb2/archivelog/2014_10_02/thread_1_seq_52654.1626.859893495 thread=1 sequence=52654
+channel default: deleting archived log(s)
+archived log file name=+DATA_GAM_1/berdb2/archivelog/2014_10_02/thread_1_seq_52654.1626.859893495 RECID=117712 STAMP=859893608
+archived log file name=+DATA_GAM_1/berdb2/archivelog/2014_10_02/thread_1_seq_52655.1627.859893501 thread=1 sequence=52655
+channel default: deleting archived log(s)
+archived log file name=+DATA_GAM_1/berdb2/archivelog/2014_10_02/thread_1_seq_52655.1627.859893501 RECID=117711 STAMP=859893607
+channel c2: starting archived log restore to default destination
+channel c2: restoring archived log
+archived log thread=1 sequence=52658
+channel c2: restoring archived log
+archived log thread=1 sequence=52659
+channel c2: reading from backup piece BERDB2_k0pjpbtl_1_1
+channel c1: piece handle=BERDB2_jvpjpbtl_1_1 tag=TAG20140930T055640
+channel c1: restored backup piece 1
+channel c1: restore complete, elapsed time: 00:13:20
+archived log file name=+DATA_GAM_1/berdb2/archivelog/2014_10_02/thread_1_seq_52656.1625.859894495 thread=1 sequence=52656
+channel default: deleting archived log(s)
+archived log file name=+DATA_GAM_1/berdb2/archivelog/2014_10_02/thread_1_seq_52656.1625.859894495 RECID=117713 STAMP=859894615
+archived log file name=+DATA_GAM_1/berdb2/archivelog/2014_10_02/thread_1_seq_52657.1624.859894489 thread=1 sequence=52657
+channel default: deleting archived log(s)
+archived log file name=+DATA_GAM_1/berdb2/archivelog/2014_10_02/thread_1_seq_52657.1624.859894489 RECID=117714 STAMP=859894616
+channel c1: starting archived log restore to default destination
+channel c1: restoring archived log
+archived log thread=1 sequence=52660
+channel c1: restoring archived log
+archived log thread=1 sequence=52661
+channel c1: reading from backup piece BERDB2_k1pjpc4d_1_1
+channel c2: piece handle=BERDB2_k0pjpbtl_1_1 tag=TAG20140930T055640
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 00:18:01
+archived log file name=+DATA_GAM_1/berdb2/archivelog/2014_10_02/thread_1_seq_52658.1627.859895339 thread=1 sequence=52658
+channel default: deleting archived log(s)
+archived log file name=+DATA_GAM_1/berdb2/archivelog/2014_10_02/thread_1_seq_52658.1627.859895339 RECID=117716 STAMP=859895772
+archived log file name=+DATA_GAM_1/berdb2/archivelog/2014_10_02/thread_1_seq_52659.1626.859895343 thread=1 sequence=52659
+channel default: deleting archived log(s)
+archived log file name=+DATA_GAM_1/berdb2/archivelog/2014_10_02/thread_1_seq_52659.1626.859895343 RECID=117715 STAMP=859895769
+channel c2: starting archived log restore to default destination
+channel c2: restoring archived log
+archived log thread=1 sequence=52662
+channel c2: restoring archived log
+archived log thread=1 sequence=52663
+channel c2: reading from backup piece BERDB2_k2pjpc9j_1_1
+channel c1: piece handle=BERDB2_k1pjpc4d_1_1 tag=TAG20140930T055640
+channel c1: restored backup piece 1
+channel c1: restore complete, elapsed time: 00:20:15
+archived log file name=+DATA_GAM_1/berdb2/archivelog/2014_10_02/thread_1_seq_52660.1624.859896435 thread=1 sequence=52660
+channel default: deleting archived log(s)
+archived log file name=+DATA_GAM_1/berdb2/archivelog/2014_10_02/thread_1_seq_52660.1624.859896435 RECID=117718 STAMP=859896935
+archived log file name=+DATA_GAM_1/berdb2/archivelog/2014_10_02/thread_1_seq_52661.1625.859896439 thread=1 sequence=52661
+channel default: deleting archived log(s)
+archived log file name=+DATA_GAM_1/berdb2/archivelog/2014_10_02/thread_1_seq_52661.1625.859896439 RECID=117717 STAMP=859896934
+channel c1: starting archived log restore to default destination
+channel c1: restoring archived log
+archived log thread=1 sequence=52664
+channel c1: restoring archived log
+archived log thread=1 sequence=52665
+channel c1: reading from backup piece BERDB2_k3pjpcac_1_1
+channel c2: piece handle=BERDB2_k2pjpc9j_1_1 tag=TAG20140930T055640
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 00:08:03
+archived log file name=+DATA_GAM_1/berdb2/archivelog/2014_10_02/thread_1_seq_52662.1627.859897603 thread=1 sequence=52662
+channel default: deleting archived log(s)
+archived log file name=+DATA_GAM_1/berdb2/archivelog/2014_10_02/thread_1_seq_52662.1627.859897603 RECID=117719 STAMP=859897723
+archived log file name=+DATA_GAM_1/berdb2/archivelog/2014_10_02/thread_1_seq_52663.1626.859897599 thread=1 sequence=52663
+channel default: deleting archived log(s)
+archived log file name=+DATA_GAM_1/berdb2/archivelog/2014_10_02/thread_1_seq_52663.1626.859897599 RECID=117720 STAMP=859897723
+channel c2: starting archived log restore to default destination
+channel c2: restoring archived log
+archived log thread=1 sequence=52666
+channel c2: restoring archived log
+archived log thread=1 sequence=52667
+channel c2: reading from backup piece BERDB2_k4pjpcf8_1_1
+channel c1: piece handle=BERDB2_k3pjpcac_1_1 tag=TAG20140930T055640
+channel c1: restored backup piece 1
+channel c1: restore complete, elapsed time: 00:10:03
+archived log file name=+DATA_GAM_1/berdb2/archivelog/2014_10_02/thread_1_seq_52664.1625.859898167 thread=1 sequence=52664
+channel default: deleting archived log(s)
+archived log file name=+DATA_GAM_1/berdb2/archivelog/2014_10_02/thread_1_seq_52664.1625.859898167 RECID=117722 STAMP=859898319
+archived log file name=+DATA_GAM_1/berdb2/archivelog/2014_10_02/thread_1_seq_52665.1624.859898171 thread=1 sequence=52665
+channel default: deleting archived log(s)
+archived log file name=+DATA_GAM_1/berdb2/archivelog/2014_10_02/thread_1_seq_52665.1624.859898171 RECID=117721 STAMP=859898318
+channel c1: starting archived log restore to default destination
+channel c1: restoring archived log
+archived log thread=1 sequence=52668
+channel c1: restoring archived log
+archived log thread=1 sequence=52669
+channel c1: reading from backup piece BERDB2_k5pjpcf9_1_1
+channel c2: piece handle=BERDB2_k4pjpcf8_1_1 tag=TAG20140930T055640
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 00:07:33
+archived log file name=+DATA_GAM_1/berdb2/archivelog/2014_10_02/thread_1_seq_52666.1626.859898663 thread=1 sequence=52666
+channel default: deleting archived log(s)
+archived log file name=+DATA_GAM_1/berdb2/archivelog/2014_10_02/thread_1_seq_52666.1626.859898663 RECID=117724 STAMP=859898771
+archived log file name=+DATA_GAM_1/berdb2/archivelog/2014_10_02/thread_1_seq_52667.1627.859898667 thread=1 sequence=52667
+channel default: deleting archived log(s)
+archived log file name=+DATA_GAM_1/berdb2/archivelog/2014_10_02/thread_1_seq_52667.1627.859898667 RECID=117723 STAMP=859898770
+channel c2: starting archived log restore to default destination
+channel c2: restoring archived log
+archived log thread=1 sequence=52670
+channel c2: restoring archived log
+archived log thread=1 sequence=52671
+channel c2: reading from backup piece BERDB2_k6pjpchk_1_1
+channel c1: piece handle=BERDB2_k5pjpcf9_1_1 tag=TAG20140930T055640
+channel c1: restored backup piece 1
+channel c1: restore complete, elapsed time: 00:08:52
+archived log file name=+DATA_GAM_1/berdb2/archivelog/2014_10_02/thread_1_seq_52668.1624.859899171 thread=1 sequence=52668
+channel default: deleting archived log(s)
+archived log file name=+DATA_GAM_1/berdb2/archivelog/2014_10_02/thread_1_seq_52668.1624.859899171 RECID=117726 STAMP=859899278
+archived log file name=+DATA_GAM_1/berdb2/archivelog/2014_10_02/thread_1_seq_52669.1625.859899175 thread=1 sequence=52669
+channel default: deleting archived log(s)
+archived log file name=+DATA_GAM_1/berdb2/archivelog/2014_10_02/thread_1_seq_52669.1625.859899175 RECID=117725 STAMP=859899277
+channel c1: starting archived log restore to default destination
+channel c1: restoring archived log
+archived log thread=1 sequence=52672
+channel c1: reading from backup piece BERDB2_k7pjpck0_1_1
+channel c2: piece handle=BERDB2_k6pjpchk_1_1 tag=TAG20140930T055640
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 00:14:24
+archived log file name=+DATA_GAM_1/berdb2/archivelog/2014_10_02/thread_1_seq_52670.1627.859899725 thread=1 sequence=52670
+channel default: deleting archived log(s)
+archived log file name=+DATA_GAM_1/berdb2/archivelog/2014_10_02/thread_1_seq_52670.1627.859899725 RECID=117728 STAMP=859899858
+archived log file name=+DATA_GAM_1/berdb2/archivelog/2014_10_02/thread_1_seq_52671.1626.859899729 thread=1 sequence=52671
+channel default: deleting archived log(s)
+archived log file name=+DATA_GAM_1/berdb2/archivelog/2014_10_02/thread_1_seq_52671.1626.859899729 RECID=117727 STAMP=859899858
+channel c2: starting archived log restore to default destination
+channel c2: restoring archived log
+archived log thread=1 sequence=52673
+channel c2: reading from backup piece BERDB2_k9pjqajp_1_1
+channel c1: piece handle=BERDB2_k7pjpck0_1_1 tag=TAG20140930T055640
+channel c1: restored backup piece 1
+channel c1: restore complete, elapsed time: 00:14:23
+archived log file name=+DATA_GAM_1/berdb2/archivelog/2014_10_02/thread_1_seq_52672.1625.859900549 thread=1 sequence=52672
+channel default: deleting archived log(s)
+archived log file name=+DATA_GAM_1/berdb2/archivelog/2014_10_02/thread_1_seq_52672.1625.859900549 RECID=117729 STAMP=859900615
+channel c2: piece handle=BERDB2_k9pjqajp_1_1 tag=TAG20140930T144303
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 00:07:12
+archived log file name=+DATA_GAM_1/berdb2/archivelog/2014_10_02/thread_1_seq_52673.1626.859901403 thread=1 sequence=52673
+channel default: deleting archived log(s)
+archived log file name=+DATA_GAM_1/berdb2/archivelog/2014_10_02/thread_1_seq_52673.1626.859901403 RECID=117730 STAMP=859901475
+media recovery complete, elapsed time: 00:07:21
+Finished recover at 2014-10-02:13:42:58
+released channel: c1
+released channel: c2
+
+Recovery Manager complete.

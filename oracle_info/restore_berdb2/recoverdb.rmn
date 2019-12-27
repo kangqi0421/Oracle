@@ -1,0 +1,32 @@
+RUN{
+ALLOCATE CHANNEL c1 DEVICE TYPE 'SBT_TAPE' PARMS
+'SBT_LIBRARY=/usr/openv/netbackup/bin/libobk.so64.1' SEND
+'NB_ORA_POLICY=berdb2-everyday,NB_ORA_SERV=nbserver.nix.tele2.ru,NB_ORA_CLIENT=p
+rberdb2-backup.nix.tele2.ru' MAXOPENFILES 2;
+ALLOCATE CHANNEL c2 DEVICE TYPE 'SBT_TAPE' PARMS
+'SBT_LIBRARY=/usr/openv/netbackup/bin/libobk.so64.1' SEND
+'NB_ORA_POLICY=berdb2-everyday,NB_ORA_SERV=nbserver.nix.tele2.ru,NB_ORA_CLIENT=p
+rberdb2-backup.nix.tele2.ru' MAXOPENFILES 2;
+set until sequence 52674;
+ RECOVER DATABASE SKIP FOREVER TABLESPACE
+  CALL_S_01_2013,
+  CALL_S_02_2013,
+  CALL_S_03_2013,
+  CALL_S_04_2013,
+  CALL_S_05_2013,
+  CALL_S_06_2013,
+  CALL_S_07_2013,
+  CALL_S_08_2013,
+  CALL_S_09_2013,
+  CALL_S_10_2013,
+  CALL_S_11_2013,
+  CALL_S_12_2013,
+  CALL_S_01_2014,
+  CALL_S_02_2014,
+  CALL_S_03_2014,
+  CALL_S_04_2014,
+  CALL_S_05_2014,
+  CALL_S_06_2014,
+  CALL_S_07_2014;
+}
+QUIT;

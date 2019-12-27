@@ -1,0 +1,296 @@
+
+Recovery Manager: Release 11.2.0.4.0 - Production on Mon Aug 11 01:54:11 2014
+
+Copyright (c) 1982, 2011, Oracle and/or its affiliates.  All rights reserved.
+
+ORACLE_HOME = /u01/app/oracle/product/11.2.0.4/db_1
+System name:	SunOS
+Node name:	kappa.nix.tele2.ru
+Release:	5.11
+Version:	11.1
+Machine:	sun4v
+
+Starting with debugging turned off
+
+connected to target database: BERDB2 (DBID=2161217018, not open)
+
+RMAN> 
+RMAN> RUN{
+2> ALLOCATE CHANNEL c1 DEVICE TYPE 'SBT_TAPE' PARMS
+3> 'SBT_LIBRARY=/usr/openv/netbackup/bin/libobk.so64.1' SEND
+4> 'NB_ORA_POLICY=berdb2-everyday,NB_ORA_SERV=nbserver.nix.tele2.ru,NB_ORA_CLIENT=p
+5> rberdb2-backup.nix.tele2.ru' MAXOPENFILES 2;
+6> ALLOCATE CHANNEL c2 DEVICE TYPE 'SBT_TAPE' PARMS
+7> 'SBT_LIBRARY=/usr/openv/netbackup/bin/libobk.so64.1' SEND
+8> 'NB_ORA_POLICY=berdb2-everyday,NB_ORA_SERV=nbserver.nix.tele2.ru,NB_ORA_CLIENT=p
+9> rberdb2-backup.nix.tele2.ru' MAXOPENFILES 2;
+10> set until sequence 46998;
+11>  RECOVER DATABASE SKIP FOREVER TABLESPACE
+12>   CALL_S_01_2013,
+13>   CALL_S_02_2013,
+14>   CALL_S_03_2013,
+15>   CALL_S_04_2013,
+16>   CALL_S_05_2013,
+17>   CALL_S_06_2013,
+18>   CALL_S_07_2013,
+19>   CALL_S_08_2013,
+20>   CALL_S_09_2013,
+21>   CALL_S_10_2013,
+22>   CALL_S_11_2013,
+23>   CALL_S_12_2013,
+24>   CALL_S_01_2014,
+25>   CALL_S_02_2014,
+26>   CALL_S_03_2014,
+27>   CALL_S_04_2014,
+28>   CALL_S_05_2014,
+29>   CALL_S_06_2014;
+30> }
+using target database control file instead of recovery catalog
+allocated channel: c1
+channel c1: SID=229 device type=SBT_TAPE
+channel c1: Veritas NetBackup for Oracle - Release 7.6 (2014042414)
+
+allocated channel: c2
+channel c2: SID=241 device type=SBT_TAPE
+channel c2: Veritas NetBackup for Oracle - Release 7.6 (2014042414)
+
+executing command: SET until clause
+
+Starting recover at 2014-08-11:01:54:38
+
+Executing: alter database datafile 185 offline drop
+Executing: alter database datafile 186 offline drop
+Executing: alter database datafile 187 offline drop
+Executing: alter database datafile 188 offline drop
+Executing: alter database datafile 189 offline drop
+Executing: alter database datafile 190 offline drop
+Executing: alter database datafile 132 offline drop
+Executing: alter database datafile 133 offline drop
+Executing: alter database datafile 134 offline drop
+Executing: alter database datafile 135 offline drop
+Executing: alter database datafile 136 offline drop
+Executing: alter database datafile 137 offline drop
+Executing: alter database datafile 196 offline drop
+Executing: alter database datafile 197 offline drop
+Executing: alter database datafile 198 offline drop
+Executing: alter database datafile 199 offline drop
+Executing: alter database datafile 205 offline drop
+Executing: alter database datafile 206 offline drop
+Executing: alter database datafile 144 offline drop
+Executing: alter database datafile 145 offline drop
+Executing: alter database datafile 146 offline drop
+Executing: alter database datafile 147 offline drop
+Executing: alter database datafile 148 offline drop
+Executing: alter database datafile 149 offline drop
+Executing: alter database datafile 230 offline drop
+Executing: alter database datafile 231 offline drop
+Executing: alter database datafile 251 offline drop
+Executing: alter database datafile 252 offline drop
+Executing: alter database datafile 253 offline drop
+Executing: alter database datafile 254 offline drop
+Executing: alter database datafile 745 offline drop
+Executing: alter database datafile 746 offline drop
+Executing: alter database datafile 747 offline drop
+Executing: alter database datafile 748 offline drop
+Executing: alter database datafile 749 offline drop
+Executing: alter database datafile 771 offline drop
+Executing: alter database datafile 339 offline drop
+Executing: alter database datafile 340 offline drop
+Executing: alter database datafile 341 offline drop
+Executing: alter database datafile 353 offline drop
+Executing: alter database datafile 354 offline drop
+Executing: alter database datafile 355 offline drop
+Executing: alter database datafile 824 offline drop
+Executing: alter database datafile 20 offline drop
+Executing: alter database datafile 24 offline drop
+Executing: alter database datafile 30 offline drop
+Executing: alter database datafile 25 offline drop
+Executing: alter database datafile 36 offline drop
+Executing: alter database datafile 26 offline drop
+Executing: alter database datafile 37 offline drop
+Executing: alter database datafile 38 offline drop
+Executing: alter database datafile 39 offline drop
+Executing: alter database datafile 40 offline drop
+starting media recovery
+
+channel c1: starting archived log restore to default destination
+channel c1: restoring archived log
+archived log thread=1 sequence=46967
+channel c1: reading from backup piece BERDB2_b6pfdlio_1_1
+channel c2: starting archived log restore to default destination
+channel c2: restoring archived log
+archived log thread=1 sequence=46968
+channel c2: restoring archived log
+archived log thread=1 sequence=46969
+channel c2: reading from backup piece BERDB2_b7pfdlip_1_1
+channel c1: piece handle=BERDB2_b6pfdlio_1_1 tag=TAG20140808T062527
+channel c1: restored backup piece 1
+channel c1: restore complete, elapsed time: 00:02:25
+archived log file name=/OracleDB/testdb2/data/fra/arch_1_46967_819619732.arc thread=1 sequence=46967
+channel c1: starting archived log restore to default destination
+channel c1: restoring archived log
+archived log thread=1 sequence=46970
+channel c1: restoring archived log
+archived log thread=1 sequence=46971
+channel c1: reading from backup piece BERDB2_b8pfdlip_1_1
+channel c2: piece handle=BERDB2_b7pfdlip_1_1 tag=TAG20140808T062527
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 00:04:52
+archived log file name=/OracleDB/testdb2/data/fra/arch_1_46968_819619732.arc thread=1 sequence=46968
+archived log file name=/OracleDB/testdb2/data/fra/arch_1_46969_819619732.arc thread=1 sequence=46969
+channel c2: starting archived log restore to default destination
+channel c2: restoring archived log
+archived log thread=1 sequence=46972
+channel c2: restoring archived log
+archived log thread=1 sequence=46973
+channel c2: reading from backup piece BERDB2_b9pfdlip_1_1
+channel c1: piece handle=BERDB2_b8pfdlip_1_1 tag=TAG20140808T062527
+channel c1: restored backup piece 1
+channel c1: restore complete, elapsed time: 00:43:34
+archived log file name=/OracleDB/testdb2/data/fra/arch_1_46970_819619732.arc thread=1 sequence=46970
+archived log file name=/OracleDB/testdb2/data/fra/arch_1_46971_819619732.arc thread=1 sequence=46971
+channel c1: starting archived log restore to default destination
+channel c1: restoring archived log
+archived log thread=1 sequence=46974
+channel c1: restoring archived log
+archived log thread=1 sequence=46975
+channel c1: reading from backup piece BERDB2_bapfdloi_1_1
+channel c2: piece handle=BERDB2_b9pfdlip_1_1 tag=TAG20140808T062527
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 01:20:12
+archived log file name=/OracleDB/testdb2/data/fra/arch_1_46972_819619732.arc thread=1 sequence=46972
+archived log file name=/OracleDB/testdb2/data/fra/arch_1_46973_819619732.arc thread=1 sequence=46973
+channel c2: starting archived log restore to default destination
+channel c2: restoring archived log
+archived log thread=1 sequence=46976
+channel c2: restoring archived log
+archived log thread=1 sequence=46977
+channel c2: reading from backup piece BERDB2_bbpfdlqu_1_1
+channel c1: piece handle=BERDB2_bapfdloi_1_1 tag=TAG20140808T062527
+channel c1: restored backup piece 1
+channel c1: restore complete, elapsed time: 01:28:29
+archived log file name=/OracleDB/testdb2/data/fra/arch_1_46974_819619732.arc thread=1 sequence=46974
+archived log file name=/OracleDB/testdb2/data/fra/arch_1_46975_819619732.arc thread=1 sequence=46975
+channel c1: starting archived log restore to default destination
+channel c1: restoring archived log
+archived log thread=1 sequence=46978
+channel c1: restoring archived log
+archived log thread=1 sequence=46979
+channel c1: reading from backup piece BERDB2_bcpfdlv5_1_1
+channel c2: piece handle=BERDB2_bbpfdlqu_1_1 tag=TAG20140808T062527
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 01:26:01
+archived log file name=/OracleDB/testdb2/data/fra/arch_1_46976_819619732.arc thread=1 sequence=46976
+archived log file name=/OracleDB/testdb2/data/fra/arch_1_46977_819619732.arc thread=1 sequence=46977
+channel c2: starting archived log restore to default destination
+channel c2: restoring archived log
+archived log thread=1 sequence=46980
+channel c2: restoring archived log
+archived log thread=1 sequence=46981
+channel c2: reading from backup piece BERDB2_bdpfdlv6_1_1
+channel c1: piece handle=BERDB2_bcpfdlv5_1_1 tag=TAG20140808T062527
+channel c1: restored backup piece 1
+channel c1: restore complete, elapsed time: 00:38:44
+archived log file name=/OracleDB/testdb2/data/fra/arch_1_46978_819619732.arc thread=1 sequence=46978
+archived log file name=/OracleDB/testdb2/data/fra/arch_1_46979_819619732.arc thread=1 sequence=46979
+channel c1: starting archived log restore to default destination
+channel c1: restoring archived log
+archived log thread=1 sequence=46982
+channel c1: restoring archived log
+archived log thread=1 sequence=46983
+channel c1: reading from backup piece BERDB2_bepfdlvv_1_1
+channel c1: piece handle=BERDB2_bepfdlvv_1_1 tag=TAG20140808T062527
+channel c1: restored backup piece 1
+channel c1: restore complete, elapsed time: 00:03:05
+channel c1: starting archived log restore to default destination
+channel c1: restoring archived log
+archived log thread=1 sequence=46984
+channel c1: restoring archived log
+archived log thread=1 sequence=46985
+channel c1: reading from backup piece BERDB2_bfpfdlvv_1_1
+channel c2: piece handle=BERDB2_bdpfdlv6_1_1 tag=TAG20140808T062527
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 00:23:03
+archived log file name=/OracleDB/testdb2/data/fra/arch_1_46980_819619732.arc thread=1 sequence=46980
+archived log file name=/OracleDB/testdb2/data/fra/arch_1_46981_819619732.arc thread=1 sequence=46981
+archived log file name=/OracleDB/testdb2/data/fra/arch_1_46982_819619732.arc thread=1 sequence=46982
+archived log file name=/OracleDB/testdb2/data/fra/arch_1_46983_819619732.arc thread=1 sequence=46983
+channel c2: starting archived log restore to default destination
+channel c2: restoring archived log
+archived log thread=1 sequence=46986
+channel c2: restoring archived log
+archived log thread=1 sequence=46987
+channel c2: reading from backup piece BERDB2_bgpfdm47_1_1
+channel c1: piece handle=BERDB2_bfpfdlvv_1_1 tag=TAG20140808T062527
+channel c1: restored backup piece 1
+channel c1: restore complete, elapsed time: 00:38:59
+archived log file name=/OracleDB/testdb2/data/fra/arch_1_46984_819619732.arc thread=1 sequence=46984
+archived log file name=/OracleDB/testdb2/data/fra/arch_1_46985_819619732.arc thread=1 sequence=46985
+channel c1: starting archived log restore to default destination
+channel c1: restoring archived log
+archived log thread=1 sequence=46988
+channel c1: restoring archived log
+archived log thread=1 sequence=46989
+channel c1: reading from backup piece BERDB2_bhpfdm47_1_1
+channel c2: piece handle=BERDB2_bgpfdm47_1_1 tag=TAG20140808T062527
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 00:10:05
+archived log file name=/OracleDB/testdb2/data/fra/arch_1_46986_819619732.arc thread=1 sequence=46986
+archived log file name=/OracleDB/testdb2/data/fra/arch_1_46987_819619732.arc thread=1 sequence=46987
+channel c2: starting archived log restore to default destination
+channel c2: restoring archived log
+archived log thread=1 sequence=46990
+channel c2: restoring archived log
+archived log thread=1 sequence=46991
+channel c2: reading from backup piece BERDB2_bipfdm68_1_1
+channel c1: piece handle=BERDB2_bhpfdm47_1_1 tag=TAG20140808T062527
+channel c1: restored backup piece 1
+channel c1: restore complete, elapsed time: 00:15:01
+archived log file name=/OracleDB/testdb2/data/fra/arch_1_46988_819619732.arc thread=1 sequence=46988
+archived log file name=/OracleDB/testdb2/data/fra/arch_1_46989_819619732.arc thread=1 sequence=46989
+channel c1: starting archived log restore to default destination
+channel c1: restoring archived log
+archived log thread=1 sequence=46992
+channel c1: restoring archived log
+archived log thread=1 sequence=46993
+channel c1: reading from backup piece BERDB2_bjpfdm6o_1_1
+channel c2: piece handle=BERDB2_bipfdm68_1_1 tag=TAG20140808T062527
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 00:32:35
+archived log file name=/OracleDB/testdb2/data/fra/arch_1_46990_819619732.arc thread=1 sequence=46990
+archived log file name=/OracleDB/testdb2/data/fra/arch_1_46991_819619732.arc thread=1 sequence=46991
+channel c2: starting archived log restore to default destination
+channel c2: restoring archived log
+archived log thread=1 sequence=46994
+channel c2: restoring archived log
+archived log thread=1 sequence=46995
+channel c2: reading from backup piece BERDB2_bkpfdm93_1_1
+channel c1: piece handle=BERDB2_bjpfdm6o_1_1 tag=TAG20140808T062527
+channel c1: restored backup piece 1
+channel c1: restore complete, elapsed time: 00:17:47
+archived log file name=/OracleDB/testdb2/data/fra/arch_1_46992_819619732.arc thread=1 sequence=46992
+archived log file name=/OracleDB/testdb2/data/fra/arch_1_46993_819619732.arc thread=1 sequence=46993
+channel c1: starting archived log restore to default destination
+channel c1: restoring archived log
+archived log thread=1 sequence=46996
+channel c1: restoring archived log
+archived log thread=1 sequence=46997
+channel c1: reading from backup piece BERDB2_blpfdmah_1_1
+channel c2: piece handle=BERDB2_bkpfdm93_1_1 tag=TAG20140808T062527
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 00:24:08
+archived log file name=/OracleDB/testdb2/data/fra/arch_1_46994_819619732.arc thread=1 sequence=46994
+archived log file name=/OracleDB/testdb2/data/fra/arch_1_46995_819619732.arc thread=1 sequence=46995
+channel c1: piece handle=BERDB2_blpfdmah_1_1 tag=TAG20140808T062527
+channel c1: restored backup piece 1
+channel c1: restore complete, elapsed time: 00:46:48
+archived log file name=/OracleDB/testdb2/data/fra/arch_1_46996_819619732.arc thread=1 sequence=46996
+archived log file name=/OracleDB/testdb2/data/fra/arch_1_46997_819619732.arc thread=1 sequence=46997
+media recovery complete, elapsed time: 00:42:09
+Finished recover at 2014-08-11:12:01:51
+released channel: c1
+released channel: c2
+
+RMAN> QUIT;
+
+Recovery Manager complete.

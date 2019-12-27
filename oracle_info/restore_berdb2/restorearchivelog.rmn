@@ -1,0 +1,28 @@
+#
+# RMAN SCRIPT FOR RESTORE BERDB4 without READ ONLY AND CALLS.
+# Generated 2011-05-05:12:43:38.
+#
+
+#STARTUP NOMOUNT FORCE;
+#TO '/storage_920F1/testdb/oradata/testdb4/ctrl_testdb4'
+
+RUN{
+ALLOCATE CHANNEL c1 DEVICE TYPE 'SBT_TAPE' FORMAT   '%d_%U_%t' PARMS
+'SBT_LIBRARY=/usr/openv/netbackup/bin/libobk.so64.1' SEND
+'NB_ORA_POLICY=berdb4-everyday  ,NB_ORA_SERV=nbserver,
+NB_ORA_CLIENT=berdb4-backup';
+ALLOCATE CHANNEL c2 DEVICE TYPE 'SBT_TAPE' FORMAT   '%d_%U_%t' PARMS
+'SBT_LIBRARY=/usr/openv/netbackup/bin/libobk.so64.1' SEND
+'NB_ORA_POLICY=berdb4-everyday  ,NB_ORA_SERV=nbserver,
+NB_ORA_CLIENT=berdb4-backup';
+restore archivelog sequence 60521;
+restore archivelog sequence 60522;
+restore archivelog sequence 60523;
+restore archivelog sequence 60524;
+restore archivelog sequence 60525;
+restore archivelog sequence 60526;
+restore archivelog sequence 60527;
+restore archivelog sequence 60528;
+restore archivelog sequence 60529;
+}
+QUIT;

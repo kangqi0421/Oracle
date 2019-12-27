@@ -1,0 +1,1487 @@
+
+Spooling started in log file: recover_db_TESTPCDB_16_08_2016_17_35.log
+
+Recovery Manager12.1.0.2.0
+
+RMAN> 
+RMAN> RUN{
+2> ALLOCATE CHANNEL c1 DEVICE TYPE 'SBT_TAPE' PARMS
+3> 'SBT_LIBRARY=/usr/openv/netbackup/bin/libobk.so64.1' SEND
+4> 'NB_ORA_POLICY=pcdb-everyday,
+5> NB_ORA_SERV=nbserver.nix.tele2.ru,NB_ORA_CLIENT=pcdb-backup.nix.tele2.ru,NB_ORA_
+6> SCHED=day' MAXOPENFILES 2;
+7> ALLOCATE CHANNEL c2 DEVICE TYPE 'SBT_TAPE' PARMS
+8> 'SBT_LIBRARY=/usr/openv/netbackup/bin/libobk.so64.1' SEND
+9> 'NB_ORA_POLICY=pcdb-everyday,
+10> NB_ORA_SERV=nbserver.nix.tele2.ru,NB_ORA_CLIENT=pcdb-backup.nix.tele2.ru,NB_ORA_
+11> SCHED=day' MAXOPENFILES 2;
+12> SET UNTIL TIME "TO_DATE('08/14/2016 16:30:00','MM/DD/YYYY HH24:MI:SS')";
+13>  RECOVER DATABASE SKIP FOREVER TABLESPACE
+14> AA_USERSTORAGE_TBS, AUTOPAY_CONFIG_TS, AUTOPAY_TBS, BLACKLIST_MAIN_TS,
+15> BLACKLIST_STAT_MAIN_TS, BRMS_TBS, CAP_DATA_01, CAREM, CA_DATA_TBS, CC21_DATA,
+16> CC21_INDEX, CCBR_TBS, CC_DATA_01, CC_REFUNDS_TBS, CC_SCHEDULER_TBS,
+17> CC_STAT1_TBS, CE_TBS, CLADR21_TBS, CPA_USER_TBS, CRM21_TBS, DWH_TS, EDA,
+18> INAPI_TBS, INCALL_ARCHIVE_TBS_4M, INCALL_TBS_4M, INCIDENTS_TBS,
+19> INTERACTIVETAILS_TBS, INTERNETSHARING_TBS, ISPP12_CONFIG_MAIN_TS, KPC_TBS,
+20> MASS_SMS_TBS, MIGR_TBS, MLINK21_DATA, MNP_TBS, MP15_DATA_TBS, MULTILINK_TBS,
+21> PC_KEY_MANAGER_TBS, PORTAL_CAREM_V3_TBS, PRODUCT_CATALOG_TBS,
+22> QPC_OBJECTSTORE_DATA_TS, QPC_OBJECTSTORE_INDEX_TS, REPORT21_TBS, REPORT_TBS,
+23> ROAMING_STEERING_TBS, RS_TBS, SDP, SDPMASTER_TBS, SERVICEPROFILE_TBS, SIM_TS,
+24> SMCAPI_TBS, SMSC01_DIR_LOG_TS, SMSC01_DIR_TS, SMSC01_MSG_LOG_TS, SMSC01_MSG_TS,
+25> SMSC02_DIR_LOG_TS, SMSC02_DIR_TS, SMSC02_MSG_LOG_TS, SMSC02_MSG_TS, SMSC_BO_TS,
+26> SPMPC2_TBS, SRF_TBS, SRS_TBS, STAT_COLLECTOR_TBS, TELE2MASTER_TS, TELE2_PCDB,
+27> TEMP, TOOLS, TOPEX_EXT_TBS, TOPEX_TBS, TS_MLINK_B, UNICA_10_CONFIG_MAIN_TS,
+28> UPS_ARCH_TBS, UPS_TBS, URDPDB, USERDB21_TBS, USER_FROM_DWH_TBS,
+29> USER_FROM_IPC_TBS, USSDDB, USSDGW_TBS, USSD_PORTAL_SC_LOGGER_TBS,
+30> USSD_PORTAL_SPS_TBS, USSD_PORTAL_VBL_WEB_TBS, USSD_PORTAL_VKR_TBS, USSD_TBS,
+31> V3AUDIT_TBS, VAS_128K, VAS_1M, WD21_TBS, WDAQ_TBS, WDAUDIT21_TBS,
+32> WELCOMESMS_TBS, WSC21_TBS, WSCAUDIT21_TBS, WSCRTK21_TBS, WSCSKY21_TBS,
+33> WSMS_AUDIT_TBS, XCARD_ARCHIVE_TBS_4M, XCARD_DATA, XCARD_HISTORY_DATA,
+34> XCARD_LOADS_DATA, XMASTER_INDX;
+35> }
+using target database control file instead of recovery catalog
+allocated channel: c1
+channel c1: SID=2161 device type=SBT_TAPE
+channel c1: Veritas NetBackup for Oracle - Release 7.6 (2015021210)
+
+allocated channel: c2
+channel c2: SID=2221 device type=SBT_TAPE
+channel c2: Veritas NetBackup for Oracle - Release 7.6 (2015021210)
+
+executing command: SET until clause
+
+Starting recover at 2016-08-16:17:36:05
+
+Executing: alter database datafile 34 offline drop
+Executing: alter database datafile 298 offline drop
+Executing: alter database datafile 60 offline drop
+Executing: alter database datafile 186 offline drop
+Executing: alter database datafile 105 offline drop
+Executing: alter database datafile 121 offline drop
+Executing: alter database datafile 135 offline drop
+Executing: alter database datafile 144 offline drop
+Executing: alter database datafile 179 offline drop
+Executing: alter database datafile 187 offline drop
+Executing: alter database datafile 196 offline drop
+Executing: alter database datafile 261 offline drop
+Executing: alter database datafile 268 offline drop
+Executing: alter database datafile 275 offline drop
+Executing: alter database datafile 288 offline drop
+Executing: alter database datafile 301 offline drop
+Executing: alter database datafile 318 offline drop
+Executing: alter database datafile 324 offline drop
+Executing: alter database datafile 328 offline drop
+Executing: alter database datafile 88 offline drop
+Executing: alter database datafile 7 offline drop
+Executing: alter database datafile 8 offline drop
+Executing: alter database datafile 19 offline drop
+Executing: alter database datafile 20 offline drop
+Executing: alter database datafile 11 offline drop
+Executing: alter database datafile 115 offline drop
+Executing: alter database datafile 148 offline drop
+Executing: alter database datafile 153 offline drop
+Executing: alter database datafile 183 offline drop
+Executing: alter database datafile 194 offline drop
+Executing: alter database datafile 257 offline drop
+Executing: alter database datafile 116 offline drop
+Executing: alter database datafile 131 offline drop
+Executing: alter database datafile 210 offline drop
+Executing: alter database datafile 222 offline drop
+Executing: alter database datafile 248 offline drop
+Executing: alter database datafile 310 offline drop
+Executing: alter database datafile 287 offline drop
+Executing: alter database datafile 12 offline drop
+Executing: alter database datafile 13 offline drop
+Executing: alter database datafile 41 offline drop
+Executing: alter database datafile 52 offline drop
+Executing: alter database datafile 147 offline drop
+Executing: alter database datafile 149 offline drop
+Executing: alter database datafile 150 offline drop
+Executing: alter database datafile 27 offline drop
+Executing: alter database datafile 67 offline drop
+Executing: alter database datafile 5 offline drop
+Executing: alter database datafile 44 offline drop
+Executing: alter database datafile 45 offline drop
+Executing: alter database datafile 100 offline drop
+Executing: alter database datafile 104 offline drop
+Executing: alter database datafile 106 offline drop
+Executing: alter database datafile 107 offline drop
+Executing: alter database datafile 113 offline drop
+Executing: alter database datafile 120 offline drop
+Executing: alter database datafile 122 offline drop
+Executing: alter database datafile 126 offline drop
+Executing: alter database datafile 127 offline drop
+Executing: alter database datafile 132 offline drop
+Executing: alter database datafile 136 offline drop
+Executing: alter database datafile 332 offline drop
+Executing: alter database datafile 342 offline drop
+Executing: alter database datafile 344 offline drop
+Executing: alter database datafile 346 offline drop
+Executing: alter database datafile 66 offline drop
+Executing: alter database datafile 141 offline drop
+Executing: alter database datafile 335 offline drop
+Executing: alter database datafile 64 offline drop
+Executing: alter database datafile 50 offline drop
+Executing: alter database datafile 51 offline drop
+Executing: alter database datafile 76 offline drop
+Executing: alter database datafile 77 offline drop
+Executing: alter database datafile 78 offline drop
+Executing: alter database datafile 79 offline drop
+Executing: alter database datafile 327 offline drop
+Executing: alter database datafile 29 offline drop
+Executing: alter database datafile 30 offline drop
+Executing: alter database datafile 31 offline drop
+Executing: alter database datafile 32 offline drop
+Executing: alter database datafile 33 offline drop
+Executing: alter database datafile 46 offline drop
+Executing: alter database datafile 47 offline drop
+Executing: alter database datafile 48 offline drop
+Executing: alter database datafile 49 offline drop
+Executing: alter database datafile 58 offline drop
+Executing: alter database datafile 91 offline drop
+Executing: alter database datafile 94 offline drop
+Executing: alter database datafile 97 offline drop
+Executing: alter database datafile 110 offline drop
+Executing: alter database datafile 146 offline drop
+Executing: alter database datafile 161 offline drop
+Executing: alter database datafile 189 offline drop
+Executing: alter database datafile 204 offline drop
+Executing: alter database datafile 213 offline drop
+Executing: alter database datafile 227 offline drop
+Executing: alter database datafile 243 offline drop
+Executing: alter database datafile 296 offline drop
+Executing: alter database datafile 9 offline drop
+Executing: alter database datafile 98 offline drop
+Executing: alter database datafile 123 offline drop
+Executing: alter database datafile 209 offline drop
+Executing: alter database datafile 270 offline drop
+Executing: alter database datafile 15 offline drop
+Executing: alter database datafile 99 offline drop
+Executing: alter database datafile 114 offline drop
+Executing: alter database datafile 160 offline drop
+Executing: alter database datafile 220 offline drop
+Executing: alter database datafile 224 offline drop
+Executing: alter database datafile 311 offline drop
+Executing: alter database datafile 314 offline drop
+Executing: alter database datafile 340 offline drop
+Executing: alter database datafile 53 offline drop
+Executing: alter database datafile 56 offline drop
+Executing: alter database datafile 90 offline drop
+Executing: alter database datafile 347 offline drop
+Executing: alter database datafile 339 offline drop
+Executing: alter database datafile 302 offline drop
+Executing: alter database datafile 303 offline drop
+Executing: alter database datafile 65 offline drop
+Executing: alter database datafile 28 offline drop
+Executing: alter database datafile 156 offline drop
+Executing: alter database datafile 42 offline drop
+Executing: alter database datafile 21 offline drop
+Executing: alter database datafile 333 offline drop
+Executing: alter database datafile 112 offline drop
+Executing: alter database datafile 143 offline drop
+Executing: alter database datafile 263 offline drop
+Executing: alter database datafile 264 offline drop
+Executing: alter database datafile 265 offline drop
+Executing: alter database datafile 89 offline drop
+Executing: alter database datafile 18 offline drop
+Executing: alter database datafile 292 offline drop
+Executing: alter database datafile 294 offline drop
+Executing: alter database datafile 14 offline drop
+Executing: alter database datafile 155 offline drop
+Executing: alter database datafile 154 offline drop
+Executing: alter database datafile 40 offline drop
+Executing: alter database datafile 293 offline drop
+Executing: alter database datafile 16 offline drop
+Executing: alter database datafile 338 offline drop
+Executing: alter database datafile 337 offline drop
+Executing: alter database datafile 17 offline drop
+Executing: alter database datafile 140 offline drop
+Executing: alter database datafile 341 offline drop
+Executing: alter database datafile 101 offline drop
+Executing: alter database datafile 59 offline drop
+Executing: alter database datafile 255 offline drop
+Executing: alter database datafile 22 offline drop
+Executing: alter database datafile 23 offline drop
+Executing: alter database datafile 24 offline drop
+Executing: alter database datafile 2 offline drop
+Executing: alter database datafile 55 offline drop
+Executing: alter database datafile 142 offline drop
+Executing: alter database datafile 137 offline drop
+Executing: alter database datafile 233 offline drop
+Executing: alter database datafile 197 offline drop
+Executing: alter database datafile 139 offline drop
+Executing: alter database datafile 138 offline drop
+Executing: alter database datafile 39 offline drop
+Executing: alter database datafile 71 offline drop
+Executing: alter database datafile 75 offline drop
+Executing: alter database datafile 151 offline drop
+Executing: alter database datafile 25 offline drop
+Executing: alter database datafile 124 offline drop
+Executing: alter database datafile 331 offline drop
+Executing: alter database datafile 329 offline drop
+Executing: alter database datafile 334 offline drop
+Executing: alter database datafile 330 offline drop
+Executing: alter database datafile 336 offline drop
+Executing: alter database datafile 343 offline drop
+Executing: alter database datafile 43 offline drop
+Executing: alter database datafile 57 offline drop
+Executing: alter database datafile 109 offline drop
+Executing: alter database datafile 111 offline drop
+Executing: alter database datafile 119 offline drop
+Executing: alter database datafile 192 offline drop
+Executing: alter database datafile 228 offline drop
+Executing: alter database datafile 232 offline drop
+Executing: alter database datafile 235 offline drop
+Executing: alter database datafile 236 offline drop
+Executing: alter database datafile 240 offline drop
+Executing: alter database datafile 244 offline drop
+Executing: alter database datafile 92 offline drop
+Executing: alter database datafile 103 offline drop
+Executing: alter database datafile 108 offline drop
+Executing: alter database datafile 117 offline drop
+Executing: alter database datafile 128 offline drop
+Executing: alter database datafile 133 offline drop
+Executing: alter database datafile 145 offline drop
+Executing: alter database datafile 152 offline drop
+Executing: alter database datafile 163 offline drop
+Executing: alter database datafile 171 offline drop
+Executing: alter database datafile 174 offline drop
+Executing: alter database datafile 181 offline drop
+Executing: alter database datafile 195 offline drop
+Executing: alter database datafile 202 offline drop
+Executing: alter database datafile 214 offline drop
+Executing: alter database datafile 218 offline drop
+Executing: alter database datafile 226 offline drop
+Executing: alter database datafile 253 offline drop
+Executing: alter database datafile 269 offline drop
+Executing: alter database datafile 285 offline drop
+Executing: alter database datafile 10 offline drop
+Executing: alter database datafile 72 offline drop
+Executing: alter database datafile 73 offline drop
+Executing: alter database datafile 348 offline drop
+Executing: alter database datafile 35 offline drop
+Executing: alter database datafile 74 offline drop
+Executing: alter database datafile 96 offline drop
+Executing: alter database datafile 93 offline drop
+Executing: alter database datafile 125 offline drop
+Executing: alter database datafile 54 offline drop
+Executing: alter database datafile 80 offline drop
+Executing: alter database datafile 81 offline drop
+Executing: alter database datafile 82 offline drop
+Executing: alter database datafile 83 offline drop
+Executing: alter database datafile 84 offline drop
+Executing: alter database datafile 85 offline drop
+Executing: alter database datafile 86 offline drop
+Executing: alter database datafile 87 offline drop
+Executing: alter database datafile 95 offline drop
+Executing: alter database datafile 118 offline drop
+Executing: alter database datafile 134 offline drop
+Executing: alter database datafile 175 offline drop
+Executing: alter database datafile 200 offline drop
+Executing: alter database datafile 206 offline drop
+Executing: alter database datafile 207 offline drop
+Executing: alter database datafile 230 offline drop
+Executing: alter database datafile 308 offline drop
+Executing: alter database datafile 61 offline drop
+Executing: alter database datafile 62 offline drop
+Executing: alter database datafile 63 offline drop
+Executing: alter database datafile 36 offline drop
+Executing: alter database datafile 68 offline drop
+Executing: alter database datafile 69 offline drop
+Executing: alter database datafile 70 offline drop
+Executing: alter database datafile 3 offline drop
+Executing: alter database datafile 26 offline drop
+Executing: alter database datafile 102 offline drop
+Executing: alter database datafile 172 offline drop
+Executing: alter database datafile 203 offline drop
+Executing: alter database datafile 345 offline drop
+starting media recovery
+
+channel c1: starting archived log restore to default destination
+channel c1: restoring archived log
+archived log thread=1 sequence=8868
+channel c1: restoring archived log
+archived log thread=1 sequence=8869
+channel c1: reading from backup piece PCDB_9rrd681d_1_1
+channel c2: starting archived log restore to default destination
+channel c2: restoring archived log
+archived log thread=1 sequence=8870
+channel c2: restoring archived log
+archived log thread=1 sequence=8871
+channel c2: reading from backup piece PCDB_9srd681e_1_1
+channel c1: piece handle=PCDB_9rrd681d_1_1 tag=TAG20160813T213831
+channel c1: restored backup piece 1
+channel c1: restore complete, elapsed time: 00:08:16
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8868_cv69jzpm_.arc thread=1 sequence=8868
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8868_cv69jzpm_.arc RECID=312453 STAMP=920051225
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8869_cv69jzro_.arc thread=1 sequence=8869
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8869_cv69jzro_.arc RECID=312452 STAMP=920051221
+channel c1: starting archived log restore to default destination
+channel c1: restoring archived log
+archived log thread=1 sequence=8872
+channel c1: restoring archived log
+archived log thread=1 sequence=8873
+channel c1: reading from backup piece PCDB_9ord67uo_1_1
+channel c2: piece handle=PCDB_9srd681e_1_1 tag=TAG20160813T213831
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 00:14:06
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8870_cv69q5mo_.arc thread=1 sequence=8870
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8870_cv69q5mo_.arc RECID=312454 STAMP=920051552
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8871_cv69q570_.arc thread=1 sequence=8871
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8871_cv69q570_.arc RECID=312455 STAMP=920051554
+channel c2: starting archived log restore to default destination
+channel c2: restoring archived log
+archived log thread=1 sequence=8874
+channel c2: restoring archived log
+archived log thread=1 sequence=8875
+channel c2: reading from backup piece PCDB_9qrd67uo_1_1
+channel c1: piece handle=PCDB_9ord67uo_1_1 tag=TAG20160813T213831
+channel c1: restored backup piece 1
+channel c1: restore complete, elapsed time: 00:07:41
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8872_cv6bbtpb_.arc thread=1 sequence=8872
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8872_cv6bbtpb_.arc RECID=312456 STAMP=920052032
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8873_cv6bbtno_.arc thread=1 sequence=8873
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8873_cv6bbtno_.arc RECID=312457 STAMP=920052038
+channel c1: starting archived log restore to default destination
+channel c1: restoring archived log
+archived log thread=1 sequence=8876
+channel c1: restoring archived log
+archived log thread=1 sequence=8877
+channel c1: reading from backup piece PCDB_9nrd67uo_1_1
+channel c2: piece handle=PCDB_9qrd67uo_1_1 tag=TAG20160813T213831
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 00:12:48
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8874_cv6bl312_.arc thread=1 sequence=8874
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8874_cv6bl312_.arc RECID=312459 STAMP=920052409
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8875_cv6bl3gb_.arc thread=1 sequence=8875
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8875_cv6bl3gb_.arc RECID=312458 STAMP=920052402
+channel c2: starting archived log restore to default destination
+channel c2: restoring archived log
+archived log thread=1 sequence=8878
+channel c2: restoring archived log
+archived log thread=1 sequence=8879
+channel c2: reading from backup piece PCDB_9prd67uo_1_1
+channel c1: piece handle=PCDB_9nrd67uo_1_1 tag=TAG20160813T213831
+channel c1: restored backup piece 1
+channel c1: restore complete, elapsed time: 00:08:50
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8876_cv6c4hyb_.arc thread=1 sequence=8876
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8876_cv6c4hyb_.arc RECID=312460 STAMP=920052985
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8877_cv6c4hxb_.arc thread=1 sequence=8877
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8877_cv6c4hxb_.arc RECID=312461 STAMP=920052990
+channel c1: starting archived log restore to default destination
+channel c1: restoring archived log
+archived log thread=1 sequence=8880
+channel c1: restoring archived log
+archived log thread=1 sequence=8881
+channel c1: reading from backup piece PCDB_9trd681e_1_1
+channel c2: piece handle=PCDB_9prd67uo_1_1 tag=TAG20160813T213831
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 00:10:19
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8878_cv6cp6j7_.arc thread=1 sequence=8878
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8878_cv6cp6j7_.arc RECID=312463 STAMP=920053642
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8879_cv6cp6jy_.arc thread=1 sequence=8879
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8879_cv6cp6jy_.arc RECID=312462 STAMP=920053635
+channel c2: starting archived log restore to default destination
+channel c2: restoring archived log
+archived log thread=1 sequence=8882
+channel c2: restoring archived log
+archived log thread=1 sequence=8883
+channel c2: reading from backup piece PCDB_anrd7cmb_1_1
+channel c1: piece handle=PCDB_9trd681e_1_1 tag=TAG20160813T213831
+channel c1: restored backup piece 1
+channel c1: restore complete, elapsed time: 00:10:41
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8880_cv6dc9yk_.arc thread=1 sequence=8880
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8880_cv6dc9yk_.arc RECID=312465 STAMP=920054261
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8881_cv6dcbz4_.arc thread=1 sequence=8881
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8881_cv6dcbz4_.arc RECID=312464 STAMP=920054049
+channel c1: starting archived log restore to default destination
+channel c1: restoring archived log
+archived log thread=1 sequence=8884
+channel c1: restoring archived log
+archived log thread=1 sequence=8885
+channel c1: reading from backup piece PCDB_agrd7cf8_1_1
+channel c2: piece handle=PCDB_anrd7cmb_1_1 tag=TAG20160814T074522
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 00:12:55
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8882_cv6f0hoy_.arc thread=1 sequence=8882
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8882_cv6f0hoy_.arc RECID=312466 STAMP=920055023
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8883_cv6f029w_.arc thread=1 sequence=8883
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8883_cv6f029w_.arc RECID=312467 STAMP=920055028
+channel c2: starting archived log restore to default destination
+channel c2: restoring archived log
+archived log thread=1 sequence=8886
+channel c2: restoring archived log
+archived log thread=1 sequence=8887
+channel c2: reading from backup piece PCDB_akrd7cjb_1_1
+channel c1: piece handle=PCDB_agrd7cf8_1_1 tag=TAG20160814T074522
+channel c1: restored backup piece 1
+channel c1: restore complete, elapsed time: 00:17:05
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8884_cv6fh0tl_.arc thread=1 sequence=8884
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8884_cv6fh0tl_.arc RECID=312469 STAMP=920055600
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8885_cv6fh0yn_.arc thread=1 sequence=8885
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8885_cv6fh0yn_.arc RECID=312468 STAMP=920055594
+channel c1: starting archived log restore to default destination
+channel c1: restoring archived log
+archived log thread=1 sequence=8888
+channel c1: restoring archived log
+archived log thread=1 sequence=8889
+channel c1: reading from backup piece PCDB_asrd7cti_1_1
+channel c2: piece handle=PCDB_akrd7cjb_1_1 tag=TAG20160814T074522
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 00:14:58
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8886_cv6gjgkf_.arc thread=1 sequence=8886
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8886_cv6gjgkf_.arc RECID=312471 STAMP=920056762
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8887_cv6gjm0d_.arc thread=1 sequence=8887
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8887_cv6gjm0d_.arc RECID=312470 STAMP=920056725
+channel c2: starting archived log restore to default destination
+channel c2: restoring archived log
+archived log thread=1 sequence=8890
+channel c2: restoring archived log
+archived log thread=1 sequence=8891
+channel c2: reading from backup piece PCDB_a3rd7bsl_1_1
+channel c1: piece handle=PCDB_asrd7cti_1_1 tag=TAG20160814T074522
+channel c1: restored backup piece 1
+channel c1: restore complete, elapsed time: 00:14:07
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8888_cv6hdtlm_.arc thread=1 sequence=8888
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8888_cv6hdtlm_.arc RECID=312473 STAMP=920057606
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8889_cv6hdtnx_.arc thread=1 sequence=8889
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8889_cv6hdtnx_.arc RECID=312472 STAMP=920057604
+channel c1: starting archived log restore to default destination
+channel c1: restoring archived log
+archived log thread=1 sequence=8892
+channel c1: restoring archived log
+archived log thread=1 sequence=8893
+channel c1: reading from backup piece PCDB_aard7c4q_1_1
+channel c2: piece handle=PCDB_a3rd7bsl_1_1 tag=TAG20160814T074522
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 00:14:54
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8890_cv6j8ydr_.arc thread=1 sequence=8890
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8890_cv6j8ydr_.arc RECID=312474 STAMP=920058486
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8891_cv6j8xvy_.arc thread=1 sequence=8891
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8891_cv6j8xvy_.arc RECID=312475 STAMP=920058491
+channel c2: starting archived log restore to default destination
+channel c2: restoring archived log
+archived log thread=1 sequence=8894
+channel c2: restoring archived log
+archived log thread=1 sequence=8895
+channel c2: reading from backup piece PCDB_adrd7c9m_1_1
+channel c1: piece handle=PCDB_aard7c4q_1_1 tag=TAG20160814T074522
+channel c1: restored backup piece 1
+channel c1: restore complete, elapsed time: 00:16:51
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8892_cv6k2p2c_.arc thread=1 sequence=8892
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8892_cv6k2p2c_.arc RECID=312477 STAMP=920059449
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8893_cv6k2q25_.arc thread=1 sequence=8893
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8893_cv6k2q25_.arc RECID=312476 STAMP=920059446
+channel c1: starting archived log restore to default destination
+channel c1: restoring archived log
+archived log thread=1 sequence=8896
+channel c1: restoring archived log
+archived log thread=1 sequence=8897
+channel c1: reading from backup piece PCDB_ahrd7cf8_1_1
+channel c2: piece handle=PCDB_adrd7c9m_1_1 tag=TAG20160814T074522
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 00:15:11
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8894_cv6kzxkh_.arc thread=1 sequence=8894
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8894_cv6kzxkh_.arc RECID=312478 STAMP=920060349
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8895_cv6kzxbp_.arc thread=1 sequence=8895
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8895_cv6kzxbp_.arc RECID=312479 STAMP=920060354
+channel c2: starting archived log restore to default destination
+channel c2: restoring archived log
+archived log thread=1 sequence=8898
+channel c2: restoring archived log
+archived log thread=1 sequence=8899
+channel c2: reading from backup piece PCDB_arrd7cqj_1_1
+channel c1: piece handle=PCDB_ahrd7cf8_1_1 tag=TAG20160814T074522
+channel c1: restored backup piece 1
+channel c1: restore complete, elapsed time: 00:16:40
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8896_cv6lxh15_.arc thread=1 sequence=8896
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8896_cv6lxh15_.arc RECID=312481 STAMP=920061325
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8897_cv6lxh5k_.arc thread=1 sequence=8897
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8897_cv6lxh5k_.arc RECID=312480 STAMP=920061322
+channel c1: starting archived log restore to default destination
+channel c1: restoring archived log
+archived log thread=1 sequence=8900
+channel c1: restoring archived log
+archived log thread=1 sequence=8901
+channel c1: reading from backup piece PCDB_9vrd7bgk_1_1
+channel c2: piece handle=PCDB_arrd7cqj_1_1 tag=TAG20160814T074522
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 00:14:58
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8898_cv6mtqtq_.arc thread=1 sequence=8898
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8898_cv6mtqtq_.arc RECID=312482 STAMP=920062137
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8899_cv6mtqsj_.arc thread=1 sequence=8899
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8899_cv6mtqsj_.arc RECID=312483 STAMP=920062140
+channel c2: starting archived log restore to default destination
+channel c2: restoring archived log
+archived log thread=1 sequence=8902
+channel c2: restoring archived log
+archived log thread=1 sequence=8903
+channel c2: reading from backup piece PCDB_a0rd7bgk_1_1
+channel c1: piece handle=PCDB_9vrd7bgk_1_1 tag=TAG20160814T074522
+channel c1: restored backup piece 1
+channel c1: restore complete, elapsed time: 00:14:41
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8900_cv6npp7o_.arc thread=1 sequence=8900
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8900_cv6npp7o_.arc RECID=312485 STAMP=920063104
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8901_cv6npwz3_.arc thread=1 sequence=8901
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8901_cv6npwz3_.arc RECID=312484 STAMP=920063102
+channel c1: starting archived log restore to default destination
+channel c1: restoring archived log
+archived log thread=1 sequence=8904
+channel c1: restoring archived log
+archived log thread=1 sequence=8905
+channel c1: reading from backup piece PCDB_a5rd7btc_1_1
+channel c2: piece handle=PCDB_a0rd7bgk_1_1 tag=TAG20160814T074522
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 00:16:31
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8902_cv6opggx_.arc thread=1 sequence=8902
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8902_cv6opggx_.arc RECID=312486 STAMP=920064082
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8903_cv6opgfg_.arc thread=1 sequence=8903
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8903_cv6opgfg_.arc RECID=312487 STAMP=920064083
+channel c2: starting archived log restore to default destination
+channel c2: restoring archived log
+archived log thread=1 sequence=8906
+channel c2: restoring archived log
+archived log thread=1 sequence=8907
+channel c2: reading from backup piece PCDB_acrd7c8t_1_1
+channel c1: piece handle=PCDB_a5rd7btc_1_1 tag=TAG20160814T074522
+channel c1: restored backup piece 1
+channel c1: restore complete, elapsed time: 00:18:00
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8904_cv6ph0qc_.arc thread=1 sequence=8904
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8904_cv6ph0qc_.arc RECID=312488 STAMP=920065045
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8905_cv6ph0nm_.arc thread=1 sequence=8905
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8905_cv6ph0nm_.arc RECID=312489 STAMP=920065049
+channel c1: starting archived log restore to default destination
+channel c1: restoring archived log
+archived log thread=1 sequence=8908
+channel c1: restoring archived log
+archived log thread=1 sequence=8909
+channel c1: reading from backup piece PCDB_afrd7ccj_1_1
+channel c2: piece handle=PCDB_acrd7c8t_1_1 tag=TAG20160814T074522
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 00:15:60
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8906_cv6qkbmr_.arc thread=1 sequence=8906
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8906_cv6qkbmr_.arc RECID=312490 STAMP=920066084
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8907_cv6qkbhj_.arc thread=1 sequence=8907
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8907_cv6qkbhj_.arc RECID=312491 STAMP=920066086
+channel c2: starting archived log restore to default destination
+channel c2: restoring archived log
+archived log thread=1 sequence=8910
+channel c2: restoring archived log
+archived log thread=1 sequence=8911
+channel c2: reading from backup piece PCDB_aerd7c9t_1_1
+channel c1: piece handle=PCDB_afrd7ccj_1_1 tag=TAG20160814T074522
+channel c1: restored backup piece 1
+channel c1: restore complete, elapsed time: 00:17:28
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8908_cv6rd23m_.arc thread=1 sequence=8908
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8908_cv6rd23m_.arc RECID=312492 STAMP=920066822
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8909_cv6rd22l_.arc thread=1 sequence=8909
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8909_cv6rd22l_.arc RECID=312493 STAMP=920066825
+channel c1: starting archived log restore to default destination
+channel c1: restoring archived log
+archived log thread=1 sequence=8912
+channel c1: restoring archived log
+archived log thread=1 sequence=8913
+channel c1: reading from backup piece PCDB_a4rd7bt5_1_1
+channel c2: piece handle=PCDB_aerd7c9t_1_1 tag=TAG20160814T074522
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 00:17:49
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8910_cv6sgtmt_.arc thread=1 sequence=8910
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8910_cv6sgtmt_.arc RECID=312495 STAMP=920068001
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8911_cv6sgtp2_.arc thread=1 sequence=8911
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8911_cv6sgtp2_.arc RECID=312494 STAMP=920067999
+channel c2: starting archived log restore to default destination
+channel c2: restoring archived log
+archived log thread=1 sequence=8914
+channel c2: restoring archived log
+archived log thread=1 sequence=8915
+channel c2: reading from backup piece PCDB_aord7cno_1_1
+channel c1: piece handle=PCDB_a4rd7bt5_1_1 tag=TAG20160814T074522
+channel c1: restored backup piece 1
+channel c1: restore complete, elapsed time: 00:17:29
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8912_cv6tl0mk_.arc thread=1 sequence=8912
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8912_cv6tl0mk_.arc RECID=312497 STAMP=920069240
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8913_cv6tl0pd_.arc thread=1 sequence=8913
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8913_cv6tl0pd_.arc RECID=312496 STAMP=920069238
+channel c1: starting archived log restore to default destination
+channel c1: restoring archived log
+archived log thread=1 sequence=8916
+channel c1: restoring archived log
+archived log thread=1 sequence=8917
+channel c1: reading from backup piece PCDB_aird7cf8_1_1
+channel c2: piece handle=PCDB_aord7cno_1_1 tag=TAG20160814T074522
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 00:15:38
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8914_cv6vlnjb_.arc thread=1 sequence=8914
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8914_cv6vlnjb_.arc RECID=312498 STAMP=920070162
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8915_cv6vlnct_.arc thread=1 sequence=8915
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8915_cv6vlnct_.arc RECID=312499 STAMP=920070167
+channel c2: starting archived log restore to default destination
+channel c2: restoring archived log
+archived log thread=1 sequence=8918
+channel c2: restoring archived log
+archived log thread=1 sequence=8919
+channel c2: reading from backup piece PCDB_aqrd7cqi_1_1
+channel c1: piece handle=PCDB_aird7cf8_1_1 tag=TAG20160814T074522
+channel c1: restored backup piece 1
+channel c1: restore complete, elapsed time: 00:16:04
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8916_cv6wojz4_.arc thread=1 sequence=8916
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8916_cv6wojz4_.arc RECID=312501 STAMP=920071134
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8917_cv6wok15_.arc thread=1 sequence=8917
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8917_cv6wok15_.arc RECID=312500 STAMP=920071132
+channel c1: starting archived log restore to default destination
+channel c1: restoring archived log
+archived log thread=1 sequence=8920
+channel c1: restoring archived log
+archived log thread=1 sequence=8921
+channel c1: reading from backup piece PCDB_a6rd7bv3_1_1
+channel c2: piece handle=PCDB_aqrd7cqi_1_1 tag=TAG20160814T074522
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 00:16:12
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8918_cv6xqryy_.arc thread=1 sequence=8918
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8918_cv6xqryy_.arc RECID=312502 STAMP=920072093
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8919_cv6xqrvk_.arc thread=1 sequence=8919
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8919_cv6xqrvk_.arc RECID=312503 STAMP=920072095
+channel c2: starting archived log restore to default destination
+channel c2: restoring archived log
+archived log thread=1 sequence=8922
+channel c2: restoring archived log
+archived log thread=1 sequence=8923
+channel c2: reading from backup piece PCDB_a9rd7c3n_1_1
+channel c1: piece handle=PCDB_a6rd7bv3_1_1 tag=TAG20160814T074522
+channel c1: restored backup piece 1
+channel c1: restore complete, elapsed time: 00:16:48
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8920_cv6y78h8_.arc thread=1 sequence=8920
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8920_cv6y78h8_.arc RECID=312504 STAMP=920072907
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8921_cv6y7894_.arc thread=1 sequence=8921
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8921_cv6y7894_.arc RECID=312505 STAMP=920072910
+channel c1: starting archived log restore to default destination
+channel c1: restoring archived log
+archived log thread=1 sequence=8924
+channel c1: restoring archived log
+archived log thread=1 sequence=8925
+channel c1: reading from backup piece PCDB_a2rd7bgk_1_1
+channel c2: piece handle=PCDB_a9rd7c3n_1_1 tag=TAG20160814T074522
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 00:17:44
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8922_cv6z6c2w_.arc thread=1 sequence=8922
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8922_cv6z6c2w_.arc RECID=312507 STAMP=920074046
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8923_cv6z6c5v_.arc thread=1 sequence=8923
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_16/o1_mf_1_8923_cv6z6c5v_.arc RECID=312506 STAMP=920074044
+channel c2: starting archived log restore to default destination
+channel c2: restoring archived log
+archived log thread=1 sequence=8926
+channel c2: restoring archived log
+archived log thread=1 sequence=8927
+channel c2: reading from backup piece PCDB_ajrd7ci8_1_1
+channel c1: piece handle=PCDB_a2rd7bgk_1_1 tag=TAG20160814T074522
+channel c1: restored backup piece 1
+channel c1: restore complete, elapsed time: 00:17:12
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8924_cv70gkz5_.arc thread=1 sequence=8924
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8924_cv70gkz5_.arc RECID=312508 STAMP=920075066
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8925_cv70ggp8_.arc thread=1 sequence=8925
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8925_cv70ggp8_.arc RECID=312509 STAMP=920075071
+channel c1: starting archived log restore to default destination
+channel c1: restoring archived log
+archived log thread=1 sequence=8928
+channel c1: restoring archived log
+archived log thread=1 sequence=8929
+channel c1: reading from backup piece PCDB_a8rd7c3g_1_1
+channel c2: piece handle=PCDB_ajrd7ci8_1_1 tag=TAG20160814T074522
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 00:20:15
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8926_cv711wwd_.arc thread=1 sequence=8926
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8926_cv711wwd_.arc RECID=312510 STAMP=920075793
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8927_cv711wro_.arc thread=1 sequence=8927
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8927_cv711wro_.arc RECID=312511 STAMP=920075795
+channel c2: starting archived log restore to default destination
+channel c2: restoring archived log
+archived log thread=1 sequence=8930
+channel c2: restoring archived log
+archived log thread=1 sequence=8931
+channel c2: reading from backup piece PCDB_abrd7c8d_1_1
+channel c1: piece handle=PCDB_a8rd7c3g_1_1 tag=TAG20160814T074522
+channel c1: restored backup piece 1
+channel c1: restore complete, elapsed time: 00:17:09
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8928_cv72bhwr_.arc thread=1 sequence=8928
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8928_cv72bhwr_.arc RECID=312513 STAMP=920077084
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8929_cv72bj1w_.arc thread=1 sequence=8929
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8929_cv72bj1w_.arc RECID=312512 STAMP=920077081
+channel c1: starting archived log restore to default destination
+channel c1: restoring archived log
+archived log thread=1 sequence=8932
+channel c1: restoring archived log
+archived log thread=1 sequence=8933
+channel c1: reading from backup piece PCDB_a7rd7c30_1_1
+channel c2: piece handle=PCDB_abrd7c8d_1_1 tag=TAG20160814T074522
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 00:18:12
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8930_cv7361fz_.arc thread=1 sequence=8930
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8930_cv7361fz_.arc RECID=312514 STAMP=920077969
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8931_cv7361c2_.arc thread=1 sequence=8931
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8931_cv7361c2_.arc RECID=312515 STAMP=920077981
+channel c2: starting archived log restore to default destination
+channel c2: restoring archived log
+archived log thread=1 sequence=8934
+channel c2: restoring archived log
+archived log thread=1 sequence=8935
+channel c2: reading from backup piece PCDB_amrd7ckt_1_1
+channel c2: piece handle=PCDB_amrd7ckt_1_1 tag=TAG20160814T074522
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 00:07:16
+channel c2: starting archived log restore to default destination
+channel c2: restoring archived log
+archived log thread=1 sequence=8936
+channel c2: restoring archived log
+archived log thread=1 sequence=8937
+channel c2: reading from backup piece PCDB_aprd7cpf_1_1
+channel c2: piece handle=PCDB_aprd7cpf_1_1 tag=TAG20160814T074522
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 00:06:46
+channel c2: starting archived log restore to default destination
+channel c2: restoring archived log
+archived log thread=1 sequence=8938
+channel c2: restoring archived log
+archived log thread=1 sequence=8939
+channel c2: reading from backup piece PCDB_a1rd7bgk_1_1
+channel c2: piece handle=PCDB_a1rd7bgk_1_1 tag=TAG20160814T074522
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 00:05:45
+channel c2: starting archived log restore to default destination
+channel c2: restoring archived log
+archived log thread=1 sequence=8940
+channel c2: restoring archived log
+archived log thread=1 sequence=8941
+channel c2: reading from backup piece PCDB_alrd7cjq_1_1
+channel c1: piece handle=PCDB_a7rd7c30_1_1 tag=TAG20160814T074522
+channel c1: restored backup piece 1
+channel c1: restore complete, elapsed time: 01:01:15
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8932_cv77f3qv_.arc thread=1 sequence=8932
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8932_cv77f3qv_.arc RECID=312522 STAMP=920081780
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8933_cv77f3pk_.arc thread=1 sequence=8933
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8933_cv77f3pk_.arc RECID=312523 STAMP=920081782
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8934_cv74w5lv_.arc thread=1 sequence=8934
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8934_cv74w5lv_.arc RECID=312516 STAMP=920079182
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8935_cv74w5kr_.arc thread=1 sequence=8935
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8935_cv74w5kr_.arc RECID=312517 STAMP=920079183
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8936_cv7580pj_.arc thread=1 sequence=8936
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8936_cv7580pj_.arc RECID=312519 STAMP=920079593
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8937_cv7580r9_.arc thread=1 sequence=8937
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8937_cv7580r9_.arc RECID=312518 STAMP=920079587
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8938_cv75mngg_.arc thread=1 sequence=8938
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8938_cv75mngg_.arc RECID=312520 STAMP=920079939
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8939_cv75mndj_.arc thread=1 sequence=8939
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8939_cv75mndj_.arc RECID=312521 STAMP=920079944
+channel c1: starting archived log restore to default destination
+channel c1: restoring archived log
+archived log thread=1 sequence=8942
+channel c1: reading from backup piece PCDB_atrd7cti_1_1
+channel c2: piece handle=PCDB_alrd7cjq_1_1 tag=TAG20160814T074522
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 01:17:22
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8940_cv799jqs_.arc thread=1 sequence=8940
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8940_cv799jqs_.arc RECID=312525 STAMP=920084293
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8941_cv799js4_.arc thread=1 sequence=8941
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8941_cv799js4_.arc RECID=312524 STAMP=920084288
+channel c2: starting archived log restore to default destination
+channel c2: restoring archived log
+archived log thread=1 sequence=8943
+channel c2: restoring archived log
+archived log thread=1 sequence=8944
+channel c2: reading from backup piece PCDB_b7rd7mek_1_1
+channel c1: piece handle=PCDB_atrd7cti_1_1 tag=TAG20160814T074522
+channel c1: restored backup piece 1
+channel c1: restore complete, elapsed time: 00:21:59
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8942_cv7cksz6_.arc thread=1 sequence=8942
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8942_cv7cksz6_.arc RECID=312526 STAMP=920085908
+channel c1: starting archived log restore to default destination
+channel c1: restoring archived log
+archived log thread=1 sequence=8945
+channel c1: restoring archived log
+archived log thread=1 sequence=8946
+channel c1: reading from backup piece PCDB_avrd7m2f_1_1
+channel c2: piece handle=PCDB_b7rd7mek_1_1 tag=TAG20160814T104533
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 00:25:47
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8943_cv7crsvq_.arc thread=1 sequence=8943
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8943_cv7crsvq_.arc RECID=312528 STAMP=920086671
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8944_cv7crt1z_.arc thread=1 sequence=8944
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8944_cv7crt1z_.arc RECID=312527 STAMP=920086669
+channel c2: starting archived log restore to default destination
+channel c2: restoring archived log
+archived log thread=1 sequence=8947
+channel c2: restoring archived log
+archived log thread=1 sequence=8948
+channel c2: reading from backup piece PCDB_b0rd7m2f_1_1
+channel c1: piece handle=PCDB_avrd7m2f_1_1 tag=TAG20160814T104533
+channel c1: restored backup piece 1
+channel c1: restore complete, elapsed time: 00:19:03
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8945_cv7d8sns_.arc thread=1 sequence=8945
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8945_cv7d8sns_.arc RECID=312529 STAMP=920087249
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8946_cv7d8sf3_.arc thread=1 sequence=8946
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8946_cv7d8sf3_.arc RECID=312530 STAMP=920087258
+channel c1: starting archived log restore to default destination
+channel c1: restoring archived log
+archived log thread=1 sequence=8949
+channel c1: restoring archived log
+archived log thread=1 sequence=8950
+channel c1: reading from backup piece PCDB_bard7mis_1_1
+channel c2: piece handle=PCDB_b0rd7m2f_1_1 tag=TAG20160814T104533
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 00:16:12
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8947_cv7ffv95_.arc thread=1 sequence=8947
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8947_cv7ffv95_.arc RECID=312532 STAMP=920088511
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8948_cv7fg66b_.arc thread=1 sequence=8948
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8948_cv7fg66b_.arc RECID=312531 STAMP=920088504
+channel c2: starting archived log restore to default destination
+channel c2: restoring archived log
+archived log thread=1 sequence=8951
+channel c2: restoring archived log
+archived log thread=1 sequence=8952
+channel c2: reading from backup piece PCDB_b3rd7m8i_1_1
+channel c1: piece handle=PCDB_bard7mis_1_1 tag=TAG20160814T104533
+channel c1: restored backup piece 1
+channel c1: restore complete, elapsed time: 00:16:18
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8949_cv7gdzj4_.arc thread=1 sequence=8949
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8949_cv7gdzj4_.arc RECID=312533 STAMP=920089515
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8950_cv7gdzd4_.arc thread=1 sequence=8950
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8950_cv7gdzd4_.arc RECID=312534 STAMP=920089517
+channel c1: starting archived log restore to default destination
+channel c1: restoring archived log
+archived log thread=1 sequence=8953
+channel c1: restoring archived log
+archived log thread=1 sequence=8954
+channel c1: reading from backup piece PCDB_b5rd7mb5_1_1
+channel c2: piece handle=PCDB_b3rd7m8i_1_1 tag=TAG20160814T104533
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 00:16:54
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8951_cv7hcxn0_.arc thread=1 sequence=8951
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8951_cv7hcxn0_.arc RECID=312536 STAMP=920090475
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8952_cv7hcy0t_.arc thread=1 sequence=8952
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8952_cv7hcy0t_.arc RECID=312535 STAMP=920090473
+channel c2: starting archived log restore to default destination
+channel c2: restoring archived log
+archived log thread=1 sequence=8955
+channel c2: restoring archived log
+archived log thread=1 sequence=8956
+channel c2: reading from backup piece PCDB_b6rd7mbl_1_1
+channel c1: piece handle=PCDB_b5rd7mb5_1_1 tag=TAG20160814T104533
+channel c1: restored backup piece 1
+channel c1: restore complete, elapsed time: 00:16:50
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8953_cv7j8ptg_.arc thread=1 sequence=8953
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8953_cv7j8ptg_.arc RECID=312537 STAMP=920091436
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8954_cv7j8p9n_.arc thread=1 sequence=8954
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8954_cv7j8p9n_.arc RECID=312538 STAMP=920091448
+channel c1: starting archived log restore to default destination
+channel c1: restoring archived log
+archived log thread=1 sequence=8957
+channel c1: restoring archived log
+archived log thread=1 sequence=8958
+channel c1: reading from backup piece PCDB_b8rd7mfn_1_1
+channel c2: piece handle=PCDB_b6rd7mbl_1_1 tag=TAG20160814T104533
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 00:17:11
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8955_cv7k6y0v_.arc thread=1 sequence=8955
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8955_cv7k6y0v_.arc RECID=312539 STAMP=920092469
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8956_cv7k6xs2_.arc thread=1 sequence=8956
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8956_cv7k6xs2_.arc RECID=312540 STAMP=920092471
+channel c2: starting archived log restore to default destination
+channel c2: restoring archived log
+archived log thread=1 sequence=8959
+channel c2: restoring archived log
+archived log thread=1 sequence=8960
+channel c2: reading from backup piece PCDB_b4rd7m8q_1_1
+channel c1: piece handle=PCDB_b8rd7mfn_1_1 tag=TAG20160814T104533
+channel c1: restored backup piece 1
+channel c1: restore complete, elapsed time: 00:18:49
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8957_cv7l453f_.arc thread=1 sequence=8957
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8957_cv7l453f_.arc RECID=312542 STAMP=920093346
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8958_cv7l451p_.arc thread=1 sequence=8958
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8958_cv7l451p_.arc RECID=312541 STAMP=920093341
+channel c1: starting archived log restore to default destination
+channel c1: restoring archived log
+archived log thread=1 sequence=8961
+channel c1: restoring archived log
+archived log thread=1 sequence=8962
+channel c1: reading from backup piece PCDB_b1rd7m2f_1_1
+channel c2: piece handle=PCDB_b4rd7m8q_1_1 tag=TAG20160814T104533
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 00:17:17
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8959_cv7m6zmr_.arc thread=1 sequence=8959
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8959_cv7m6zmr_.arc RECID=312544 STAMP=920094492
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8960_cv7m6z3z_.arc thread=1 sequence=8960
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8960_cv7m6z3z_.arc RECID=312543 STAMP=920094490
+channel c2: starting archived log restore to default destination
+channel c2: restoring archived log
+archived log thread=1 sequence=8963
+channel c2: restoring archived log
+archived log thread=1 sequence=8964
+channel c2: reading from backup piece PCDB_b9rd7mgh_1_1
+channel c1: piece handle=PCDB_b1rd7m2f_1_1 tag=TAG20160814T104533
+channel c1: restored backup piece 1
+channel c1: restore complete, elapsed time: 00:19:40
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8961_cv7n46n7_.arc thread=1 sequence=8961
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8961_cv7n46n7_.arc RECID=312546 STAMP=920095557
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8962_cv7n46t2_.arc thread=1 sequence=8962
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8962_cv7n46t2_.arc RECID=312545 STAMP=920095551
+channel c1: starting archived log restore to default destination
+channel c1: restoring archived log
+archived log thread=1 sequence=8965
+channel c1: restoring archived log
+archived log thread=1 sequence=8966
+channel c1: reading from backup piece PCDB_b2rd7m2f_1_1
+channel c2: piece handle=PCDB_b9rd7mgh_1_1 tag=TAG20160814T104533
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 00:16:32
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8963_cv7o5os4_.arc thread=1 sequence=8963
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8963_cv7o5os4_.arc RECID=312547 STAMP=920096385
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8964_cv7o5oqb_.arc thread=1 sequence=8964
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8964_cv7o5oqb_.arc RECID=312548 STAMP=920096388
+channel c2: starting archived log restore to default destination
+channel c2: restoring archived log
+archived log thread=1 sequence=8967
+channel c2: reading from backup piece PCDB_bbrd7mjm_1_1
+channel c1: piece handle=PCDB_b2rd7m2f_1_1 tag=TAG20160814T104533
+channel c1: restored backup piece 1
+channel c1: restore complete, elapsed time: 00:16:20
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8965_cv7p7g6v_.arc thread=1 sequence=8965
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8965_cv7p7g6v_.arc RECID=312549 STAMP=920097521
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8966_cv7p7fmk_.arc thread=1 sequence=8966
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8966_cv7p7fmk_.arc RECID=312550 STAMP=920097523
+channel c1: starting archived log restore to default destination
+channel c1: restoring archived log
+archived log thread=1 sequence=8968
+channel c1: restoring archived log
+archived log thread=1 sequence=8969
+channel c1: reading from backup piece PCDB_bord8120_1_1
+channel c2: piece handle=PCDB_bbrd7mjm_1_1 tag=TAG20160814T104533
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 00:14:16
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8967_cv7q424r_.arc thread=1 sequence=8967
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8967_cv7q424r_.arc RECID=312551 STAMP=920098075
+channel c2: starting archived log restore to default destination
+channel c2: restoring archived log
+archived log thread=1 sequence=8970
+channel c2: restoring archived log
+archived log thread=1 sequence=8971
+channel c2: reading from backup piece PCDB_bjrd80ul_1_1
+channel c1: piece handle=PCDB_bord8120_1_1 tag=TAG20160814T134529
+channel c1: restored backup piece 1
+channel c1: restore complete, elapsed time: 00:12:40
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8968_cv7qy2y9_.arc thread=1 sequence=8968
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8968_cv7qy2y9_.arc RECID=312553 STAMP=920099085
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8969_cv7qy3cd_.arc thread=1 sequence=8969
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8969_cv7qy3cd_.arc RECID=312552 STAMP=920099078
+channel c1: starting archived log restore to default destination
+channel c1: restoring archived log
+archived log thread=1 sequence=8972
+channel c1: restoring archived log
+archived log thread=1 sequence=8973
+channel c1: reading from backup piece PCDB_bhrd80sp_1_1
+channel c2: piece handle=PCDB_bjrd80ul_1_1 tag=TAG20160814T134529
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 00:18:43
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8970_cv7rg8yz_.arc thread=1 sequence=8970
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8970_cv7rg8yz_.arc RECID=312554 STAMP=920099759
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8971_cv7rg8td_.arc thread=1 sequence=8971
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8971_cv7rg8td_.arc RECID=312555 STAMP=920099769
+channel c2: starting archived log restore to default destination
+channel c2: restoring archived log
+archived log thread=1 sequence=8974
+channel c2: restoring archived log
+archived log thread=1 sequence=8975
+channel c2: reading from backup piece PCDB_bfrd80jr_1_1
+channel c1: piece handle=PCDB_bhrd80sp_1_1 tag=TAG20160814T134529
+channel c1: restored backup piece 1
+channel c1: restore complete, elapsed time: 00:16:35
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8972_cv7sl604_.arc thread=1 sequence=8972
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8972_cv7sl604_.arc RECID=312556 STAMP=920100928
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8973_cv7sl5y9_.arc thread=1 sequence=8973
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8973_cv7sl5y9_.arc RECID=312557 STAMP=920100930
+channel c1: starting archived log restore to default destination
+channel c1: restoring archived log
+archived log thread=1 sequence=8976
+channel c1: restoring archived log
+archived log thread=1 sequence=8977
+channel c1: reading from backup piece PCDB_bird80ts_1_1
+channel c2: piece handle=PCDB_bfrd80jr_1_1 tag=TAG20160814T134529
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 00:18:01
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8974_cv7tmsvv_.arc thread=1 sequence=8974
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8974_cv7tmsvv_.arc RECID=312559 STAMP=920101897
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8975_cv7tmsyn_.arc thread=1 sequence=8975
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8975_cv7tmsyn_.arc RECID=312558 STAMP=920101895
+channel c2: starting archived log restore to default destination
+channel c2: restoring archived log
+archived log thread=1 sequence=8978
+channel c2: restoring archived log
+archived log thread=1 sequence=8979
+channel c2: reading from backup piece PCDB_bprd813o_1_1
+channel c1: piece handle=PCDB_bird80ts_1_1 tag=TAG20160814T134529
+channel c1: restored backup piece 1
+channel c1: restore complete, elapsed time: 00:17:08
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8976_cv7vf1p7_.arc thread=1 sequence=8976
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8976_cv7vf1p7_.arc RECID=312560 STAMP=920102867
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8977_cv7vdyfp_.arc thread=1 sequence=8977
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8977_cv7vdyfp_.arc RECID=312561 STAMP=920102869
+channel c1: starting archived log restore to default destination
+channel c1: restoring archived log
+archived log thread=1 sequence=8980
+channel c1: restoring archived log
+archived log thread=1 sequence=8981
+channel c1: reading from backup piece PCDB_bdrd80jr_1_1
+channel c2: piece handle=PCDB_bprd813o_1_1 tag=TAG20160814T134529
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 00:16:21
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8978_cv7wdq0o_.arc thread=1 sequence=8978
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8978_cv7wdq0o_.arc RECID=312562 STAMP=920103835
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8979_cv7wdprj_.arc thread=1 sequence=8979
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8979_cv7wdprj_.arc RECID=312563 STAMP=920103841
+channel c2: starting archived log restore to default destination
+channel c2: restoring archived log
+archived log thread=1 sequence=8982
+channel c2: restoring archived log
+archived log thread=1 sequence=8983
+channel c2: reading from backup piece PCDB_bqrd814h_1_1
+channel c1: piece handle=PCDB_bdrd80jr_1_1 tag=TAG20160814T134529
+channel c1: restored backup piece 1
+channel c1: restore complete, elapsed time: 00:16:44
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8980_cv7xc3so_.arc thread=1 sequence=8980
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8980_cv7xc3so_.arc RECID=312564 STAMP=920104768
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8981_cv7xc3hr_.arc thread=1 sequence=8981
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8981_cv7xc3hr_.arc RECID=312565 STAMP=920104770
+channel c1: starting archived log restore to default destination
+channel c1: restoring archived log
+archived log thread=1 sequence=8984
+channel c1: restoring archived log
+archived log thread=1 sequence=8985
+channel c1: reading from backup piece PCDB_bmrd8116_1_1
+channel c2: piece handle=PCDB_bqrd814h_1_1 tag=TAG20160814T134529
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 00:17:47
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8982_cv7ycy4s_.arc thread=1 sequence=8982
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8982_cv7ycy4s_.arc RECID=312567 STAMP=920105727
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8983_cv7ycydd_.arc thread=1 sequence=8983
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8983_cv7ycydd_.arc RECID=312566 STAMP=920105725
+channel c2: starting archived log restore to default destination
+channel c2: restoring archived log
+archived log thread=1 sequence=8986
+channel c2: restoring archived log
+archived log thread=1 sequence=8987
+channel c2: reading from backup piece PCDB_bnrd8120_1_1
+channel c1: piece handle=PCDB_bmrd8116_1_1 tag=TAG20160814T134529
+channel c1: restored backup piece 1
+channel c1: restore complete, elapsed time: 00:17:37
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8984_cv7z3qz4_.arc thread=1 sequence=8984
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8984_cv7z3qz4_.arc RECID=312569 STAMP=920106677
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8985_cv7z3r1q_.arc thread=1 sequence=8985
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8985_cv7z3r1q_.arc RECID=312568 STAMP=920106674
+channel c1: starting archived log restore to default destination
+channel c1: restoring archived log
+archived log thread=1 sequence=8988
+channel c1: restoring archived log
+archived log thread=1 sequence=8989
+channel c1: reading from backup piece PCDB_bkrd80um_1_1
+channel c2: piece handle=PCDB_bnrd8120_1_1 tag=TAG20160814T134529
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 00:16:06
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8986_cv805yrs_.arc thread=1 sequence=8986
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8986_cv805yrs_.arc RECID=312571 STAMP=920107658
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8987_cv805z6b_.arc thread=1 sequence=8987
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8987_cv805z6b_.arc RECID=312570 STAMP=920107654
+channel c2: starting archived log restore to default destination
+channel c2: restoring archived log
+archived log thread=1 sequence=8990
+channel c2: restoring archived log
+archived log thread=1 sequence=8991
+channel c2: reading from backup piece PCDB_berd80jr_1_1
+channel c1: piece handle=PCDB_bkrd80um_1_1 tag=TAG20160814T134529
+channel c1: restored backup piece 1
+channel c1: restore complete, elapsed time: 00:17:54
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8988_cv80x5rz_.arc thread=1 sequence=8988
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8988_cv80x5rz_.arc RECID=312572 STAMP=920108399
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8989_cv80x5nk_.arc thread=1 sequence=8989
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8989_cv80x5nk_.arc RECID=312573 STAMP=920108407
+channel c1: starting archived log restore to default destination
+channel c1: restoring archived log
+archived log thread=1 sequence=8992
+channel c1: restoring archived log
+archived log thread=1 sequence=8993
+channel c1: reading from backup piece PCDB_bgrd80jr_1_1
+channel c2: piece handle=PCDB_berd80jr_1_1 tag=TAG20160814T134529
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 00:15:31
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8990_cv81y63v_.arc thread=1 sequence=8990
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8990_cv81y63v_.arc RECID=312574 STAMP=920109492
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8991_cv81y5rg_.arc thread=1 sequence=8991
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8991_cv81y5rg_.arc RECID=312575 STAMP=920109494
+channel c2: starting archived log restore to default destination
+channel c2: restoring archived log
+archived log thread=1 sequence=8994
+channel c2: restoring archived log
+archived log thread=1 sequence=8995
+channel c2: reading from backup piece PCDB_blrd8103_1_1
+channel c1: piece handle=PCDB_bgrd80jr_1_1 tag=TAG20160814T134529
+channel c1: restored backup piece 1
+channel c1: restore complete, elapsed time: 00:16:45
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8992_cv82vvn4_.arc thread=1 sequence=8992
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8992_cv82vvn4_.arc RECID=312577 STAMP=920110467
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8993_cv82vngx_.arc thread=1 sequence=8993
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8993_cv82vngx_.arc RECID=312576 STAMP=920110465
+channel c1: starting archived log restore to default destination
+channel c1: restoring archived log
+archived log thread=1 sequence=8996
+channel c1: reading from backup piece PCDB_brrd815a_1_1
+channel c2: piece handle=PCDB_blrd8103_1_1 tag=TAG20160814T134529
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 00:17:20
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8994_cv83ymxo_.arc thread=1 sequence=8994
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8994_cv83ymxo_.arc RECID=312579 STAMP=920111454
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8995_cv83yn1z_.arc thread=1 sequence=8995
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8995_cv83yn1z_.arc RECID=312578 STAMP=920111450
+channel c2: starting archived log restore to default destination
+channel c2: restoring archived log
+archived log thread=1 sequence=8997
+channel c2: restoring archived log
+archived log thread=1 sequence=8998
+channel c2: reading from backup piece PCDB_c3rd8bg4_1_1
+channel c1: piece handle=PCDB_brrd815a_1_1 tag=TAG20160814T134529
+channel c1: restored backup piece 1
+channel c1: restore complete, elapsed time: 00:14:43
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8996_cv84ly17_.arc thread=1 sequence=8996
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8996_cv84ly17_.arc RECID=312580 STAMP=920111823
+channel c1: starting archived log restore to default destination
+channel c1: restoring archived log
+archived log thread=1 sequence=8999
+channel c1: restoring archived log
+archived log thread=1 sequence=9000
+channel c1: reading from backup piece PCDB_card8bnc_1_1
+channel c2: piece handle=PCDB_c3rd8bg4_1_1 tag=TAG20160814T164533
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 00:12:17
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8997_cv85jo1q_.arc thread=1 sequence=8997
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8997_cv85jo1q_.arc RECID=312581 STAMP=920112895
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8998_cv85jf9h_.arc thread=1 sequence=8998
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8998_cv85jf9h_.arc RECID=312582 STAMP=920112897
+channel c2: starting archived log restore to default destination
+channel c2: restoring archived log
+archived log thread=1 sequence=9001
+channel c2: restoring archived log
+archived log thread=1 sequence=9002
+channel c2: reading from backup piece PCDB_c4rd8bg4_1_1
+channel c1: piece handle=PCDB_card8bnc_1_1 tag=TAG20160814T164533
+channel c1: restored backup piece 1
+channel c1: restore complete, elapsed time: 00:20:07
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8999_cv85rhdy_.arc thread=1 sequence=8999
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_8999_cv85rhdy_.arc RECID=312583 STAMP=920113369
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_9000_cv85rh8s_.arc thread=1 sequence=9000
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_9000_cv85rh8s_.arc RECID=312584 STAMP=920113412
+channel c1: starting archived log restore to default destination
+channel c1: restoring archived log
+archived log thread=1 sequence=9003
+channel c1: restoring archived log
+archived log thread=1 sequence=9004
+channel c1: reading from backup piece PCDB_c8rd8bjt_1_1
+channel c2: piece handle=PCDB_c4rd8bg4_1_1 tag=TAG20160814T164533
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 00:16:45
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_9001_cv870j98_.arc thread=1 sequence=9001
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_9001_cv870j98_.arc RECID=312585 STAMP=920114662
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_9002_cv870gjj_.arc thread=1 sequence=9002
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_9002_cv870gjj_.arc RECID=312586 STAMP=920114667
+channel c2: starting archived log restore to default destination
+channel c2: restoring archived log
+archived log thread=1 sequence=9005
+channel c2: restoring archived log
+archived log thread=1 sequence=9006
+channel c2: reading from backup piece PCDB_btrd8b5e_1_1
+channel c1: piece handle=PCDB_c8rd8bjt_1_1 tag=TAG20160814T164533
+channel c1: restored backup piece 1
+channel c1: restore complete, elapsed time: 00:17:06
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_9003_cv87t5sv_.arc thread=1 sequence=9003
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_9003_cv87t5sv_.arc RECID=312588 STAMP=920115488
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_9004_cv87t5tj_.arc thread=1 sequence=9004
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_9004_cv87t5tj_.arc RECID=312587 STAMP=920115484
+channel c1: starting archived log restore to default destination
+channel c1: restoring archived log
+archived log thread=1 sequence=9007
+channel c1: restoring archived log
+archived log thread=1 sequence=9008
+channel c1: reading from backup piece PCDB_c6rd8bjt_1_1
+channel c2: piece handle=PCDB_btrd8b5e_1_1 tag=TAG20160814T164533
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 00:16:16
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_9005_cv88vdc9_.arc thread=1 sequence=9005
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_9005_cv88vdc9_.arc RECID=312589 STAMP=920116587
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_9006_cv88vd15_.arc thread=1 sequence=9006
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_9006_cv88vd15_.arc RECID=312590 STAMP=920116589
+channel c2: starting archived log restore to default destination
+channel c2: restoring archived log
+archived log thread=1 sequence=9009
+channel c2: restoring archived log
+archived log thread=1 sequence=9010
+channel c2: reading from backup piece PCDB_bvrd8b5f_1_1
+channel c1: piece handle=PCDB_c6rd8bjt_1_1 tag=TAG20160814T164533
+channel c1: restored backup piece 1
+channel c1: restore complete, elapsed time: 00:16:26
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_9007_cv89sgn8_.arc thread=1 sequence=9007
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_9007_cv89sgn8_.arc RECID=312591 STAMP=920117544
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_9008_cv89sgc8_.arc thread=1 sequence=9008
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_9008_cv89sgc8_.arc RECID=312592 STAMP=920117547
+channel c1: starting archived log restore to default destination
+channel c1: restoring archived log
+archived log thread=1 sequence=9011
+channel c1: restoring archived log
+archived log thread=1 sequence=9012
+channel c1: reading from backup piece PCDB_c0rd8b5f_1_1
+channel c2: piece handle=PCDB_bvrd8b5f_1_1 tag=TAG20160814T164533
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 00:16:33
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_9009_cv8bor30_.arc thread=1 sequence=9009
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_9009_cv8bor30_.arc RECID=312593 STAMP=920118498
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_9010_cv8boqps_.arc thread=1 sequence=9010
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_9010_cv8boqps_.arc RECID=312594 STAMP=920118510
+channel c2: starting archived log restore to default destination
+channel c2: restoring archived log
+archived log thread=1 sequence=9013
+channel c2: restoring archived log
+archived log thread=1 sequence=9014
+channel c2: reading from backup piece PCDB_c9rd8bll_1_1
+channel c1: piece handle=PCDB_c0rd8b5f_1_1 tag=TAG20160814T164533
+channel c1: restored backup piece 1
+channel c1: restore complete, elapsed time: 00:17:03
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_9011_cv8cmz37_.arc thread=1 sequence=9011
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_9011_cv8cmz37_.arc RECID=312595 STAMP=920119433
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_9012_cv8cmw11_.arc thread=1 sequence=9012
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_9012_cv8cmw11_.arc RECID=312596 STAMP=920119439
+channel c1: starting archived log restore to default destination
+channel c1: restoring archived log
+archived log thread=1 sequence=9015
+channel c1: restoring archived log
+archived log thread=1 sequence=9016
+channel c1: reading from backup piece PCDB_c2rd8bg4_1_1
+channel c2: piece handle=PCDB_c9rd8bll_1_1 tag=TAG20160814T164533
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 00:15:56
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_9013_cv8dnxbg_.arc thread=1 sequence=9013
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_9013_cv8dnxbg_.arc RECID=312598 STAMP=920120476
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_9014_cv8dnxgm_.arc thread=1 sequence=9014
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_9014_cv8dnxgm_.arc RECID=312597 STAMP=920120441
+channel c2: starting archived log restore to default destination
+channel c2: restoring archived log
+archived log thread=1 sequence=9017
+channel c2: restoring archived log
+archived log thread=1 sequence=9018
+channel c2: reading from backup piece PCDB_c7rd8bjt_1_1
+channel c1: piece handle=PCDB_c2rd8bg4_1_1 tag=TAG20160814T164533
+channel c1: restored backup piece 1
+channel c1: restore complete, elapsed time: 00:15:36
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_9015_cv8fnq0w_.arc thread=1 sequence=9015
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_9015_cv8fnq0w_.arc RECID=312599 STAMP=920121397
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_9016_cv8fnpqb_.arc thread=1 sequence=9016
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_9016_cv8fnpqb_.arc RECID=312600 STAMP=920121403
+channel c1: starting archived log restore to default destination
+channel c1: restoring archived log
+archived log thread=1 sequence=9019
+channel c1: restoring archived log
+archived log thread=1 sequence=9020
+channel c1: reading from backup piece PCDB_c1rd8bf0_1_1
+channel c2: piece handle=PCDB_c7rd8bjt_1_1 tag=TAG20160814T164533
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 00:17:02
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_9017_cv8gg23q_.arc thread=1 sequence=9017
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_9017_cv8gg23q_.arc RECID=312601 STAMP=920122249
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_9018_cv8gg1z1_.arc thread=1 sequence=9018
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_9018_cv8gg1z1_.arc RECID=312602 STAMP=920122257
+channel c2: starting archived log restore to default destination
+channel c2: restoring archived log
+archived log thread=1 sequence=9021
+channel c2: restoring archived log
+archived log thread=1 sequence=9022
+channel c2: reading from backup piece PCDB_burd8b5f_1_1
+channel c1: piece handle=PCDB_c1rd8bf0_1_1 tag=TAG20160814T164533
+channel c1: restored backup piece 1
+channel c1: restore complete, elapsed time: 00:16:02
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_9019_cv8hjgs2_.arc thread=1 sequence=9019
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_9019_cv8hjgs2_.arc RECID=312604 STAMP=920123286
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_9020_cv8hjh56_.arc thread=1 sequence=9020
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_9020_cv8hjh56_.arc RECID=312603 STAMP=920123284
+channel c1: starting archived log restore to default destination
+channel c1: restoring archived log
+archived log thread=1 sequence=9023
+channel c1: reading from backup piece PCDB_c5rd8bi6_1_1
+channel c2: piece handle=PCDB_burd8b5f_1_1 tag=TAG20160814T164533
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 00:17:21
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_9021_cv8jcpc5_.arc thread=1 sequence=9021
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_9021_cv8jcpc5_.arc RECID=312606 STAMP=920124250
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_9022_cv8jcpy9_.arc thread=1 sequence=9022
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_9022_cv8jcpy9_.arc RECID=312605 STAMP=920124248
+channel c1: piece handle=PCDB_c5rd8bi6_1_1 tag=TAG20160814T164533
+channel c1: restored backup piece 1
+channel c1: restore complete, elapsed time: 00:13:54
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_9023_cv8k9jvm_.arc thread=1 sequence=9023
+channel default: deleting archived log(s)
+archived log file name=/testdb/TESTPCDB/fra/PCDB/archivelog/2016_08_17/o1_mf_1_9023_cv8k9jvm_.arc RECID=312607 STAMP=920124781
+media recovery complete, elapsed time: 00:00:55
+Finished recover at 2016-08-17:14:17:30
+released channel: c1
+released channel: c2
+
+RMAN> QUIT;
+
+Recovery Manager complete.

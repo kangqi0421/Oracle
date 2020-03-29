@@ -1,0 +1,215 @@
+SQL> @/u01/app/oracle/product/11.2.0.4/db_1/ord/admin/ordinst.sql SYSAUX SYSAUX;
+SQL> Rem
+SQL> Rem $Header: ordinst.sql 11-sep-2007.08:58:45 smavris Exp $
+SQL> Rem
+SQL> Rem ordinst.sql
+SQL> Rem
+SQL> Rem Copyright (c) 2000, 2007, Oracle. All rights reserved.
+SQL> Rem
+SQL> Rem    NAME
+SQL> Rem      ordinst.sql - Install script for ORD components
+SQL> Rem
+SQL> Rem    DESCRIPTION
+SQL> Rem      Creates the schemas and grants the privs needed to run
+SQL> Rem      Oracle Multimedia and Spatial.
+SQL> Rem
+SQL> Rem      Run this script like this:
+SQL> Rem        ordinst.sql <ORDIM_TABLESPACE> <SPATIAL_TABLESPACE>
+SQL> Rem
+SQL> Rem    NOTES
+SQL> Rem      Must connected as SYSDBA before invoking this script.
+SQL> Rem
+SQL> Rem      If ORDIM and SPATIAL tablespaces names must be supplied.  These
+SQL> Rem      tablespaces must exist prior to invoking this script.  We
+SQL> Rem      recommend that you use the SYSAUX tablespace as follows:
+SQL> Rem
+SQL> Rem      ordinst.sql SYSAUX SYSAUX
+SQL> Rem
+SQL> 
+SQL> define ordim_tbs    = &1;
+SQL> define spatial_tbs  = &2;
+SQL> --
+SQL> -- Steps that must be executed as SYSDBA
+SQL> --   Create schemas and grant privs
+SQL> --
+SQL> @@ordisysc.sql &ordim_tbs &spatial_tbs
+SQL> Rem
+SQL> Rem $Header: ordim/common/admin/ordisysc.sql /st_ordim_11.2.0/1 2013/02/08 19:46:18 smavris Exp $
+SQL> Rem
+SQL> Rem ordisysc.sql
+SQL> Rem
+SQL> Rem Copyright (c) 2002, 2013, Oracle and/or its affiliates.
+SQL> Rem All rights reserved.
+SQL> Rem
+SQL> Rem    NAME
+SQL> Rem      ordisysc.sql - Create schema script for ORD components
+SQL> Rem
+SQL> Rem    DESCRIPTION
+SQL> Rem      Creates the schemas needed to run Oracle Multimedia and Spatial.
+SQL> Rem
+SQL> Rem      Run this script like this:
+SQL> Rem        ordisysc.sql <ORDIM_TABLESPACE> <SPATIAL_TABLESPACE>
+SQL> Rem
+SQL> Rem    NOTES
+SQL> Rem      Must be run connected as SYSDBA
+SQL> Rem
+SQL> 
+SQL> define ordim_tbs    = &1
+SQL> define spatial_tbs  = &2
+SQL> 
+SQL> --
+SQL> -- Make sure we don't echo passwords in logs
+SQL> --
+SQL> set echo off
+
+User created.
+
+
+User created.
+
+
+User created.
+
+
+User created.
+
+
+User created.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Grant succeeded.
+
+
+Package created.
+
+No errors.
+
+Package body created.
+
+No errors.
+
+Synonym created.
+
+
+Grant succeeded.
+

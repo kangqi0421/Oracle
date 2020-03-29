@@ -1,0 +1,141 @@
+SQL> startup nomount pfile="/u01/app/oracle/admin/PRRBT/scripts/init.ora";
+ORACLE instance started.
+
+Total System Global Area 3.3137E+10 bytes                                       
+Fixed Size                  2269712 bytes                                       
+Variable Size            4294970864 bytes                                       
+Database Buffers         2.8790E+10 bytes                                       
+Redo Buffers               50446336 bytes                                       
+SQL> CREATE DATABASE "rbt"
+  2  MAXINSTANCES 8
+  3  MAXLOGHISTORY 1
+  4  MAXLOGFILES 32
+  5  MAXLOGMEMBERS 3
+  6  MAXDATAFILES 500
+  7  DATAFILE "+CONS_DATA/PRRBT/datafile/system" SIZE 10G AUTOEXTEND ON NEXT  10M MAXSIZE 32768G
+  8  EXTENT MANAGEMENT LOCAL
+  9  SYSAUX DATAFILE "+CONS_DATA/PRRBT/datafile/sysaux" SIZE 1G AUTOEXTEND ON NEXT  10M MAXSIZE 32768G
+ 10  SMALLFILE DEFAULT TEMPORARY TABLESPACE TEMP TEMPFILE "+CONS_DATA/PRRBT/tempfile/temp01"  SIZE 4G AUTOEXTEND ON NEXT  640K MAXSIZE 4G
+ 11  SMALLFILE UNDO TABLESPACE "UNDOTBS1" DATAFILE "+CONS_DATA/PRRBT/datafile/undo01"  SIZE 4G AUTOEXTEND ON NEXT  5M MAXSIZE 10G
+ 12  CHARACTER SET CL8MSWIN1251
+ 13  NATIONAL CHARACTER SET AL16UTF16
+ 14  SET DEFAULT BIGFILE TABLESPACE
+ 15  LOGFILE GROUP 1 "+CONS_DATA/PRRBT/onlinelog/redo01" SIZE 524288000,
+ 16  GROUP 2 "+CONS_DATA/PRRBT/onlinelog/redo02" SIZE 524288000,
+ 17  GROUP 3 "+CONS_DATA/PRRBT/onlinelog/redo03" SIZE 524288000
+ 18  USER SYS IDENTIFIED BY "&&sysPassword" USER SYSTEM IDENTIFIED BY "&&systemPassword";
+DATAFILE "+CONS_DATA/PRRBT/datafile/system" SIZE 10G AUTOEXTEND ON NEXT  10M MAXSIZE 32768G
+         *
+ERROR at line 7:
+ORA-00972: identifier is too long 
+
+
+SQL> spool off
+SQL> startup nomount pfile="/u01/app/oracle/admin/PRRBT/scripts/init.ora";
+ORACLE instance started.
+
+Total System Global Area 3.3137E+10 bytes                                       
+Fixed Size                  2269712 bytes                                       
+Variable Size            4294970864 bytes                                       
+Database Buffers         2.8790E+10 bytes                                       
+Redo Buffers               50446336 bytes                                       
+SQL> CREATE DATABASE "rbt"
+  2  MAXINSTANCES 8
+  3  MAXLOGHISTORY 1
+  4  MAXLOGFILES 32
+  5  MAXLOGMEMBERS 3
+  6  MAXDATAFILES 500
+  7  DATAFILE '+CONS_DATA/PRRBT/datafile/system' SIZE 10G AUTOEXTEND ON NEXT  10M MAXSIZE 32768G
+  8  EXTENT MANAGEMENT LOCAL
+  9  SYSAUX DATAFILE '+CONS_DATA/PRRBT/datafile/sysaux' SIZE 1G AUTOEXTEND ON NEXT  10M MAXSIZE 32768G
+ 10  SMALLFILE DEFAULT TEMPORARY TABLESPACE TEMP TEMPFILE '+CONS_DATA/PRRBT/tempfile/temp01'  SIZE 4G AUTOEXTEND ON NEXT  640K MAXSIZE 4G
+ 11  SMALLFILE UNDO TABLESPACE "UNDOTBS1" DATAFILE '+CONS_DATA/PRRBT/datafile/undo01'  SIZE 4G AUTOEXTEND ON NEXT  5M MAXSIZE 10G
+ 12  CHARACTER SET CL8MSWIN1251
+ 13  NATIONAL CHARACTER SET AL16UTF16
+ 14  SET DEFAULT BIGFILE TABLESPACE
+ 15  LOGFILE GROUP 1 ('+CONS_DATA/PRRBT/onlinelog/redo01') SIZE 524288000,
+ 16  GROUP 2 ('+CONS_DATA/PRRBT/onlinelog/redo02') SIZE 524288000,
+ 17  GROUP 3 ('+CONS_DATA/PRRBT/onlinelog/redo03') SIZE 524288000
+ 18  USER SYS IDENTIFIED BY "&&sysPassword" USER SYSTEM IDENTIFIED BY "&&systemPassword";
+CREATE DATABASE "rbt"
+*
+ERROR at line 1:
+ORA-01092: ORACLE instance terminated. Disconnection forced
+ORA-01501: CREATE DATABASE failed
+ORA-01519: error while processing file '?/rdbms/admin/dcore.bsq' near line 30
+ORA-00604: error occurred at recursive SQL level 1
+ORA-00740: datafile size of (4294967296) blocks exceeds maximum file size
+Process ID: 55989
+Session ID: 127 Serial number: 1 
+
+
+SQL> spool off
+SQL> startup nomount pfile="/u01/app/oracle/admin/PRRBT/scripts/init.ora";
+ORACLE instance started.
+
+Total System Global Area 3.3137E+10 bytes                                       
+Fixed Size                  2269712 bytes                                       
+Variable Size            4294970864 bytes                                       
+Database Buffers         2.8790E+10 bytes                                       
+Redo Buffers               50446336 bytes                                       
+SQL> CREATE DATABASE "rbt"
+  2  MAXINSTANCES 8
+  3  MAXLOGHISTORY 1
+  4  MAXLOGFILES 32
+  5  MAXLOGMEMBERS 3
+  6  MAXDATAFILES 500
+  7  DATAFILE '+CONS_DATA/PRRBT/datafile/system' SIZE 10G AUTOEXTEND ON NEXT  10M MAXSIZE 32G
+  8  EXTENT MANAGEMENT LOCAL
+  9  SYSAUX DATAFILE '+CONS_DATA/PRRBT/datafile/sysaux' SIZE 1G AUTOEXTEND ON NEXT  10M MAXSIZE 32G
+ 10  SMALLFILE DEFAULT TEMPORARY TABLESPACE TEMP TEMPFILE '+CONS_DATA/PRRBT/tempfile/temp01'  SIZE 4G AUTOEXTEND ON NEXT  640K MAXSIZE 4G
+ 11  SMALLFILE UNDO TABLESPACE "UNDOTBS1" DATAFILE '+CONS_DATA/PRRBT/datafile/undo01'  SIZE 4G AUTOEXTEND ON NEXT  5M MAXSIZE 10G
+ 12  CHARACTER SET CL8MSWIN1251
+ 13  NATIONAL CHARACTER SET AL16UTF16
+ 14  SET DEFAULT BIGFILE TABLESPACE
+ 15  LOGFILE GROUP 1 ('+CONS_DATA/PRRBT/onlinelog/redo01') SIZE 524288000,
+ 16  GROUP 2 ('+CONS_DATA/PRRBT/onlinelog/redo02') SIZE 524288000,
+ 17  GROUP 3 ('+CONS_DATA/PRRBT/onlinelog/redo03') SIZE 524288000
+ 18  USER SYS IDENTIFIED BY "&&sysPassword" USER SYSTEM IDENTIFIED BY "&&systemPassword";
+CREATE DATABASE "rbt"
+*
+ERROR at line 1:
+ORA-01501: CREATE DATABASE failed
+ORA-00200: control file could not be created
+ORA-00202: control file: '+CONS_DATA/prrbt/controlfile/control01'
+ORA-17502: ksfdcre:4 Failed to create file
++CONS_DATA/prrbt/controlfile/control01
+ORA-15005: name "prrbt/controlfile/control01" is already used by an existing
+alias 
+
+
+SQL> spool off
+SQL> startup nomount pfile="/u01/app/oracle/admin/PRRBT/scripts/init.ora";
+ORACLE instance started.
+
+Total System Global Area 3.3137E+10 bytes                                       
+Fixed Size                  2269712 bytes                                       
+Variable Size            4294970864 bytes                                       
+Database Buffers         2.8790E+10 bytes                                       
+Redo Buffers               50446336 bytes                                       
+SQL> CREATE DATABASE "rbt"
+  2  MAXINSTANCES 8
+  3  MAXLOGHISTORY 1
+  4  MAXLOGFILES 32
+  5  MAXLOGMEMBERS 3
+  6  MAXDATAFILES 500
+  7  DATAFILE '+CONS_DATA/PRRBT/datafile/system' SIZE 10G AUTOEXTEND ON NEXT  10M MAXSIZE 32G
+  8  EXTENT MANAGEMENT LOCAL
+  9  SYSAUX DATAFILE '+CONS_DATA/PRRBT/datafile/sysaux' SIZE 1G AUTOEXTEND ON NEXT  10M MAXSIZE 32G
+ 10  SMALLFILE DEFAULT TEMPORARY TABLESPACE TEMP TEMPFILE '+CONS_DATA/PRRBT/tempfile/temp01'  SIZE 4G AUTOEXTEND ON NEXT  640K MAXSIZE 4G
+ 11  SMALLFILE UNDO TABLESPACE "UNDOTBS1" DATAFILE '+CONS_DATA/PRRBT/datafile/undo01'  SIZE 4G AUTOEXTEND ON NEXT  5M MAXSIZE 10G
+ 12  CHARACTER SET CL8MSWIN1251
+ 13  NATIONAL CHARACTER SET AL16UTF16
+ 14  SET DEFAULT BIGFILE TABLESPACE
+ 15  LOGFILE GROUP 1 ('+CONS_DATA/PRRBT/onlinelog/redo01') SIZE 524288000,
+ 16  GROUP 2 ('+CONS_DATA/PRRBT/onlinelog/redo02') SIZE 524288000,
+ 17  GROUP 3 ('+CONS_DATA/PRRBT/onlinelog/redo03') SIZE 524288000
+ 18  USER SYS IDENTIFIED BY "&&sysPassword" USER SYSTEM IDENTIFIED BY "&&systemPassword";
+
+Database created.
+
+SQL> spool off

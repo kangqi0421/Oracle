@@ -1,0 +1,194 @@
+SYS> @/u01/app/oracle/product/11.2.0.4/db_1/rdbms/admin/catbundleapply.sql;
+SYS> Rem
+SYS> Rem $Header: rdbms/admin/catbundleapply.sql /st_rdbms_11.2.0/1 2013/04/08 09:59:24 surman Exp $
+SYS> Rem
+SYS> Rem catbundleapply.sql
+SYS> Rem
+SYS> Rem Copyright (c) 2013, Oracle and/or its affiliates. All rights reserved.
+SYS> Rem
+SYS> Rem    NAME
+SYS> Rem      catbundleapply.sql - <one-line expansion of the name>
+SYS> Rem
+SYS> Rem    DESCRIPTION
+SYS> Rem      <short description of component this file declares/defines>
+SYS> Rem
+SYS> Rem    NOTES
+SYS> Rem      <other useful comments, qualifications, etc.>
+SYS> Rem
+SYS> Rem    MODIFIED   (MM/DD/YY)
+SYS> Rem    surman      03/19/13 - 16094163: Creation
+SYS> Rem    surman      03/19/13 - Created
+SYS> Rem
+SYS> Rem    BEGIN SQL_FILE_METADATA
+SYS> Rem    SQL_SOURCE_FILE: rdbms/admin/catbundleapply.sql
+SYS> Rem    SQL_SHIPPED_FILE:
+SYS> Rem    SQL_PHASE:
+SYS> Rem    SQL_STARTUP_MODE: NORMAL
+SYS> Rem    SQL_IGNORABLE_ERRORS: NONE
+SYS> Rem    SQL_CALLING_FILE:
+SYS> Rem    END SQL_FILE_METADATA
+SYS> 
+SYS> Rem Call catbundle.sql to apply the Patch Set Update (PSU)
+SYS> Rem
+SYS> 
+SYS> COLUMN    :bundle_name  NEW_VALUE bundle_file NOPRINT;
+SYS> VARIABLE   bundle_name  VARCHAR2(50)
+SYS> 
+SYS> declare
+  2  
+  3    nNumCells   NUMBER := 0;
+  4  
+  5  begin
+  6  
+  7     nNumCells := sys.dbms_registry.num_of_exadata_cells();
+  8     IF (nNumCells > 0) THEN
+  9        :bundle_name := 'catbundle_exa.sql'; -- Exadata PSU
+ 10     ELSE
+ 11        :bundle_name := 'catbundle_psu.sql'; -- Normal PSU
+ 12     END IF;
+ 13  
+ 14  end;
+ 15  /
+
+PL/SQL procedure successfully completed.
+
+SYS> 
+SYS> SELECT :bundle_name FROM DUAL;
+
+
+
+
+1 row selected.
+
+SYS> @@&bundle_file
+SYS> Rem
+SYS> Rem $Header: rdbms/admin/catbundle_psu.sql /st_rdbms_11.2.0/1 2013/04/08 09:59:24 surman Exp $
+SYS> Rem
+SYS> Rem catbundle_psu.sql
+SYS> Rem
+SYS> Rem Copyright (c) 2013, Oracle and/or its affiliates. All rights reserved.
+SYS> Rem
+SYS> Rem    NAME
+SYS> Rem      catbundle_psu.sql - <one-line expansion of the name>
+SYS> Rem
+SYS> Rem    DESCRIPTION
+SYS> Rem      <short description of component this file declares/defines>
+SYS> Rem
+SYS> Rem    NOTES
+SYS> Rem      <other useful comments, qualifications, etc.>
+SYS> Rem
+SYS> Rem    MODIFIED   (MM/DD/YY)
+SYS> Rem    jerrede     11/06/12 - Add Exadata Bundle support
+SYS> Rem    jerrede     11/06/12 - Created
+SYS> 
+SYS> Rem
+SYS> Rem Call catbundle.sql to apply the Patch Set Update (PSU)
+SYS> Rem
+SYS> @@catbundle.sql PSU apply
+SYS> Rem
+SYS> Rem $Header: rdbms/admin/catbundle.sql /st_rdbms_11.2.0.4.0dbpsu/1 2013/10/25 15:20:18 apfwkr Exp $
+SYS> Rem
+SYS> Rem catbundle.sql
+SYS> Rem
+SYS> Rem Copyright (c) 2008, 2013, Oracle and/or its affiliates.
+SYS> Rem All rights reserved.
+SYS> Rem
+SYS> Rem    NAME
+SYS> Rem      catbundle.sql - Patch bundle installation script
+SYS> Rem
+SYS> Rem    DESCRIPTION
+SYS> Rem      This script is used to load the necessary SQL files for a bundled
+SYS> Rem      patch installation into the database.  It is meant to be run after
+SYS> Rem      opatch has finished updating the ORACLE_HOME with the new SQL files
+SYS> Rem      and binaries, and the database has been started.
+SYS> Rem
+SYS> Rem      There are two parameters, both of which are mandatory:
+SYS> Rem      @catbundle <bundle series> <patch mode>
+SYS> Rem      where <bundle series> is the name of the bundle (i.e. CPU or WINDOWS)
+SYS> Rem      and <patch mode> is either apply or rollback.
+SYS> Rem      The arguments are not case sensitive.
+SYS> Rem
+SYS> Rem      You must be connected as sys before running this script.
+SYS> Rem
+SYS> Rem      catbundle.sql will look in $ORACLE_HOME/rdbms/admin for an input XML
+SYS> Rem      file named bundledata_<bundle series>.xml (i.e. bundledata_CPU.xml)
+SYS> Rem      for information about which patches in the bundle contain which SQL
+SYS> Rem      files.
+SYS> Rem
+SYS> Rem      When invoked in apply mode, catbundle will do the following:
+SYS> Rem      * Spool output to $ORACLE_BASE/cfgtoollogs/catbundle.  If
+SYS> Rem        $ORACLE_BASE is not defined, then spool output to
+SYS> Rem        $ORACLE_HOME/cfgtoollogs/catbundle/.  The directory will be created
+SYS> Rem        if it does not already exist.
+SYS> Rem      * Dynamically generate an apply SQL script based on the current
+SYS> Rem        state of the database.  This script will be named
+SYS> Rem        catbundle_<bundle series>_<database SID>_APPLY_<timestamp>.sql
+SYS> Rem        and will be generated to the $ORACLE_HOME/rdbms/admin directory.
+SYS> Rem        It will contain only the files necessary to bring the database
+SYS> Rem        to the highest patch level specified in bundledata.xml.
+SYS> Rem      * Dynamically generate a rollback SQL script based on bundledata.xml.
+SYS> Rem        This script will be named
+SYS> Rem        catbundle_<bundle series>_<database SID>_ROLLBACK.sql and will
+SYS> Rem        also be generated to $ORACLE_HOME/rdbms/admin.  It will contain
+SYS> Rem        the files necessary to rollback the database back to a previous
+SYS> Rem        state after an opatch -rollback.
+SYS> Rem      * Automatically invoke the generated apply script.
+SYS> Rem
+SYS> Rem     When invoked in rollback mode, catbundle will simply call the
+SYS> Rem     existing generated rollback script.  The rollback script can also
+SYS> Rem     be called directly from a SQL*Plus session.
+SYS> Rem
+SYS> Rem     The scripts catcpu.sql and catcpu_rollback.sql are now wrappers to
+SYS> Rem     this script.
+SYS> Rem
+SYS> Rem    MODIFIED   (MM/DD/YY)
+SYS> Rem    apfwkr      10/14/13 - Backport surman_bug-13866822 from main
+SYS> Rem    surman      06/21/13 - 13866822: Call apply after rollback
+SYS> Rem    surman      07/18/11 - 12766056: Always create CatbundleCreateDir
+SYS> Rem    surman      05/31/11 - 11937509: Create log directory in java
+SYS> Rem    surman      05/17/11 - 10413872: Filename priority
+SYS> Rem    surman      05/16/11 - 10413872: Bundledata version
+SYS> Rem    surman      07/27/10 - 9938689: Create log directory using ORACLE_BASE
+SYS> Rem    surman      05/08/09 - 8498426: Set namespace
+SYS> Rem    surman      03/30/09 - 8358067: Specify nls_language
+SYS> Rem    surman      03/04/09 - 7710405: Correct INSTR platform checks
+SYS> Rem    rvadraha    09/03/13 - 7658224: Check mount points using _kolfuseslf
+SYS> Rem    surman      09/10/08 - 7391049: Invalid dba_registry_history synonym
+SYS> Rem    surman      06/13/08 - Use proper action in registry update
+SYS> Rem    surman      06/10/08 - Change logging behavior
+SYS> Rem    surman      06/09/08 - Still more comments
+SYS> Rem    surman      06/06/08 - Determine directory names in catbundle
+SYS> Rem    surman      06/05/08 - Generate rollback script at apply time
+SYS> Rem    surman      06/05/08 - Remove bundle_script and spool commands
+SYS> Rem    surman      05/28/08 - More comments
+SYS> Rem    surman      05/21/08 - Generic bundle names
+SYS> Rem    surman      05/20/08 - Change to catbundle from catbp
+SYS> Rem    surman      05/20/08 - Support rollback
+SYS> Rem    surman      05/19/08 - catcpu.sql replacement project
+SYS> Rem    surman      05/19/08 - Created
+SYS> Rem
+SYS> 
+SYS> SET TERMOUT on
+SYS> SET ECHO off
+
+PL/SQL procedure successfully completed.
+
+
+PL/SQL procedure successfully completed.
+
+
+PL/SQL procedure successfully completed.
+
+
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+
+1 row selected.
+
+
+
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+
+1 row selected.
+

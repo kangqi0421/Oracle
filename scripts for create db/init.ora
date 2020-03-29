@@ -1,0 +1,90 @@
+##############################################################################
+# Copyright (c) 1991, 2001, 2002 by Oracle Corporation
+##############################################################################
+ 
+###########################################
+# Archive
+###########################################
+log_archive_format=rbt_%t_%s_%r
+ 
+###########################################
+# Cache and I/O
+###########################################
+db_block_size=8192
+ 
+###########################################
+# Cursors and Library Cache
+###########################################
+open_cursors=300
+ 
+###########################################
+# Database Identification
+###########################################
+db_domain=""
+db_name="rbt"
+ 
+###########################################
+# File Configuration
+###########################################
+control_files=("+CONS_DATA/PRRBT/controlfile/control01", "+CONS_DATA/PRRBT/controlfile/control02")
+db_recovery_file_dest="+CONS_DATA"
+db_recovery_file_dest_size=262144000000
+ 
+###########################################
+# Miscellaneous
+###########################################
+compatible=11.2.0.0.0
+db_unique_name="PRRBT"
+diagnostic_dest=/u01/app/oracle
+ 
+###########################################
+# NLS
+###########################################
+nls_language="AMERICAN"
+nls_territory="AMERICA"
+ 
+###########################################
+# Network Registration
+###########################################
+#local_listener=LOCAL_PRRBT
+ 
+###########################################
+# Optimizer
+###########################################
+optimizer_features_enable=11.2.0.3
+optimizer_index_cost_adj=50
+ 
+###########################################
+# Processes and Sessions
+###########################################
+processes=2000
+sessions=2205
+ 
+###########################################
+# SGA Memory
+###########################################
+sga_target=33285996544
+ 
+###########################################
+# Security and Auditing
+###########################################
+audit_file_dest="/u01/app/oracle/admin/PRRBT/adump"
+audit_trail=db
+remote_login_passwordfile=EXCLUSIVE
+ 
+###########################################
+# Shared Server
+###########################################
+dispatchers="(PROTOCOL=TCP) (SERVICE=rbtXDB)"
+ 
+###########################################
+# Sort, Hash Joins, Bitmap Indexes
+###########################################
+pga_aggregate_target=7235174400
+ 
+###########################################
+# System Managed Undo and Rollback Segments
+###########################################
+undo_tablespace=UNDOTBS1
+ 
+ 

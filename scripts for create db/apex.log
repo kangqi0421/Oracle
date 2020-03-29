@@ -1,0 +1,80 @@
+SQL> @/u01/app/oracle/product/11.2.0.4/db_1/apex/catapx.sql change_on_install SYSAUX SYSAUX TEMP /i/ NONE;
+SQL> Rem  Copyright (c) Oracle Corporation 1999 - 2006. All Rights Reserved.
+SQL> Rem
+SQL> Rem    NAME
+SQL> Rem      catapx.sql
+SQL> Rem
+SQL> Rem    DESCRIPTION
+SQL> Rem
+SQL> Rem    NOTES
+SQL> Rem      Assumes the SYS user is connected.
+SQL> Rem
+SQL> Rem    REQUIRENTS
+SQL> Rem      - Oracle 10g
+SQL> Rem
+SQL> Rem    Arguments:
+SQL> Rem     Position 1: Password for APEX Admin account, application DB user, and files DB user
+SQL> Rem     Position 2: Name of tablespace for HTMLD DB application user
+SQL> Rem     Position 3: Name of tablespace for HTMLD DB files user
+SQL> Rem     Position 4: Name of temporary tablespace
+SQL> Rem     Position 5: Virtual directory for APEX images
+SQL> Rem     Position 6: The TNS connect string to the database, if local install, use none or NONE
+SQL> Rem
+SQL> Rem    Example:
+SQL> Rem
+SQL> Rem    1)Local
+SQL> Rem      sqlplus "sys/syspass as sysdba" @catapx password SYSAUX SYSAUX TEMP /i/ none
+SQL> Rem
+SQL> Rem    2)With connect string
+SQL> Rem      sqlplus "sys/syspass@10g as sysdba" @catapx password SYSAUX SYSAUX TEMP /i/ 10g
+SQL> Rem
+SQL> Rem    MODIFIED   (MM/DD/YYYY)
+SQL> Rem      jkallman  09/10/2004 - Created
+SQL> Rem      jstraub   10/25/2004 - Changed the name of the log file to end in .log and include date/time
+SQL> Rem      jkallman  01/04/2005 - Adjusted APPUN to FLOWS_020000
+SQL> Rem      jduan     07/07/2005 - Modify for upgrade to 2.0
+SQL> Rem      jkallman  09/14/2005 - Adjusted APPUN to FLOWS_020100
+SQL> Rem      jkallman  09/22/2005 - Add substitution variable XE
+SQL> Rem      jkallman  01/23/2006 - Adjusted APPUN to FLOWS_020200
+SQL> Rem      jkallman  02/28/2006 - Copied from original htmldbins.sql
+SQL> Rem      jstraub   06/27/2006 - Added exit logic if XE
+SQL> Rem      jstraub   08/11/2006 - Adapted for 11g install
+SQL> Rem      jstraub   08/25/2006 - Replaced xe_home with HOME
+SQL> Rem      jkallman  09/29/2006 - Adjusted APPUN to FLOWS_030000
+SQL> Rem      jstraub   04/10/2007 - Removed XE check to make consistent with apexins
+SQL> Rem      jstraub   04/10/2007 - Added INSTALL_TYPE parameter for use with dynamically setting WHENEVER SQLERROR exit in coreins
+SQL> Rem      jstraub   08/01/2007 - Generate random password
+SQL> Rem      jkallman  08/02/2007 - Change FLOWS_030000 references to FLOWS_030100
+SQL> Rem      jstraub   04/01/2008 - Adapted for 11.2 installation, added IMGUPG and compile wwv_flow_utilities body before apex_epg_config
+SQL> Rem      jkallman  09/09/2008 - Change FLOWS_030100 references to APEX_030200
+SQL> Rem      jstraub   11/10/2008 - Changed reference from apex_epg_config to apex_epg_config_core (lrg 3573827)
+SQL> Rem      jstraub   03/24/2009 - Added spool off, removed from coreins.sql for catupgrd
+SQL> 
+SQL> 
+SQL> prompt .  ____   ____           ____        ____
+.  ____   ____           ____        ____
+SQL> prompt . /    \ |    \   /\    /     |     /
+. /    \ |    \   /\    /     |     /
+SQL> prompt .|      ||    /  /  \  |      |    |
+.|      ||    /  /  \  |      |    |
+SQL> prompt .|      ||---    ----  |      |    |---
+> 
+.|      ||---    ----  |      |    |--
+SQL> prompt .|      ||   \  /    \ |      |    |
+.|      ||   \  /    \ |      |    |
+SQL> prompt . \____/ |    \/      \ \____ |____ \____
+. \____/ |    \/      \ \____ |____ \____
+SQL> prompt .
+.
+SQL> prompt . Application Express Installation.
+. Application Express Installation.
+SQL> prompt ...................................
+...................................
+SQL> 
+SQL> 
+SQL> set define '^'
+SQL> set concat on
+SQL> set concat .
+SQL> set verify off
+SQL> set termout off
+SQL> spool off

@@ -1,0 +1,33 @@
+ALTER DATABASE DISABLE BLOCK CHANGE TRACKING;
+
+select * from V$block_Change_Tracking
+
+
+
+
+SELECT ksppinm, ksppstvl, ksppdesc 
+  FROM x$ksppi x, x$ksppcv y  
+ WHERE x.indx = y.indx and ksppinm LIKE '__%' ESCAPE '_' and  ksppinm in ('_bct_public_dba_buffer_maxsize','_bct_public_dba_buffer_size')
+ 
+
+
+SELECT * 
+  FROM x$ksppi x, x$ksppcv y  
+ WHERE x.indx = y.indx and ksppinm LIKE '__%' ESCAPE '_' and  ksppinm in ('_bct_public_dba_buffer_maxsize','_bct_public_dba_buffer_size')
+
+
+
+ --and ksppinm like '%public%'
+ 
+
+ 
+ *._bct_public_dba_buffer_maxsize=314572800
+*._bct_public_dba_buffer_size=314572800
+
+ALTER DATABASE ENABLE BLOCK CHANGE TRACKING USING FILE '+DWH_FAST'; 
+
+select * from V$block_change_tracking;
+
+
+ 
+select * from V$session where event='enq: CT - CTWR process start/stop'

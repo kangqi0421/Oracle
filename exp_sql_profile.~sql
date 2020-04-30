@@ -1,0 +1,31 @@
+-- http://docs.oracle.com/database/121/TGSQL/tgsql_profiles.htm#TGSQL596
+
+BEGIN
+  DBMS_SQLTUNE.CREATE_STGTAB_SQLPROF ( 
+    table_name  => 'my_profile_table'
+,   schema_name => 'fborymsky' 
+);
+END;
+
+
+BEGIN
+  DBMS_SQLTUNE.PACK_STGTAB_SQLPROF (  
+    profile_name         => 'SYS_SQLPROF_015d08ee28880007'
+,   staging_table_name   => 'my_profile_table'
+,   staging_schema_owner => 'fborymsky' 
+);
+END;
+/ 
+
+select * from fborymsky.my_profile_table
+--export import
+
+BEGIN
+  DBMS_SQLTUNE.UNPACK_STGTAB_SQLPROF(
+     replace            => true,
+     staging_schema_owner => 'fborymsky'
+,    staging_table_name => 'my_profile_table'
+);
+END;
+/
+

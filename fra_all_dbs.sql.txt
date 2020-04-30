@@ -1,0 +1,6 @@
+select ENTITY_NAME DB,LAST_COLLECTION_TIME,round((SYSDATE-LAST_COLLECTION_TIME)*24*60,0) "Age Min",VALUE "%reclaimable_area"
+from GC$METRIC_LATEST l
+where l.entity_type like 'oracle_database'
+and l.metric_group_name ='ha_flashrecovery'
+and l.metric_column_name ='reclaimable_area'
+order by 4 desc

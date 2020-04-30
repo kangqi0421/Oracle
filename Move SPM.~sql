@@ -1,0 +1,22 @@
+alter table SPM.PARAM MOVE tablespace WELCOMESMS_TBS parallel 4;
+alter table SPM.PARAM noparallel;
+
+alter index SPM.INDX$PARAM$SEARCH rebuild tablespace WELCOMESMS_TBS parallel 4;
+alter index SPM.INDX$PARAM$SEARCH noparallel;
+alter index SPM.INDX$PARAM$SDATE rebuild tablespace WELCOMESMS_TBS parallel 4;
+alter index SPM.INDX$PARAM$SDATE noparallel;
+alter index SPM.INDX$PARAM$EDATE rebuild tablespace WELCOMESMS_TBS parallel 4;
+alter index SPM.INDX$PARAM$EDATE noparallel;
+
+
+
+
+
+select * from dba_queue_subscribers where owner='SPM'
+select * from dba_queue_tables where owner='SPM'
+select * from dba_queues where owner='SPM'
+select * from dba_users where username='AQMOVE'
+select * from dba_objects where owner='AQMOVE'
+select * from dba_objects where owner='SPM'
+select * from dba_users where username='SPM'
+select * from dba_indexes where owner='SPM' and index_name='SYS_IOT_TOP_1465423'

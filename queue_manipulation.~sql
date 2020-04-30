@@ -1,0 +1,8 @@
+-- All Propagation Schedules
+select * from DBA_QUEUE_SCHEDULES
+
+select * from Dba_Queue_Publishers
+
+select * from Dba_Queue_Subscribers
+
+select * from Dba_Queue_Tables
